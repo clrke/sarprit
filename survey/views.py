@@ -6,4 +6,4 @@ def index(request):
 	return render(request, 'survey/index.html')
 
 def test(request):
-	return to_json({"message": "Hello", "target": "World"})
+	return to_json([{"data1": "Hello", "data2": "World"}, {"data1": "I", "data2": "am"}, {"data1": "Clarke", "data2": "Plumo"}])
