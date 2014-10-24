@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from sarprit.shortcuts import to_json
-from sklearn.svm import SVC
 
 def index(request):
 	return render(request, 'survey/index.html')
