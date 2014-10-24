@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<html ng-app="SarpritApp">
+	<head>
+		<title> SARPRiT Survey </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+		<script type="text/javascript" src="{% static 'lib/angularjs/angular.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'src/js/sarprit.js' %}"></script>
+	</head>
+	<body>
+		<div class="container"> 
+			<div class="col-md-8 col-md-offset-2">
+				<div class="well" ng-controller="SurveyCtrl as survey">
+					<input type="text" class="form-control" ng-model="survey.title">
+					<h1> {[ survey.title ]} </h1>
+					<p>
+						<b>
+							<span ng-repeat="message in survey.messages">
+								{[ message.data1 ]} {[ message.data2 ]}...
+							</span>
+						</b>
+					</p>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet risus neque. Morbi quis dui ultricies enim elementum finibus ac volutpat dui. Sed dignissim ex sit amet lacus tincidunt, vitae congue justo faucibus. Duis sapien metus, maximus feugiat purus nec, facilisis dictum ligula. Aliquam sed gravida dolor. Etiam imperdiet cursus neque. Fusce id turpis nulla. Fusce vel lorem maximus, euismod neque et, rhoncus justo. Fusce sed purus eu enim facilisis volutpat eu in massa. Nam quis orci sit amet dui mollis molestie sed et nibh.
+					</p>
+					<p>
+						Praesent at magna eu nulla euismod rhoncus ut at augue. Vestibulum in sapien eget ante hendrerit gravida. Duis rutrum dictum porttitor. Pellentesque eget tortor dolor. Nunc convallis dui lorem, et tempus felis convallis id. Duis ligula orci, gravida ut mollis in, eleifend sit amet enim. Maecenas massa tellus, fringilla vel posuere quis, sollicitudin ac tortor. In suscipit vel risus eu varius. Maecenas libero nisl, lobortis nec magna in, porttitor posuere lacus. Ut sagittis tincidunt enim, sed consectetur ex auctor at. Vestibulum eget justo facilisis, tincidunt enim ac, semper erat.
+					</p>
+					<p>
+						Vestibulum risus mi, sodales in metus et, accumsan luctus neque. Nam a semper ante. Cras vel ante vel lorem commodo aliquam. Integer lacinia dolor vitae tortor congue venenatis. In non metus mollis, vehicula felis vel, ultricies erat. Cras quis massa consectetur, ultrices nisl eu, molestie sapien. Aliquam erat volutpat. Aenean felis orci, venenatis sit amet lorem ut, hendrerit vestibulum elit.
+					</p>
+					<p>
+						Phasellus et risus et lorem porta mattis ultrices sed diam. Phasellus vel fermentum massa, non pretium libero. Donec posuere sem eget eros venenatis fringilla. Integer dictum commodo tempor. Donec sodales purus eget est pellentesque bibendum. Fusce condimentum ante ante, vitae maximus lorem ultricies vitae. Aliquam mauris magna, tempus vel magna placerat, suscipit scelerisque velit. Nunc sit amet sem vitae odio fringilla elementum.
+					</p>
+					<p>
+						Sed viverra malesuada ligula at consectetur. Nulla vulputate nisi metus. Sed aliquet diam in eleifend tristique. Aliquam eu interdum risus, et lacinia purus. Curabitur porttitor ligula nisl, vitae efficitur quam sagittis eu. Nam libero turpis, sodales id orci eget, blandit cursus lacus. Curabitur convallis faucibus elit, sed laoreet diam. Nam rutrum sem id orci porttitor congue. Integer eget tempus arcu.
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
