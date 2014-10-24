@@ -2,7 +2,11 @@ from django.shortcuts import render
 from sarprit.shortcuts import to_json
 
 def index(request):
-	return render(request, 'survey/index.html')
+	person = {
+		"name" : "Regine", 
+		"age" : 19
+	}
+	return render(request, 'survey/index.html', {"person": person})
 
 def index2(request):
 	return render(request, 'survey/index2.html')
