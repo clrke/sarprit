@@ -13,7 +13,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="well" ng-controller="SurveyCtrl as survey">
 					<input type="text" class="form-control" ng-model="survey.title">
-					<h1> {[ survey.title ]} </h1>
+					<h1> {[ survey.title ]} {{ person.name }} {{ person.age }} </h1>
 					<p>
 						<b>
 							<span ng-repeat="message in survey.messages">
