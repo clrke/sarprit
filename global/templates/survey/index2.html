@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<html ng-app="SarpritApp">
+	<head>
+		<title> SARPRiT Survey </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+		<script type="text/javascript" src="{% static 'lib/angularjs/angular.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'src/js/sarprit.js' %}"></script>
+	</head>
+	<body>
+		<div class="container"> 
+			<div class="col-md-8 col-md-offset-2">
+				<div class="well" ng-controller="SurveyCtrl as survey">
+					<!-- <input type="text" class="form-control" ng-model="survey.title">
+					<h1> {[ survey.title ]} </h1> -->
+					<textarea class="form-control" ng-model="survey.tweet1" placeholder="Tweet 1" rows="5"></textarea>
+					<textarea class="form-control" ng-model="survey.tweet2" placeholder="Tweet 2" rows="5"></textarea>
+					<textarea class="form-control" ng-model="survey.tweet3" placeholder="Tweet 3" rows="5"></textarea>
+					<textarea class="form-control" ng-model="survey.tweet4" placeholder="Tweet 4" rows="5"></textarea>
+					<br />
+					<button class="btn btn-primary">Submit Tweets</button>
+					<br />
+					<br />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
