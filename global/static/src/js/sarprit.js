@@ -9,5 +9,5 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 
 	$http.get('/test').success(function(data) {
 		survey.messages = data;
-	});	
+	});
 }]);
