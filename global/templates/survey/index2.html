@@ -34,44 +34,44 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label> <span style="color:red">*</span> Review #1 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="restaurantName1">
+										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name1">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="restaurantReview1"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review1"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label> <span style="color:red">*</span> Review #2 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="restaurantName2">
+										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name2">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="restaurantReview2"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review2"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label> Review #3 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="restaurantName3">
+										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name3">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="restaurantReview3"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review3"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label> Review #4 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="restaurantName4">
+										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name4">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="restaurantReview4"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review4"></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="panel-footer">
 							<ul class="pager pager2">
-								<li class="next"><a class="acc-toggler disabled" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-show="restaurantReview1 && restaurantReview2">Next &rarr;</a></li>
+								<li class="next"><a class="acc-toggler disabled" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-show="survey.review1 && survey.review2" ng-click="splitReviews()">Next &rarr;</a></li>
 							</ul>
 						</div>
 					</div>
