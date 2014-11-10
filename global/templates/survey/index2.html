@@ -4,17 +4,14 @@
 	<title>
 		*Survey | SARPRiT
 	</title>
+
 	<script type="text/javascript" src="{% static 'lib/jquery/jquery-1.11.1.min.js' %}"></script>
 	<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
 	<script type="text/javascript" src="{% static 'lib/bootstrap-3.2.0-dist/js/bootstrap.min.js' %}"> </script>
 	<script type="text/javascript" src="{% static 'lib/angularjs/angular.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'src/js/sarprit.js' %}"></script>
 
-<style type="text/css">
-	.pager2 { margin:0 !important; }
-	body { margin-top: 30px }
-	textarea {resize: none;}
-</style>
 </head>
 <body>
 	<div class="col-md-offset-2 col-md-8">
@@ -49,7 +46,7 @@
 										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="restaurantName2">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="restairantReview2"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review" ng-model="restaurantReview2"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -74,7 +71,7 @@
 						</div>
 						<div class="panel-footer">
 							<ul class="pager pager2">
-								<li class="next"><a class="acc-toggler" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Next &rarr;</a></li>
+								<li class="next"><a class="acc-toggler disabled" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-show="restaurantReview1 && restaurantReview2">Next &rarr;</a></li>
 							</ul>
 						</div>
 					</div>

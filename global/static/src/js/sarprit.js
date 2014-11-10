@@ -23,6 +23,5 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 	var result1 = sentence1.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 	var result2 = sentence2.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 	
-	alert(result2);
 	survey.sentences = result2;
 }]);
