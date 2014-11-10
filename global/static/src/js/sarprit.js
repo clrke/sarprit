@@ -4,13 +4,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 })
 .controller('SurveyCtrl', ['$http', function ($http) {
 	var survey = this;
-	survey.title = "Hello World";
-	survey.messages = [];
-
-	$http.get('/test').success(function(data) {
-		survey.messages = data;
-	});
-
+	
 	survey.splitReviews = function() {
 		var sentence1 = "Sarap talaga ng sisig! Kaya nga lang pagkalabas mo, sisig ka na rin! #sisigLord";
 		var sentence2 = "Punta ulit tayo bukas. Pogi talaga ni kuyang waiter! #panalo";
