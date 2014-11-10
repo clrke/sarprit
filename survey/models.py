@@ -2,18 +2,20 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Section (models.Model):
-	Course = models.CharField(max_length=10)
-	Year = models.IntegerField()
-	Section = models.CharField(max_length=3)
+	course = models.CharField(max_length=10)
+	year = models.IntegerField()
+	section = models.CharField(max_length=3)
 
 
-class Author (models.Model):
-	Name = models.CharField(max_length=50)
-	Age = models.IntegerField(max_length=5)
+class Student (models.Model):
+	name = models.CharField(max_length=50)
+	age = models.IntegerField(max_length=5)
 
 class Review (models.Model):
-	Sentence = models.CharField(max_length=500)
+	sentences = models.CharField(max_length=500)
 	
 class Sentence (models.Model):
-	Words = models.CharField(max_length=30)
+	sentence = models.CharField(max_length=1000)
+	clue = models.CharField(max_length=50)
+	review = models.CharField(max_length=30)
 	
