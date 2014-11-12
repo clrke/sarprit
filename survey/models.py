@@ -5,6 +5,7 @@ class Section (models.Model):
 	course = models.CharField(max_length=10)
 	year = models.IntegerField()
 	section = models.CharField(max_length=3)
+	current = models.BooleanField()
 
 	def __str__(self):
 		return self.course.upper() + " " + str(self.year) + "-" + self.section.upper()
@@ -12,7 +13,7 @@ class Section (models.Model):
 class Student (models.Model):
 	student_no = models.CharField(max_length=16)
 	name = models.CharField(max_length=50)
-	should_display = models.BooleanField(default=True)
+	should_display = models.BooleanField()
 	section = models.ForeignKey(Section)
 
 	def __str__(self):
@@ -32,6 +33,7 @@ class Review (models.Model):
 	
 class Sentence (models.Model):
 	sentence = models.CharField(max_length=1000)
+	subjective = models.BooleanField()
 	clue = models.CharField(max_length=1)
 	rating = models.IntegerField(max_length=1)
 	review = models.ForeignKey(Review)

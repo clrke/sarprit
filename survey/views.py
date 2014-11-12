@@ -9,6 +9,8 @@ def index(request):
 	return render(request, 'survey/index.html', {"person": person})
 
 def index2(request):
+	if request.method == "POST":
+		return to_json(request.POST)
 	return render(request, 'survey/index2.html')
 
 def test(request):
