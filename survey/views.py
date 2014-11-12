@@ -30,14 +30,14 @@ def index2(request):
 		)
 		r2.save()
 
-		if request.POST['overall_sentiment3']:
+		if len(request.POST.getlist('sentence3[]')):
 			r3 = Review(
 				namedrop=request.POST['namedrop3'],
 				overall_sentiment=request.POST['overall_sentiment3'],
 				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
 			)
 			r3.save()
-		if request.POST['overall_sentiment4']:
+		if len(request.POST.getlist('sentence4[]')):
 			r4 = Review(
 				namedrop=request.POST['namedrop4'],
 				overall_sentiment=request.POST['overall_sentiment4'],
