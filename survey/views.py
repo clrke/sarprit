@@ -14,7 +14,7 @@ def index(request):
 
 def index2(request):
 	if request.method == "POST":
-		return to_json(request.POST)
+		return to_json(request.POST.getlist('sentence1[]'))
 	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
 
 def test(request):
