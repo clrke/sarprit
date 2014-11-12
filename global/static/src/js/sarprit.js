@@ -22,16 +22,23 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		survey.sentences4 = [];
 
 		for (var i = 0; i < result1.length; i++) {
-			survey.sentences1.push({value: result1[i]});
+			survey.sentences1.push({value: result1[i], subjective: true});
 		}
 		for (var i = 0; i < result2.length; i++) {
-			survey.sentences2.push({value: result2[i]});
+			survey.sentences2.push({value: result2[i], subjective: true});
 		}
 		for (var i = 0; i < result3.length; i++) {
-			survey.sentences3.push({value: result3[i]});
+			survey.sentences3.push({value: result3[i], subjective: true});
 		}
 		for (var i = 0; i < result4.length; i++) {
-			survey.sentences4.push({value: result4[i]});
+			survey.sentences4.push({value: result4[i], subjective: true});
 		}
-	}	
+	}
+
+	survey.removeRatings = function (sentence) {
+		if(sentence.subjective) {
+			delete sentence.rating
+			delete sentence.clue
+		}
+	}
 }]);
