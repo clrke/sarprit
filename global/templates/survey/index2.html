@@ -16,6 +16,18 @@
 <body>
 	<div class="col-md-offset-2 col-md-8">
 		<form method="post" action="/2/" ng-controller="SurveyCtrl as survey"> {% csrf_token %}
+			<div class="well">
+				<center>
+					<div class="form-inline">
+						<h3><b>Section: BSCS 4-2</b></h3> <br />
+						<b>Student No. </b>
+						<select class="form-control">
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
+				</center>
+			</div>
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-default">
 					<div class="panel-heading">
