@@ -16,9 +16,22 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		var result3 = sentence3.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 		var result4 = sentence4.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 		
-		survey.sentences1 = result1;
-		survey.sentences2 = result2;
-		survey.sentences3 = result3;
-		survey.sentences4 = result4;
+		survey.sentences1 = [];
+		survey.sentences2 = [];
+		survey.sentences3 = [];
+		survey.sentences4 = [];
+
+		for (var i = 0; i < result1.length; i++) {
+			survey.sentences1.push({value: result1[i]});
+		}
+		for (var i = 0; i < result2.length; i++) {
+			survey.sentences2.push({value: result2[i]});
+		}
+		for (var i = 0; i < result3.length; i++) {
+			survey.sentences3.push({value: result3[i]});
+		}
+		for (var i = 0; i < result4.length; i++) {
+			survey.sentences4.push({value: result4[i]});
+		}
 	}	
 }]);
