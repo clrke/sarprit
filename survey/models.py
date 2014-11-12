@@ -33,8 +33,8 @@ class Review (models.Model):
 class Sentence (models.Model):
 	sentence = models.CharField(max_length=1000)
 	clue = models.CharField(max_length=1)
-	sentiment = models.IntegerField(max_length=1)
+	rating = models.IntegerField(max_length=1)
 	review = models.ForeignKey(Review)
 
 	def __str__(self):
-		return "["+self.clue.upper()+"]" + self.sentence + " " + str(self.sentiment)
+		return "["+self.clue.upper()+"]" + self.sentence + " " + str(self.rating)
