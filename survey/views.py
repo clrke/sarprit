@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from sarprit.shortcuts import to_json
+from .models import *
+from django.contrib.auth.decorators import login_required
 
 def index(request):
 	person = {
@@ -15,3 +17,21 @@ def index2(request):
 
 def test(request):
 	return to_json([{"data1": "Hello", "data2": "World"}, {"data1": "I", "data2": "am"}, {"data1": "Clarke", "data2": "Plumo"}])
+
+@login_required(login_url= 'login/')
+def sections(request):
+	sections = Section.objects.all()
+	return render(request, 'admin/sections.html', {"sections": sections})
+
+@login_required(login_url= 'login/')
+def set_section(request,id):
+	for section in Section.objects.all():
+		section.current = False
+		section.save()
+
+	section = Section.objects.get(id=id)
+	section.current = True
+	section.save();
+
+	return redirect(sections)
+
