@@ -92,7 +92,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #1<b ng-show="survey.name1">: {[ survey.name1 ]} </b> </label>
+										<label> Review #1<b ng-show="survey.name1">: {[ survey.name1 ]} </b> </label>
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences1" ng-model="sentence.value">
@@ -100,7 +100,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #2<b ng-show="survey.name2">: {[ survey.name2 ]} </b> </label>
+										<label> Review #2<b ng-show="survey.name2">: {[ survey.name2 ]} </b> </label>
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences2" ng-model="sentence.value">
@@ -152,12 +152,12 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #1 </label>
+										<label> Review #1<b ng-show="survey.name1">: {[ survey.name1 ]} </b> </label>
 									</div>
 									<div class="form-group">
-										<div class="form-group">
+										<div class="form-group" ng-repeat="sentence in survey.sentences1">
 											<div class="input-group">
-												<input type="text" class="form-control" value="Sarap talaga ng sisig!" disabled>
+												<input type="text" class="form-control" ng-model="sentence.value" disabled>
 												<span class="input-group-addon"> <input type="checkbox" checked> </input> </span>
 											</div>
 											<div class="btn-group btn-group-justified">
@@ -173,87 +173,19 @@
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-warning">star</button>
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-warning">star</button>
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-warning">star</button>
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-warning">star</button>
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default">star</button>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="input-group">
-												<input type="text" class="form-control" value="Kaya nga lang pagkalabas mo, sisig ka na rin!" disabled>
-												<span class="input-group-addon"> <input type="checkbox" checked> </input> </span>
-											</div>
-											<div class="btn-group btn-group-justified">
-												<div class="btn-group">
-													<button type="button" class="btn btn-default">Functional</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default">Humanic</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-primary">Mechanic</button>
-												</div>
-											</div>
-											<div class="btn-group btn-group-justified">
-												<div class="btn-group">
-													<button type="button" class="btn btn-warning">star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default">star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default">star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default">star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default">star</button>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<div class="input-group">
-												<input type="text" class="form-control" value="#sisigLord" disabled>
-												<span class="input-group-addon"> <input type="checkbox"> </input> </span>
-											</div>
-											<div class="btn-group btn-group-justified">
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>Functional</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>Humanic</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>Mechanic</button>
-												</div>
-											</div>
-											<div class="btn-group btn-group-justified">
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>star</button>
-												</div>
-												<div class="btn-group">
-													<button type="button" class="btn btn-default" disabled>star</button>
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 											</div>
 										</div>
@@ -261,12 +193,125 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #2</label>
+										<label> Review #2<b ng-show="survey.name2">: {[ survey.name2 ]} </b> </label>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" value="Punta ulit tayo bukas." disabled>
-										<input type="text" class="form-control" value="Pogi talaga ni kuyang waiter!" disabled>
-										<input type="text" class="form-control" value="#panalo" disabled>
+										<div class="form-group" ng-repeat="sentence in survey.sentences2">
+											<div class="input-group">
+												<input type="text" class="form-control" ng-model="sentence.value" disabled>
+												<span class="input-group-addon"> <input type="checkbox" checked> </input> </span>
+											</div>
+											<div class="btn-group btn-group-justified">
+												<div class="btn-group">
+													<button type="button" class="btn btn-primary">Functional</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default">Humanic</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default">Mechanic</button>
+												</div>
+											</div>
+											<div class="btn-group btn-group-justified">
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" ng-show="survey.sentences3">
+									<div class="form-group">
+										<label> Review #3<b ng-show="survey.name3">: {[ survey.name3 ]} </b> </label>
+									</div>
+									<div class="form-group">
+										<div class="form-group" ng-repeat="sentence in survey.sentences3">
+											<div class="input-group">
+												<input type="text" class="form-control" ng-model="sentence.value" disabled>
+												<span class="input-group-addon"> <input type="checkbox" checked> </input> </span>
+											</div>
+											<div class="btn-group btn-group-justified">
+												<div class="btn-group">
+													<button type="button" class="btn btn-primary">Functional</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default">Humanic</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default">Mechanic</button>
+												</div>
+											</div>
+											<div class="btn-group btn-group-justified">
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" ng-show="survey.sentences4">
+									<div class="form-group">
+										<label> Review #4<b ng-show="survey.name4">: {[ survey.name4 ]} </b> </label>
+									</div>
+									<div class="form-group">
+										<div class="form-group" ng-repeat="sentence in survey.sentences4">
+											<div class="input-group">
+												<input type="text" class="form-control" ng-model="sentence.value" disabled>
+												<span class="input-group-addon"> <input type="checkbox" checked> </input> </span>
+											</div>
+											<div class="btn-group btn-group-justified">
+												<div class="btn-group">
+													<button type="button" class="btn btn-primary">Functional</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default">Humanic</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default">Mechanic</button>
+												</div>
+											</div>
+											<div class="btn-group btn-group-justified">
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
