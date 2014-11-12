@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<html ng-app="SarpritApp">
+	<head>
+		<title> SARPRiT Survey </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+	</head>
+	<body>
+		<div class="container"> 
+			<div class="col-md-8 col-md-offset-2">
+				<div class="well" >
+					<ul>	
+					{% for section in sections %}
+						<li>	
+							{{section}}
+							{% if section.current %}  
+								[ current ]
+							{% else %}
+								[  <a href="/admin/sections/{{section.id}}">set as current</a> ]
+							{%endif%}			
+						</li>
+					{%endfor%}
+					</ul>	
+					
+				</div>
+					
+			</div>
+		</div>
+	</body>
+</html>
