@@ -14,7 +14,36 @@ def index(request):
 
 def index2(request):
 	if request.method == "POST":
-		return to_json(request.POST.getlist('sentence1[]'))
+		r1 = Review(
+			namedrop=request.POST['namedrop1'],
+			overall_sentiment=request.POST['overall_sentiment1'],
+			student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+		)
+		r1.save()
+
+		r2 = Review(
+			namedrop=request.POST['namedrop2'],
+			overall_sentiment=request.POST['overall_sentiment2'],
+			student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+		)
+		r2.save()
+
+		if request.POST['overall_sentiment3']:
+			r3 = Review(
+				namedrop=request.POST['namedrop3'],
+				overall_sentiment=request.POST['overall_sentiment3'],
+				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+			)
+			r3.save()
+		if request.POST['overall_sentiment4']:
+			r4 = Review(
+				namedrop=request.POST['namedrop4'],
+				overall_sentiment=request.POST['overall_sentiment4'],
+				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+			)
+			r4.save()
+
+		return to_json(request.POST)
 	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
 
 def test(request):
