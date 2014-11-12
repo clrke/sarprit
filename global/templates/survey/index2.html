@@ -19,11 +19,12 @@
 			<div class="well">
 				<center>
 					<div class="form-inline">
-						<h3><b>Section: BSCS 4-2</b></h3> <br />
+						<h3><b>Section: {{ current_section }}</b></h3> <br />
 						<b>Student No. </b>
 						<select class="form-control">
-							<option>1</option>
-							<option>2</option>
+							{% for student in current_section.student_set.all %}
+								<option>{{ student.student_no.upper }}</option>
+							{% endfor %}
 						</select>
 					</div>
 				</center>

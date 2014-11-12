@@ -15,7 +15,7 @@ def index(request):
 def index2(request):
 	if request.method == "POST":
 		return to_json(request.POST)
-	return render(request, 'survey/index2.html')
+	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
 
 def test(request):
 	return to_json([{"data1": "Hello", "data2": "World"}, {"data1": "I", "data2": "am"}, {"data1": "Clarke", "data2": "Plumo"}])
