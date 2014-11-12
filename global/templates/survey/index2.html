@@ -71,7 +71,7 @@
 						</div>
 						<div class="panel-footer">
 							<ul class="pager pager2">
-								<li class="next"><a class="acc-toggler disabled" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-show="survey.review1 && survey.review2" ng-click="splitReviews()">Next &rarr;</a></li>
+								<li class="next"><a class="acc-toggler disabled" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-show="survey.review1 && survey.review2" ng-click="survey.splitReviews()">Next &rarr;</a></li>
 							</ul>
 						</div>
 					</div>
@@ -95,9 +95,7 @@
 										<label> <span style="color:red">*</span> Review #1 </label>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" value="Sarap talaga ng sisig!">
-										<input type="text" class="form-control" value="Kaya nga lang pagkalabas mo, sisig ka na rin!">
-										<input type="text" class="form-control" value="#sisigLord">
+										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences1" value="{[ sentence ]}">
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -105,7 +103,23 @@
 										<label> <span style="color:red">*</span> Review #2 </label>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences" value="{[ sentence ]}">
+										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences2" value="{[ sentence ]}">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label> Review #3 </label>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences3" value="{[ sentence ]}">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label> Review #4 </label>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences4" value="{[ sentence ]}">
 									</div>
 								</div>
 							</div>
