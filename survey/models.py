@@ -10,25 +10,31 @@ class Section (models.Model):
 		return self.course.upper() + " " + str(self.year) + "-" + self.section.upper()
 
 class Student (models.Model):
-	student_no = models.IntegerField(max_length=16)
+	student_no = models.CharField(max_length=16)
 	name = models.CharField(max_length=50)
-	should_display = models.BooleanField(default=false)
+	should_display = models.BooleanField(default=True)
 	section = models.ForeignKey(Section)
 
 	def __str__(self):
-		return self.name
+		return self.student_no.upper() + " " + self.name.upper()
 
 class Review (models.Model):
-	sentences = models.CharField(max_length=500)
-	reviews = models.ForeignKey(Student)
+	namedrop = models.CharField(max_length=50, blank=True)
+	overall_sentiment = models.IntegerField(max_length=1)
+	student = models.ForeignKey(Student)
 
 	def __str__(self):
-		return self.sentences
+		review = '';
+		for sentence in self.sentence_set.all():
+			review += sentence.sentence;
+
+		return review
 	
 class Sentence (models.Model):
 	sentence = models.CharField(max_length=1000)
 	clue = models.CharField(max_length=1)
-	review = models.CharField(max_length=30)
+	sentiment = models.IntegerField(max_length=1)
+	review = models.ForeignKey(Review)
 
 	def __str__(self):
-		return "["+self.clue.upper()+"]" + self.sentence + self.review
+		return "["+self.clue.upper()+"]" + self.sentence + " " + str(self.sentiment)
