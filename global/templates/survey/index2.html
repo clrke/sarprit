@@ -92,7 +92,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #1 </label>
+										<label> <span style="color:red">*</span> Review #1<b ng-show="survey.name1">: {[ survey.name1 ]} </b> </label>
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences1" value="{[ sentence ]}">
@@ -100,7 +100,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #2 </label>
+										<label> <span style="color:red">*</span> Review #2<b ng-show="survey.name2">: {[ survey.name2 ]} </b> </label>
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences2" value="{[ sentence ]}">
@@ -108,7 +108,7 @@
 								</div>
 								<div class="col-md-6" ng-show="survey.sentences3">
 									<div class="form-group">
-										<label> Review #3 </label>
+										<label> Review #3<b ng-show="survey.name3">: {[ survey.name3 ]} </b> </label>
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences3" value="{[ sentence ]}">
@@ -116,7 +116,7 @@
 								</div>
 								<div class="col-md-6" ng-show="survey.sentences4">
 									<div class="form-group">
-										<label> Review #4 </label>
+										<label> Review #4<b ng-show="survey.name4">: {[ survey.name4 ]} </b> </label>
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences4" value="{[ sentence ]}">
