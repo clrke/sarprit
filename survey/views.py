@@ -14,12 +14,14 @@ def index(request):
 
 def index2(request):
 	if request.method == "POST":
+		print(request.POST)
 		r1 = Review(
 			namedrop=request.POST['namedrop1'],
 			overall_sentiment=request.POST['overall_sentiment1'],
 			student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
 		)
 		r1.save()
+
 
 		r2 = Review(
 			namedrop=request.POST['namedrop2'],
@@ -42,6 +44,48 @@ def index2(request):
 				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
 			)
 			r4.save()
+
+
+		for i in range(len(request.POST.getlist('sentence1[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence1[]')[i],
+				subjective = request.POST.getlist('subjective1[]')[i],
+				clue = request.POST.getlist('clue1[]')[i],
+				rating = request.POST.getlist('rating1[]')[i],
+				review = r1
+			)
+			s.save()
+
+
+		for i in range(len(request.POST.getlist('sentence2[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence2[]')[i],
+				subjective = request.POST.getlist('subjective2[]')[i],
+				clue = request.POST.getlist('clue2[]')[i],
+				rating = request.POST.getlist('rating2[]')[i],
+				review = r2
+			)
+			s.save()
+
+		for i in range(len(request.POST.getlist('sentence3[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence3[]')[i],
+				subjective = request.POST.getlist('subjective3[]')[i],
+				clue = request.POST.getlist('clue3[]')[i],
+				rating = request.POST.getlist('rating3[]')[i],
+				review = r3
+			)
+			s.save()
+
+		for i in range(len(request.POST.getlist('sentence4[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence4[]')[i],
+				subjective = request.POST.getlist('subjective4[]')[i],
+				clue = request.POST.getlist('clue4[]')[i],
+				rating = request.POST.getlist('rating4[]')[i],
+				review = r4
+			)
+			s.save()
 
 		return to_json(request.POST)
 	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
