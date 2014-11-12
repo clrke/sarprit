@@ -2,18 +2,39 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Section (models.Model):
-	Course = models.CharField(max_length=10)
-	Year = models.IntegerField()
-	Section = models.CharField(max_length=3)
+	course = models.CharField(max_length=10)
+	year = models.IntegerField()
+	section = models.CharField(max_length=3)
 
+	def __str__(self):
+		return self.course.upper() + " " + str(self.year) + "-" + self.section.upper()
 
-class Author (models.Model):
-	Name = models.CharField(max_length=50)
-	Age = models.IntegerField(max_length=5)
+class Student (models.Model):
+	student_no = models.CharField(max_length=16)
+	name = models.CharField(max_length=50)
+	should_display = models.BooleanField(default=True)
+	section = models.ForeignKey(Section)
+
+	def __str__(self):
+		return self.student_no.upper() + " " + self.name.upper()
 
 class Review (models.Model):
-	Sentence = models.CharField(max_length=500)
+	namedrop = models.CharField(max_length=50, blank=True)
+	overall_sentiment = models.IntegerField(max_length=1)
+	student = models.ForeignKey(Student)
+
+	def __str__(self):
+		review = '';
+		for sentence in self.sentence_set.all():
+			review += sentence.sentence;
+
+		return review
 	
 class Sentence (models.Model):
-	Words = models.CharField(max_length=30)
-	
+	sentence = models.CharField(max_length=1000)
+	clue = models.CharField(max_length=1)
+	rating = models.IntegerField(max_length=1)
+	review = models.ForeignKey(Review)
+
+	def __str__(self):
+		return "["+self.clue.upper()+"]" + self.sentence + " " + str(self.rating)
