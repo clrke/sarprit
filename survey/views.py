@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from sarprit.shortcuts import to_json
 from .models import *
 from django.contrib.auth.decorators import login_required
@@ -22,4 +22,16 @@ def test(request):
 def sections(request):
 	sections = Section.objects.all()
 	return render(request, 'admin/sections.html', {"sections": sections})
-	
+
+@login_required(login_url= 'login/')
+def set_section(request,id):
+	for section in Section.objects.all():
+		section.current = False
+		section.save()
+
+	section = Section.objects.get(id=id)
+	section.current = True
+	section.save();
+
+	return redirect(sections)
+

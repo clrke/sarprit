@@ -12,7 +12,14 @@
 				<div class="well" >
 					<ul>	
 					{% for section in sections %}
-							<li>	{{section}} [{{section.current}}]		</li>
+						<li>	
+							{{section}}
+							{% if section.current %}  
+								[ current ]
+							{% else %}
+								[  <a href="/admin/sections/{{section.id}}">set as current</a> ]
+							{%endif%}			
+						</li>
 					{%endfor%}
 					</ul>	
 					
