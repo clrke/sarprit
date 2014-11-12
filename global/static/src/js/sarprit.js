@@ -5,6 +5,21 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 .controller('SurveyCtrl', ['$http', function ($http) {
 	var survey = this;
 	
+	survey.review1 = '';
+	survey.review2 = '';
+	survey.review3 = '';
+	survey.review4 = '';
+
+	survey.sentences1 = [];
+	survey.sentences2 = [];
+	survey.sentences3 = [];
+	survey.sentences4 = [];
+
+	survey.overallRating1 = 0;
+	survey.overallRating2 = 0;
+	survey.overallRating3 = 0;
+	survey.overallRating4 = 0;
+
 	survey.splitReviews = function() {
 		var sentence1 = survey.review1;
 		var sentence2 = survey.review2;
@@ -22,16 +37,68 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		survey.sentences4 = [];
 
 		for (var i = 0; i < result1.length; i++) {
-			survey.sentences1.push({value: result1[i]});
+			survey.sentences1.push({value: result1[i], subjective: true, rating: 0});
 		}
 		for (var i = 0; i < result2.length; i++) {
-			survey.sentences2.push({value: result2[i]});
+			survey.sentences2.push({value: result2[i], subjective: true, rating: 0});
 		}
-		for (var i = 0; i < result3.length; i++) {
-			survey.sentences3.push({value: result3[i]});
+		if (result3) {
+			for (var i = 0; i < result3.length; i++) {
+				survey.sentences3.push({value: result3[i], subjective: true, rating: 0});
+			}	
 		}
-		for (var i = 0; i < result4.length; i++) {
-			survey.sentences4.push({value: result4[i]});
+		if (result4) {
+			for (var i = 0; i < result4.length; i++) {
+				survey.sentences4.push({value: result4[i], subjective: true, rating: 0});
+			}
 		}
-	}	
+	}
+
+	survey.removeRatings = function (sentence) {
+		if(sentence.subjective) {
+			delete sentence.clue
+		}
+	}
+
+	survey.step3ok = function () {
+		for (var i = 0; i < survey.sentences1.length; i++) {
+			sentence = survey.sentences1[i];
+			if(sentence.subjective && (!sentence.rating || !sentence.clue))
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences2.length; i++) {
+			sentence = survey.sentences2[i];
+			if(sentence.subjective && (!sentence.rating || !sentence.clue))
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences3.length; i++) {
+			sentence = survey.sentences3[i];
+			if(sentence.subjective && (!sentence.rating || !sentence.clue))
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences4.length; i++) {
+			sentence = survey.sentences4[i];
+			if(sentence.subjective && (!sentence.rating || !sentence.clue))
+				return false;
+		};
+
+		return true;
+	}
+
+	survey.step4ok = function () {
+
+		if(survey.review1 && !survey.overallRating1)
+			return false;
+		if(survey.review2 && !survey.overallRating2)
+			return false;
+		if(survey.review3 && !survey.overallRating3)
+			return false;
+		if(survey.review4 && !survey.overallRating4)
+			return false;
+
+		return true;
+	}
 }]);

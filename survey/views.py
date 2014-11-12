@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from sarprit.shortcuts import to_json
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.forms.models import model_to_dict
+
 
 def index(request):
 	person = {
@@ -12,18 +14,91 @@ def index(request):
 
 def index2(request):
 	if request.method == "POST":
+		print(request.POST)
+		r1 = Review(
+			namedrop=request.POST['namedrop1'],
+			overall_sentiment=request.POST['overall_sentiment1'],
+			student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+		)
+		r1.save()
+
+
+		r2 = Review(
+			namedrop=request.POST['namedrop2'],
+			overall_sentiment=request.POST['overall_sentiment2'],
+			student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+		)
+		r2.save()
+
+		if len(request.POST.getlist('sentence3[]')):
+			r3 = Review(
+				namedrop=request.POST['namedrop3'],
+				overall_sentiment=request.POST['overall_sentiment3'],
+				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+			)
+			r3.save()
+		if len(request.POST.getlist('sentence4[]')):
+			r4 = Review(
+				namedrop=request.POST['namedrop4'],
+				overall_sentiment=request.POST['overall_sentiment4'],
+				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
+			)
+			r4.save()
+
+
+		for i in range(len(request.POST.getlist('sentence1[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence1[]')[i],
+				subjective = request.POST.getlist('subjective1[]')[i],
+				clue = request.POST.getlist('clue1[]')[i],
+				rating = request.POST.getlist('rating1[]')[i],
+				review = r1
+			)
+			s.save()
+
+
+		for i in range(len(request.POST.getlist('sentence2[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence2[]')[i],
+				subjective = request.POST.getlist('subjective2[]')[i],
+				clue = request.POST.getlist('clue2[]')[i],
+				rating = request.POST.getlist('rating2[]')[i],
+				review = r2
+			)
+			s.save()
+
+		for i in range(len(request.POST.getlist('sentence3[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence3[]')[i],
+				subjective = request.POST.getlist('subjective3[]')[i],
+				clue = request.POST.getlist('clue3[]')[i],
+				rating = request.POST.getlist('rating3[]')[i],
+				review = r3
+			)
+			s.save()
+
+		for i in range(len(request.POST.getlist('sentence4[]'))):
+			s = Sentence(
+				sentence = request.POST.getlist('sentence4[]')[i],
+				subjective = request.POST.getlist('subjective4[]')[i],
+				clue = request.POST.getlist('clue4[]')[i],
+				rating = request.POST.getlist('rating4[]')[i],
+				review = r4
+			)
+			s.save()
+
 		return to_json(request.POST)
-	return render(request, 'survey/index2.html')
+	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
 
 def test(request):
 	return to_json([{"data1": "Hello", "data2": "World"}, {"data1": "I", "data2": "am"}, {"data1": "Clarke", "data2": "Plumo"}])
 
-@login_required(login_url= 'login/')
+@login_required(login_url= '/admin/login/')
 def sections(request):
 	sections = Section.objects.all()
 	return render(request, 'admin/sections.html', {"sections": sections})
 
-@login_required(login_url= 'login/')
+@login_required(login_url= '/admin/login/')
 def set_section(request,id):
 	for section in Section.objects.all():
 		section.current = False
@@ -34,4 +109,29 @@ def set_section(request,id):
 	section.save();
 
 	return redirect(sections)
+
+
+@login_required(login_url= '/admin/login/')
+def data(request):
+	sections = []
+	for section in Section.objects.all():
+		section2 = model_to_dict(section)
+		students = []
+		sections.append(section2)
+		for student in section.student_set.all():
+			student2 = model_to_dict(student)
+			reviews=[]
+			students.append(student2)
+			for review in student.review_set.all():
+				review2 = model_to_dict(review)
+				sentences=[]
+				reviews.append(review2)
+				for sentence in review.sentence_set.all():
+					sentence2 = model_to_dict(sentence)
+					sentences.append(sentence2)
+				review2['sentences']=sentences
+			student2['reviews']=reviews
+		section2['students']=students
+
+	return to_json(sections)
 
