@@ -10,14 +10,17 @@ class Section (models.Model):
 		return self.course.upper() + " " + str(self.year) + "-" + self.section.upper()
 
 class Student (models.Model):
+	student_no = models.IntegerField(max_length=16)
 	name = models.CharField(max_length=50)
-	age = models.IntegerField(max_length=3)
+	should_display = models.BooleanField(default=false)
+	section = models.ForeignKey(Section)
 
 	def __str__(self):
-		return self.name.upper() + " " + self.age
+		return self.name
 
 class Review (models.Model):
 	sentences = models.CharField(max_length=500)
+	reviews = models.ForeignKey(Student)
 
 	def __str__(self):
 		return self.sentences
