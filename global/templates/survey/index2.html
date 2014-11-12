@@ -106,7 +106,7 @@
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences2" value="{[ sentence ]}">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" ng-show="survey.sentences3">
 									<div class="form-group">
 										<label> Review #3 </label>
 									</div>
@@ -114,7 +114,7 @@
 										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences3" value="{[ sentence ]}">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-6" ng-show="survey.sentences4">
 									<div class="form-group">
 										<label> Review #4 </label>
 									</div>
