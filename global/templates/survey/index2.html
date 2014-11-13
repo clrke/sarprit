@@ -20,8 +20,8 @@
 			<div class="well">
 				<center>
 					<div class="form-inline">
-						<h3><b>Section: {{ current_section }}</b></h3> <br />
-						<b>Student No. </b>
+						<h2><b>Section: {{ current_section }}</b></h2> <br />
+						<b>Student Number: </b>
 						<select class="form-control" name="student">
 							{% for student in current_section.student_set.all %}
 								<option>{{ student.student_no.upper }}</option>
@@ -85,38 +85,38 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #1 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name1">
+										<label> Review #1 </label>
+										<input type="text" class="form-control" placeholder="Restaurant Name (Optional)" ng-model="survey.name1">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review1"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review (*Required)" ng-model="survey.review1"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label> <span style="color:red">*</span> Review #2 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name2">
+										<label> Review #2 </label>
+										<input type="text" class="form-control" placeholder="Restaurant Name (Optional)" ng-model="survey.name2">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review2"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review (*Required)" ng-model="survey.review2"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label> Review #3 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name3">
+										<input type="text" class="form-control" placeholder="Restaurant Name (Optional)" ng-model="survey.name3">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review3"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review (Optional)" ng-model="survey.review3"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label> Review #4 </label>
-										<input type="text" class="form-control" placeholder="Restaurant Name (optional)" ng-model="survey.name4">
+										<input type="text" class="form-control" placeholder="Restaurant Name (Optional)" ng-model="survey.name4">
 									</div>
 									<div class="form-group">
-										<textarea class="form-control" rows="3" placeholder="Review" ng-model="survey.review4"></textarea>
+										<textarea class="form-control" rows="3" placeholder="Review (Optional)" ng-model="survey.review4"></textarea>
 									</div>
 								</div>
 							</div>
