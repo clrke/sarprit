@@ -24,7 +24,9 @@
 						<b>Student No. </b>
 						<select class="form-control" name="student">
 							{% for student in current_section.student_set.all %}
-								<option>{{ student.student_no.upper }}</option>
+								{% if not student.review_set.all|length %}
+									<option>{{ student.student_no.upper }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 
