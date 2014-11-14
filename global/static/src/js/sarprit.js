@@ -129,4 +129,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 
 		return true;
 	}
+}])
+.controller('SystemCtrl', ['$http', function ($http) {
+	var system = this;
+}])
+.controller('TwitterCtrl', ['$http', function ($http) {
+	var twitter = this;
 }]);
