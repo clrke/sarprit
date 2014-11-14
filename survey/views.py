@@ -83,7 +83,7 @@ def index2(request):
 			)
 			s.save()
 
-		return to_json(request.POST)
+		return redirect(index)
 	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
 
 @login_required(login_url= '/admin/login/')
