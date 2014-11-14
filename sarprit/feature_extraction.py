@@ -23,13 +23,14 @@ def get_all_features(sentences):
 
 	return all_features
 
-def feature_extraction(sentences):
-	all_features = get_all_features(sentences)
+def extract(sentences, feature_names=None):
+	if feature_names is None:
+		feature_names = get_all_features(sentences)
 
 	data = []
 
 	for sentence in sentences:
 		features = get_features(sentence)
-		data.append([features.count(feature) for feature in all_features])
+		data.append([features.count(feature) for feature in feature_names])
 
-	return all_features, data
+	return feature_names, data
