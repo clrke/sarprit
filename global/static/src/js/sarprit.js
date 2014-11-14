@@ -57,9 +57,37 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 	survey.removeRatings = function (sentence) {
 		if(sentence.subjective) {
 			delete sentence.clue
+			setence.rating = 0
 		}
 	}
 
+	survey.step2ok = function () {
+		for (var i = 0; i < survey.sentences1.length; i++) {
+			sentence = survey.sentences1[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences2.length; i++) {
+			sentence = survey.sentences2[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences3.length; i++) {
+			sentence = survey.sentences3[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences4.length; i++) {
+			sentence = survey.sentences4[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		return true;
+	}
 	survey.step3ok = function () {
 		for (var i = 0; i < survey.sentences1.length; i++) {
 			sentence = survey.sentences1[i];
@@ -101,4 +129,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 
 		return true;
 	}
+}])
+.controller('SystemCtrl', ['$http', function ($http) {
+	var system = this;
+}])
+.controller('TwitterCtrl', ['$http', function ($http) {
+	var twitter = this;
 }]);

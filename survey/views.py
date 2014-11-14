@@ -6,11 +6,7 @@ from django.forms.models import model_to_dict
 
 
 def index(request):
-	person = {
-		"name" : "Regine", 
-		"age" : 19
-	}
-	return render(request, 'survey/index.html', {"person": person})
+	return render(request, 'survey/index.html', {"reviews": Review.objects.all()})
 
 def index2(request):
 	if request.method == "POST":
@@ -89,9 +85,6 @@ def index2(request):
 
 		return to_json(request.POST)
 	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
-
-def test(request):
-	return to_json([{"data1": "Hello", "data2": "World"}, {"data1": "I", "data2": "am"}, {"data1": "Clarke", "data2": "Plumo"}])
 
 @login_required(login_url= '/admin/login/')
 def sections(request):
