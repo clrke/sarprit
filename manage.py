@@ -3,7 +3,7 @@ import os
 import sys
 
 def check_requirements():
-	import django
+	import django, sklearn
 
 check_requirements()
 
