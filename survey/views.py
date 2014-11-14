@@ -6,11 +6,7 @@ from django.forms.models import model_to_dict
 
 
 def index(request):
-	person = {
-		"name" : "Regine", 
-		"age" : 19
-	}
-	return render(request, 'survey/index.html', {"person": person})
+	return render(request, 'survey/index.html', {"reviews": Review.objects.all()})
 
 def index2(request):
 	if request.method == "POST":
