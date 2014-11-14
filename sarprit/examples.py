@@ -12,5 +12,6 @@ def objective_sentences():
 		"Ang spaghetti ay isang pagkaing puro pasta.",
 		"You are what you eat.",
 		"Kumakain kami ngayon sa McDo.",
-		"Here at SM Sta Mesa Food Court!"
+		"Here at SM Sta Mesa Food Court!",
+		"Gagala ba tayo ngayon?",
 	]
