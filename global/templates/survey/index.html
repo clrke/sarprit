@@ -15,7 +15,7 @@
 					<h1>Training Data</h1>
 					<ul class="list-group">
 						{% for review in reviews %}
-							<li class="list-group-item">{{ review }}</li>
+							<li class="list-group-item">{{ review }} <br/> <small style="color:#999; padding-left: 20px"> by {{ review.student.student_no }} </small></li>
 						{% endfor %}
 					</ul>
 				</div>
