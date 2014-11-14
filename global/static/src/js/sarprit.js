@@ -130,6 +130,27 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		return true;
 	}
 }])
+.controller('StudentsCtrl', ['$http', '$interval', function ($http, $interval) {
+	var students = this;
+	students.value = [];
+
+	students.refresh = function () {
+		$http.get('/admin/data').success(function (data) {
+			for (var i = 0; i < data.length; i++) {
+				if(data[i].current) {
+					students.value = data[i].students;
+					break;
+				}
+			};
+		});
+	}
+	
+	$interval( function () {
+		students.refresh();
+	}, 10000);
+
+	students.refresh();
+}])
 .controller('SystemCtrl', ['$http', function ($http) {
 	var system = this;
 }])

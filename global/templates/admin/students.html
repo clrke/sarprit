@@ -5,19 +5,24 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+		<script type="text/javascript" src="{% static 'lib/angularjs/angular.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'src/js/sarprit.js' %}"></script>
 	</head>
 	<body>
 		<div class="container"> 
 			<div class="col-md-8 col-md-offset-2">
-				<div class="well" >
+				<div class="well" ng-controller="StudentsCtrl as students">
 					<h1> {{ current_section }} </h1>
 
-					<ul>	
-					{% for student in current_section.student_set.all %}
-						<li>
-							{{ student }}
+					<ul class="list-group">
+						<li class="list-group-item" ng-class="{'list-group-item-success' : student.reviews.length }" ng-repeat="student in students.value">
+							{[ student.to_str ]} <br/>
+							<ul class="list-group" ng-if="student.reviews.length">
+								<li class="list-group-item list-group-item-warning" ng-repeat="review in student.reviews">
+									{[ review.to_str ]}
+								</li>
+							</ul>
 						</li>
-					{%endfor%}
 					</ul>	
 					<form action="/admin/students/" method="POST"> {% csrf_token %}
 						<div class="form-group">
