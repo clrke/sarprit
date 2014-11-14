@@ -137,8 +137,11 @@ def data(request):
 				for sentence in review.sentence_set.all():
 					sentence2 = model_to_dict(sentence)
 					sentences.append(sentence2)
+				review2['to_str']=review.__str__() 
 				review2['sentences']=sentences
+			student2['to_str']=student.__str__()
 			student2['reviews']=reviews
+		section2['to_str']=section.__str__()
 		section2['students']=students
 
 	return to_json(sections)

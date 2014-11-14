@@ -25,9 +25,9 @@ class Review (models.Model):
 	student = models.ForeignKey(Student)
 
 	def __str__(self):
-		review = '';
+		review = "["+str(self.overall_sentiment)+"] "
 		for sentence in self.sentence_set.all():
-			review += sentence.sentence;
+			review += sentence.__str__();
 
 		return review
 
@@ -39,4 +39,4 @@ class Sentence (models.Model):
 	review = models.ForeignKey(Review)
 
 	def __str__(self):
-		return "["+self.clue.upper()+"]" + self.sentence + " " + str(self.rating)
+		return "["+self.clue.upper()+str(self.rating)+"] " + self.sentence + " "
