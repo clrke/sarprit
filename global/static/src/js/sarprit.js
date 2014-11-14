@@ -61,6 +61,33 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		}
 	}
 
+	survey.step2ok = function () {
+		for (var i = 0; i < survey.sentences1.length; i++) {
+			sentence = survey.sentences1[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences2.length; i++) {
+			sentence = survey.sentences2[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences3.length; i++) {
+			sentence = survey.sentences3[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences4.length; i++) {
+			sentence = survey.sentences4[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		return true;
+	}
 	survey.step3ok = function () {
 		for (var i = 0; i < survey.sentences1.length; i++) {
 			sentence = survey.sentences1[i];
