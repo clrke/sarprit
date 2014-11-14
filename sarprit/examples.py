@@ -1,3 +1,5 @@
+from sarprit import classifiers
+
 def subjective_sentences():
 	return [
 		"Ang sarap ng pagkain!",
@@ -17,3 +19,12 @@ def objective_sentences():
 		"Here at SM Sta Mesa Food Court!",
 		"Gagala ba tayo ngayon?",
 	]
+
+def subjectivity_classifier():
+	ss = subjective_sentences()
+	os = objective_sentences()
+
+	training_data = ss + os
+	target = [0] * len(ss) + [1] * len(os)
+
+	return classifiers.SubjectivityClassifier().fit(training_data, target)
