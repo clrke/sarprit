@@ -5,6 +5,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^admin/sections/$', 'survey.views.sections'),
+    url(r'^admin/students/$', 'survey.views.students'),
     url(r'^admin/sections/(?P<id>\d+)$', 'survey.views.set_section'),
     url(r'^admin/data/$', 'survey.views.data'),
 

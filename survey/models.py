@@ -13,7 +13,7 @@ class Section (models.Model):
 class Student (models.Model):
 	student_no = models.CharField(max_length=16)
 	name = models.CharField(max_length=50)
-	should_display = models.BooleanField(default=False)
+	should_display = models.BooleanField(default=True)
 	section = models.ForeignKey(Section)
 
 	def __str__(self):

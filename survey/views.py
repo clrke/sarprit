@@ -91,6 +91,21 @@ def sections(request):
 	sections = Section.objects.all()
 	return render(request, 'admin/sections.html', {"sections": sections})
 
+@login_required(login_url='/admin/login')
+def students(request):
+	current_section = Section.objects.get(current=True)
+
+	if request.method == "POST":
+		data = [student.split('\t') for student in request.POST['students'].split('\r\n')]
+		data = [(student[0], student[1]) for student in data]
+
+		for student in data:
+			Student(student_no=student[0], name=student[1], section=current_section).save()
+
+		return redirect(students)
+
+	return render(request, 'admin/students.html', { "current_section": Section.objects.get(current = True) })
+
 @login_required(login_url= '/admin/login/')
 def set_section(request,id):
 	for section in Section.objects.all():
