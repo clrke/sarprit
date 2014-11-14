@@ -17,7 +17,7 @@ class Student (models.Model):
 	section = models.ForeignKey(Section)
 
 	def __str__(self):
-		return self.student_no.upper() + " " + self.name.upper()
+		return self.student_no.upper() + " " + (self.name.upper() if self.should_display else "")
 
 class Review (models.Model):
 	namedrop = models.CharField(max_length=50, blank=True)
