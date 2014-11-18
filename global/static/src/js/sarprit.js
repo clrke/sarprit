@@ -57,7 +57,9 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 	survey.removeRatings = function (sentence) {
 		if(sentence.subjective) {
 			delete sentence.clue
-			setence.rating = 0
+			delete sentence.rating
+
+			sentence.rating = 0;
 		}
 	}
 
