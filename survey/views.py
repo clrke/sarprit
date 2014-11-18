@@ -56,7 +56,7 @@ def index2(request):
 		for i in range(len(request.POST.getlist('sentence2[]'))):
 			s = Sentence(
 				sentence = request.POST.getlist('sentence2[]')[i],
-				subjective = request.POST.getlist('subjective2[]')[i],
+				subjective = request.POST.getlist('subjective2[]')[i] == 'true',
 				clue = request.POST.getlist('clue2[]')[i],
 				rating = request.POST.getlist('rating2[]')[i],
 				review = r2
@@ -66,7 +66,7 @@ def index2(request):
 		for i in range(len(request.POST.getlist('sentence3[]'))):
 			s = Sentence(
 				sentence = request.POST.getlist('sentence3[]')[i],
-				subjective = request.POST.getlist('subjective3[]')[i],
+				subjective = request.POST.getlist('subjective3[]')[i] == 'true',
 				clue = request.POST.getlist('clue3[]')[i],
 				rating = request.POST.getlist('rating3[]')[i],
 				review = r3
@@ -76,7 +76,7 @@ def index2(request):
 		for i in range(len(request.POST.getlist('sentence4[]'))):
 			s = Sentence(
 				sentence = request.POST.getlist('sentence4[]')[i],
-				subjective = request.POST.getlist('subjective4[]')[i],
+				subjective = request.POST.getlist('subjective4[]')[i] == 'true',
 				clue = request.POST.getlist('clue4[]')[i],
 				rating = request.POST.getlist('rating4[]')[i],
 				review = r4
@@ -137,7 +137,7 @@ def data(request):
 				for sentence in review.sentence_set.all():
 					sentence2 = model_to_dict(sentence)
 					sentences.append(sentence2)
-				review2['to_str']=review.__str__() 
+				review2['to_str']=review.__str__()
 				review2['sentences']=sentences
 			student2['to_str']=student.__str__()
 			student2['reviews']=reviews
