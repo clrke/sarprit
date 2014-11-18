@@ -7,24 +7,24 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
 	</head>
 	<body>
-		<div class="container"> 
+		<div class="container">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="well" >
-					<ul>	
+					<ul>
 					{% for section in sections %}
-						<li>	
+						<li>
 							{{section}}
-							{% if section.current %}  
+							{% if section.current %}
 								[ current ]
 							{% else %}
 								[  <a href="/admin/sections/{{section.id}}">set as current</a> ]
-							{%endif%}			
+							{%endif%}
 						</li>
 					{%endfor%}
-					</ul>	
-					
+					</ul>
+
 				</div>
-					
+
 			</div>
 		</div>
 	</body>
