@@ -4,7 +4,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 })
 .controller('SurveyCtrl', ['$http', function ($http) {
 	var survey = this;
-	
+
 	survey.review1 = '';
 	survey.review2 = '';
 	survey.review3 = '';
@@ -30,7 +30,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		var result2 = sentence2.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 		var result3 = sentence3.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 		var result4 = sentence4.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
-		
+
 		survey.sentences1 = [];
 		survey.sentences2 = [];
 		survey.sentences3 = [];
@@ -45,7 +45,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		if (result3) {
 			for (var i = 0; i < result3.length; i++) {
 				survey.sentences3.push({value: result3[i], subjective: true, rating: 0});
-			}	
+			}
 		}
 		if (result4) {
 			for (var i = 0; i < result4.length; i++) {
@@ -144,7 +144,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 			};
 		});
 	}
-	
+
 	$interval( function () {
 		students.refresh();
 	}, 10000);
