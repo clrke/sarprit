@@ -88,8 +88,21 @@ def index2(request):
 
 @login_required(login_url= '/admin/login/')
 def sections(request):
-	sections = Section.objects.all()
-	return render(request, 'admin/sections.html', {"sections": sections})
+	if request.method == 'POST':
+		id = int(request.POST['id'])
+
+		for section in Section.objects.all():
+			section.current = False
+			section.save()
+
+		section = Section.objects.get(id=id)
+		section.current = True
+		section.save();
+
+		return redirect(sections)
+
+	else:
+		return render(request, 'admin/sections.html', {"sections": Section.objects.all()})
 
 @login_required(login_url='/admin/login')
 def students(request):
@@ -105,19 +118,6 @@ def students(request):
 		return redirect(students)
 
 	return render(request, 'admin/students.html', { "current_section": Section.objects.get(current = True) })
-
-@login_required(login_url= '/admin/login/')
-def set_section(request,id):
-	for section in Section.objects.all():
-		section.current = False
-		section.save()
-
-	section = Section.objects.get(id=id)
-	section.current = True
-	section.save();
-
-	return redirect(sections)
-
 
 @login_required(login_url= '/admin/login/')
 def data(request):
