@@ -10,22 +10,32 @@
 		<div class="container">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="well" >
-					<ul>
+					<table class="table table-bordered">
+						<tr>
+							<th> Section </th>
+							<th> Students Count </th>
+							<th> Reviews Count </th>
+							<th> Actions </th>
+						</tr>
 					{% for section in sections %}
-						<li>
-							{{section}}
-							{% if section.current %}
-								[ <span style="color: #0A0">current</span> ]
-							{% else %}
-								<form action="/admin/sections/" method="post" style="display: inline;">
-									{% csrf_token %}
-									<input type="hidden" name="id" value="{{ section.id }}">
-									[<button type="submit" class="btn-link" style="padding: 0px">set as current</button>]
-								</form>
-							{%endif%}
-						</li>
+						<tr>
+							<td>{{section}}</td>
+							<td>{{section.student_set.all | length}}</td>
+							<td>{{section.review_set | length}}</td>
+							<td>
+								{% if section.current %}
+									[ <span style="color: #0A0">current</span> ]
+								{% else %}
+									<form action="/admin/sections/" method="post" style="display: inline;">
+										{% csrf_token %}
+										<input type="hidden" name="id" value="{{ section.id }}">
+										[<button type="submit" class="btn-link" style="padding: 0px">set as current</button>]
+									</form>
+								{%endif%}
+							</td>
+						</tr>
 					{%endfor%}
-					</ul>
+					</table>
 
 				</div>
 
