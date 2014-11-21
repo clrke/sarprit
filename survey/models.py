@@ -10,6 +10,10 @@ class Section (models.Model):
 	def __str__(self):
 		return self.course.upper() + " " + str(self.year) + "-" + self.section.upper()
 
+	def review_set(self):
+		return [review for student in self.student_set.all() for review in student.review_set.all()]
+
+
 class Student (models.Model):
 	student_no = models.CharField(max_length=16)
 	name = models.CharField(max_length=50)
