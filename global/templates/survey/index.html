@@ -10,24 +10,62 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="col-md-6">
-				<div class="well" ng-controller="SystemCtrl as system">
-					<h1>Training Data</h1>
-					<ul class="list-group">
-						{% for review in reviews %}
-							<li class="list-group-item">{{ review }} <br/> <small style="color:#999; padding-left: 20px"> by {{ review.student.student_no }} </small></li>
-						{% endfor %}
-					</ul>
-				</div>
+			<ul class="nav nav-tabs" ng-init="nav1 = 1">
+				<li role="presentation" ng-class="{'active': nav1 == 1}" ng-model="nav1" ng-click="nav1 = 1"><a href="#">Whole Review</a> </li>
+				<li role="presentation" ng-class="{'active': nav1 == 2}" ng-model="nav1" ng-click="nav1 = 2"><a href="#">Per Sentence</a></li>
+			</ul>
+			<div class="well" ng-controller="SystemCtrl as system" ng-show="nav1 == 1">
+				<ul class="list-group">
+					<span ng-repeat="section in system.data">
+						<span ng-repeat="student in section.students">
+							<li class="list-group-item" ng-repeat="review in student.reviews">
+								{[ review.to_str ]} <br/>
+								<small style="color:#999; padding-left: 20px"> by {[ student.student_no ]} </small>
+							</li>
+						</span>
+					</span>
+				</ul>
 			</div>
-			<div class="col-md-6">
-				<div class="well" ng-controller="TwitterCtrl as twitter">
-					<h1>Twittter</h1>
-					<ul class="list-group">
-						<li class="list-group-item">Get data from twitter via beautifulsoup</li>
-						<li class="list-group-item">HTML Parsing</li>
-					</ul>
+			<div class="well" ng-controller="SystemCtrl as system" ng-show="nav1 == 2">
+				<ul class="nav nav-tabs" ng-init="nav2 = true">
+					<li role="presentation" ng-class="{'active': nav2 == true}" ng-click="nav2 = true; nav3 = 'f'; nav4 = 5" scope="" onload=""><a href="#">Subjective</a> </li>
+					<li role="presentation" ng-class="{'active': nav2 == false}" ng-click="nav2 = false; nav3 = ''; nav4 = ''"><a href="#">Objective</a></li>
+				</ul>
+				<ul class="nav nav-tabs" ng-init="nav3 = 'f'" ng-show="nav2">
+					<li role="presentation" ng-class="{'active': nav3 == 'f'}" ng-click="nav3 = 'f'"><a href="#">Functional</a></li>
+					<li role="presentation" ng-class="{'active': nav3 == 'h'}" ng-click="nav3 = 'h'"><a href="#">Humanic</a></li>
+					<li role="presentation" ng-class="{'active': nav3 == 'm'}" ng-click="nav3 = 'm'"><a href="#">Mechanic</a></li>
+					<li role="presentation" ng-class="{'active': nav3 == 'g'}" ng-click="nav3 = 'g'"><a href="#">General</a></li>
+				</ul>
+				<div class="btn-group btn-group-justified" ng-show="nav2">
+					<div class="btn-group" ng-init="nav4 = 5">
+						<button type="button" class="btn btn-lg btn-default" ng-click="nav4 = 1"> <img class="img-responsive" ng-src="{[ nav4 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-lg btn-default" ng-click="nav4 = 2"> <img class="img-responsive" ng-src="{[ nav4 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-lg btn-default" ng-click="nav4 = 3"> <img class="img-responsive" ng-src="{[ nav4 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-lg btn-default" ng-click="nav4 = 4"> <img class="img-responsive" ng-src="{[ nav4 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-lg btn-default" ng-click="nav4 = 5"> <img class="img-responsive" ng-src="{[ nav4 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+					</div>
 				</div>
+				<ul class="list-group">
+					<span ng-repeat="section in system.data">
+						<span ng-repeat="student in section.students">
+							<span ng-repeat="review in student.reviews">
+								<li class="list-group-item" ng-repeat="sentence in review.sentences | orderBy: '-id' | filter: {subjective: nav2, clue: nav3, rating: nav4}">
+									{[ sentence.sentence ]} <br/>
+									<small style="color:#999; padding-left: 20px"> by {[ student.student_no ]} </small>
+								</li>
+							</span>
+						</span>
+					</span>
+				</ul>
 			</div>
 		</div>
 	</body>
