@@ -25,8 +25,17 @@ def subjectivity_classifier():
 	ss = [sentence.sentence for sentence in Sentence.objects.filter(subjective=True)]
 	os = [sentence.sentence for sentence in Sentence.objects.filter(subjective=False)]
 
-
 	training_data = ss + os
 	target = [0] * len(ss) + [1] * len(os)
 
 	return classifiers.SubjectivityClassifier().fit(training_data, target)
+
+
+def subjectivity_classifier():
+	ss = [sentence.sentence for sentence in Sentence.objects.filter(subjective=True)]
+	os = [sentence.sentence for sentence in Sentence.objects.filter(subjective=False)]
+
+	training_data = ss + os
+	target = [0] * len(ss) + [1] * len(os)
+
+	return classifiers.CluesClassifier().fit(training_data, target)
