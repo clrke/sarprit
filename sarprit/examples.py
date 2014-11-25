@@ -1,11 +1,12 @@
 from sarprit import classifiers
+from survey.models import Sentence
 
 def subjective_sentences():
 	return [
 		"Ang sarap ng pagkain!",
 		"Nakakatuwa sila magserve ng pagkain.",
 		"Hindi ako naiintindihan ng cashier.",
-		"Ang sarap-sarap ng sisig nila at mura pa, paborito na ito ng tropa ko!"
+		"Ang sarap-sarap ng sisig nila at mura pa, paborito na ito ng tropa ko!",
 		"#panaloSiKuyangWaiter",
 		"Sobrang baho sa lugar nila!",
 	]
@@ -21,8 +22,9 @@ def objective_sentences():
 	]
 
 def subjectivity_classifier():
-	ss = subjective_sentences()
-	os = objective_sentences()
+	ss = [sentence.sentence for sentence in Sentence.objects.filter(subjective=True)]
+	os = [sentence.sentence for sentence in Sentence.objects.filter(subjective=False)]
+
 
 	training_data = ss + os
 	target = [0] * len(ss) + [1] * len(os)
