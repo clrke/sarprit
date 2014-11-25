@@ -31,11 +31,25 @@ def subjectivity_classifier():
 	return classifiers.SubjectivityClassifier().fit(training_data, target)
 
 
-def subjectivity_classifier():
-	ss = [sentence.sentence for sentence in Sentence.objects.filter(subjective=True)]
-	os = [sentence.sentence for sentence in Sentence.objects.filter(subjective=False)]
+def clues_classifier():
+	f = [sentence.sentence for sentence in Sentence.objects.filter(clue='f')]
+	h = [sentence.sentence for sentence in Sentence.objects.filter(clue='h')]
+	m = [sentence.sentence for sentence in Sentence.objects.filter(clue='m')]
+	g = [sentence.sentence for sentence in Sentence.objects.filter(clue='g')]
 
-	training_data = ss + os
-	target = [0] * len(ss) + [1] * len(os)
+	training_data = f + h + m + g
+	target = [0] * len(f) + [1] * len(h) + [2] * len(m) + [3] * len(g)
 
 	return classifiers.CluesClassifier().fit(training_data, target)
+
+def sentiment_classifier(clue):
+	s1 = [sentence.sentence for sentence in Sentence.objects.filter(rating=1, clue=clue)]
+	s2 = [sentence.sentence for sentence in Sentence.objects.filter(rating=2, clue=clue)]
+	s3 = [sentence.sentence for sentence in Sentence.objects.filter(rating=3, clue=clue)]
+	s4 = [sentence.sentence for sentence in Sentence.objects.filter(rating=4, clue=clue)]
+	s5 = [sentence.sentence for sentence in Sentence.objects.filter(rating=5, clue=clue)]
+
+	training_data = s1 + s2 + s3 + s4 + s5
+	target = [1] * len(s1) + [2] * len(s2) + [3] * len(s3) + [4] * len(s4) + [5] * len(s5)
+
+	return classifiers.SentimentClassifier().fit(training_data, target)

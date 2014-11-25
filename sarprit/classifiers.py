@@ -18,7 +18,6 @@ class SubjectivityClassifier(MultinomialNB):
 		return super(SubjectivityClassifier, self).predict(features)
 
 
-
 class CluesClassifier(MultinomialNB):
 	def __init__(self):
 		super(CluesClassifier, self).__init__()
@@ -42,7 +41,7 @@ class SentimentClassifier(MultinomialNB):
 
 	def fit(self, training_data, target):
 		self.target = target
-		self.target_names = ['Functional', 'Humanic','Mechanic','General']
+		self.target_names = ['1', '2','3','4','5']
 		self.feature_names, self.features = feature_extraction.extract(training_data)
 
 		return super(SentimentClassifier, self).fit(self.features, self.target)
