@@ -27,6 +27,10 @@
 				</ul>
 			</div>
 			<div class="well" ng-controller="SystemCtrl as system" ng-show="nav1 == 2">
+				<ul class="nav nav-tabs" ng-init="nav2 = 1">
+					<li role="presentation" ng-class="{'active': nav2 == 1}" ng-model="nav2" ng-click="nav2 = 1"><a href="#">Subjective</a> </li>
+					<li role="presentation" ng-class="{'active': nav2 == 2}" ng-model="nav2" ng-click="nav2 = 2"><a href="#">Objective</a></li>
+				</ul>
 				<ul class="list-group">
 					<span ng-repeat="section in system.data">
 						<span ng-repeat="student in section.students">
@@ -40,11 +44,6 @@
 					</span>
 				</ul>
 			</div>
-			<!-- <ul class="nav nav-tabs">
-				  <li role="presentation" class="active"><a href="#">Home</a></li>
-				  <li role="presentation"><a href="#">Profile</a></li>
-				  <li role="presentation"><a href="#">Messages</a></li>
-			</ul> -->
 		</div>
 	</body>
 </html>
