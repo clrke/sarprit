@@ -58,7 +58,7 @@
 					<span ng-repeat="section in system.data">
 						<span ng-repeat="student in section.students">
 							<span ng-repeat="review in student.reviews">
-								<li class="list-group-item" ng-repeat="sentence in review.sentences | orderBy: '-id' | filter: {subjective: nav2, clue: nav3}">
+								<li class="list-group-item" ng-repeat="sentence in review.sentences | orderBy: '-id' | filter: {subjective: nav2, clue: nav3, rating: nav4}">
 									{[ sentence.sentence ]} <br/>
 									<small style="color:#999; padding-left: 20px"> by {[ student.student_no ]} </small>
 								</li>
