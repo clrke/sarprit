@@ -10,25 +10,41 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="col-md-6">
-				<div class="well" ng-controller="SystemCtrl as system">
-					<h1>Training Data</h1>
-					<ul class="list-group">
-						{% for review in reviews %}
-							<li class="list-group-item">{{ review }} <br/> <small style="color:#999; padding-left: 20px"> by {{ review.student.student_no }} </small></li>
-						{% endfor %}
-					</ul>
-				</div>
+			<ul class="nav nav-tabs" ng-init="nav1 = 1">
+				<li role="presentation" ng-class="{'active': nav1 == 1}" ng-model="nav1" ng-click="nav1 = 1"><a href="#">Whole Review</a> </li>
+				<li role="presentation" ng-class="{'active': nav1 == 2}" ng-model="nav1" ng-click="nav1 = 2"><a href="#">Per Sentence</a></li>
+			</ul>
+			<div class="well" ng-controller="SystemCtrl as system" ng-show="nav1 == 1">
+				<ul class="list-group">
+					<span ng-repeat="section in system.data">
+						<span ng-repeat="student in section.students">
+							<li class="list-group-item" ng-repeat="review in student.reviews">
+								{[ review.to_str ]} <br/>
+								<small style="color:#999; padding-left: 20px"> by {[ student.student_no ]} </small>
+							</li>
+						</span>
+					</span>
+				</ul>
 			</div>
-			<div class="col-md-6">
-				<div class="well" ng-controller="TwitterCtrl as twitter">
-					<h1>Twittter</h1>
-					<ul class="list-group">
-						<li class="list-group-item">Get data from twitter via beautifulsoup</li>
-						<li class="list-group-item">HTML Parsing</li>
-					</ul>
-				</div>
+			<div class="well" ng-controller="SystemCtrl as system" ng-show="nav1 == 2">
+				<ul class="list-group">
+					<span ng-repeat="section in system.data">
+						<span ng-repeat="student in section.students">
+							<span ng-repeat="review in student.reviews">
+								<li class="list-group-item" ng-repeat="sentence in review.sentences">
+									{[ sentence.sentence ]} <br/>
+									<small style="color:#999; padding-left: 20px"> by {[ student.student_no ]} </small>
+								</li>
+							</span>
+						</span>
+					</span>
+				</ul>
 			</div>
+			<!-- <ul class="nav nav-tabs">
+				  <li role="presentation" class="active"><a href="#">Home</a></li>
+				  <li role="presentation"><a href="#">Profile</a></li>
+				  <li role="presentation"><a href="#">Messages</a></li>
+			</ul> -->
 		</div>
 	</body>
 </html>

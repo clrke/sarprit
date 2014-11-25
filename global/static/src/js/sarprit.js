@@ -154,6 +154,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 }])
 .controller('SystemCtrl', ['$http', function ($http) {
 	var system = this;
+
+	$http.get("admin/data").success( function (data) {
+		system.data = data;
+	});
 }])
 .controller('TwitterCtrl', ['$http', function ($http) {
 	var twitter = this;
