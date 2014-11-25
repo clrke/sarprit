@@ -27,15 +27,15 @@
 				</ul>
 			</div>
 			<div class="well" ng-controller="SystemCtrl as system" ng-show="nav1 == 2">
-				<ul class="nav nav-tabs" ng-init="nav2 = 1">
-					<li role="presentation" ng-class="{'active': nav2 == 1}" ng-model="nav2" ng-click="nav2 = 1"><a href="#">Subjective</a> </li>
-					<li role="presentation" ng-class="{'active': nav2 == 2}" ng-model="nav2" ng-click="nav2 = 2"><a href="#">Objective</a></li>
+				<ul class="nav nav-tabs" ng-init="nav2 = true">
+					<li role="presentation" ng-class="{'active': nav2 == true}" ng-click="nav2 = true"><a href="#">Subjective</a> </li>
+					<li role="presentation" ng-class="{'active': nav2 == false}" ng-click="nav2 = false"><a href="#">Objective</a></li>
 				</ul>
 				<ul class="list-group">
 					<span ng-repeat="section in system.data">
 						<span ng-repeat="student in section.students">
 							<span ng-repeat="review in student.reviews">
-								<li class="list-group-item" ng-repeat="sentence in review.sentences">
+								<li class="list-group-item" ng-repeat="sentence in review.sentences | orderBy: '-id' | filter: {subjective: nav2}">
 									{[ sentence.sentence ]} <br/>
 									<small style="color:#999; padding-left: 20px"> by {[ student.student_no ]} </small>
 								</li>
