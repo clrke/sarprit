@@ -5,19 +5,23 @@ class Section (models.Model):
 	course = models.CharField(max_length=10)
 	year = models.IntegerField()
 	section = models.CharField(max_length=3)
-	current = models.BooleanField()
+	current = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.course.upper() + " " + str(self.year) + "-" + self.section.upper()
 
+	def review_set(self):
+		return [review for student in self.student_set.all() for review in student.review_set.all()]
+
+
 class Student (models.Model):
 	student_no = models.CharField(max_length=16)
 	name = models.CharField(max_length=50)
-	should_display = models.BooleanField()
+	should_display = models.BooleanField(default=True)
 	section = models.ForeignKey(Section)
 
 	def __str__(self):
-		return self.student_no.upper() + " " + self.name.upper()
+		return self.student_no.upper() + " " + (self.name.upper() if self.should_display else "")
 
 class Review (models.Model):
 	namedrop = models.CharField(max_length=50, blank=True)
@@ -25,18 +29,18 @@ class Review (models.Model):
 	student = models.ForeignKey(Student)
 
 	def __str__(self):
-		review = '';
+		review = "["+str(self.overall_sentiment)+"] "
 		for sentence in self.sentence_set.all():
-			review += sentence.sentence;
+			review += sentence.__str__();
 
 		return review
-	
+
 class Sentence (models.Model):
 	sentence = models.CharField(max_length=1000)
-	subjective = models.BooleanField()
+	subjective = models.BooleanField(default=True)
 	clue = models.CharField(max_length=1)
 	rating = models.IntegerField(max_length=1)
 	review = models.ForeignKey(Review)
 
 	def __str__(self):
-		return "["+self.clue.upper()+"]" + self.sentence + " " + str(self.rating)
+		return "["+self.clue.upper()+str(self.rating)+"] " + self.sentence + " "

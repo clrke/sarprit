@@ -15,8 +15,8 @@
 
 </head>
 <body>
-	<div class="col-md-offset-2 col-md-8">
-		<form method="post" action="/2/" ng-controller="SurveyCtrl as survey"> {% csrf_token %}
+	<div class="col-md-offset-1 col-md-10">
+		<form method="post" action="/survey/" ng-controller="SurveyCtrl as survey"> {% csrf_token %}
 			<div class="well">
 				<center>
 					<div class="form-inline">
@@ -24,7 +24,9 @@
 						<b>Student Number: </b>
 						<select class="form-control" name="student">
 							{% for student in current_section.student_set.all %}
-								<option>{{ student.student_no.upper }}</option>
+								{% if not student.review_set.all|length %}
+									<option>{{ student.student_no.upper }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 
@@ -72,7 +74,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<span data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+							<span data-toggle="collapse" data-parent="#accordion">
 								<b>Step 1</b>
 							</span>
 						</h4>
@@ -80,8 +82,8 @@
 					<div id="collapseOne" class="panel-collapse collapse in">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-12">					
-									<div class="well"> <b>Instructions:</b> Input at least 2 reviews for Philippine Restaurants.</div>
+								<div class="col-md-12">
+									<div class="well"> <b>Instructions:</b> Input at least <b>2 reviews</b> for Philippine Restaurants in <b>pseudo-tweet</b> form.</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
@@ -131,7 +133,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<span data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+							<span data-toggle="collapse" data-parent="#accordion">
 								<b>Step 2</b>
 							</span>
 						</h4>
@@ -139,15 +141,23 @@
 					<div id="collapseTwo" class="panel-collapse collapse">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-12">					
-									<div class="well"> <b>Instructions:</b> Check if the each review is correctly splitted by sentence and hashtag.</div>
+								<div class="col-md-12">
+									<div class="well"> <b>Instructions:</b> Check if the each review is correctly splitted by sentence and hashtag. As much as possible, please seperate each by <b>subjectivity, clues, and sentiment</b>.</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label> Review #1<b ng-show="survey.name1">: {[ survey.name1 ]} </b> </label>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences1" ng-model="sentence.value">
+										<div class="input-group" ng-repeat="sentence in survey.sentences1">
+											<input type="text" class="form-control" ng-model="sentence.value">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences1.splice($index, 0, {value: '', subjective: true, rating: 0})">
+												<b>+</b>
+											</span>
+											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences1.splice($index, 1)">
+												<b>-</b>
+											</span>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -155,7 +165,15 @@
 										<label> Review #2<b ng-show="survey.name2">: {[ survey.name2 ]} </b> </label>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences2" ng-model="sentence.value">
+										<div class="input-group" ng-repeat="sentence in survey.sentences2">
+											<input type="text" class="form-control" ng-model="sentence.value">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences2.splice($index, 0, {value: '', subjective: true, rating: 0})">
+												<b>+</b>
+											</span>
+											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences2.splice($index, 1)">
+												<b>-</b>
+											</span>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-6" ng-show="survey.sentences3">
@@ -163,7 +181,15 @@
 										<label> Review #3<b ng-show="survey.name3">: {[ survey.name3 ]} </b> </label>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences3" ng-model="sentence.value">
+										<div class="input-group" ng-repeat="sentence in survey.sentences3">
+											<input type="text" class="form-control" ng-model="sentence.value">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences3.splice($index, 0, {value: '', subjective: true, rating: 0})">
+												<b>+</b>
+											</span>
+											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences3.splice($index, 1)">
+												<b>-</b>
+											</span>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-6" ng-show="survey.sentences4">
@@ -171,7 +197,15 @@
 										<label> Review #4<b ng-show="survey.name4">: {[ survey.name4 ]} </b> </label>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" ng-repeat="sentence in survey.sentences4" ng-model="sentence.value">
+										<div class="input-group" ng-repeat="sentence in survey.sentences4">
+											<input type="text" class="form-control" ng-model="sentence.value">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences4.splice($index, 0, {value: '', subjective: true, rating: 0})">
+												<b>+</b>
+											</span>
+											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences4.splice($index, 1)">
+												<b>-</b>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -179,7 +213,7 @@
 						<div class="panel-footer">
 							<ul class="pager pager2">
 								<li class="previous"><a class="acc-toggler" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">&larr; Back</a></li>
-								<li class="next"><a class="acc-toggler" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Next &rarr;</a></li>
+								<li class="next"><a class="acc-toggler" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" ng-show="survey.step2ok()">Next &rarr;</a></li>
 							</ul>
 						</div>
 					</div>
@@ -187,7 +221,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<span data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+							<span data-toggle="collapse" data-parent="#accordion">
 								<b>Step 3</b>
 							</span>
 						</h4>
@@ -197,9 +231,13 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="well">
-										<b>Instructions:</b> Uncheck the checkbox if that sentence is objective. If the sentence is subjective, classify it as
-										Functional, Humanic or Mechanic then rate the positivity or negativity of each sentence by clicking on the star.
-										<br />(1 Star - Poor, 2 Stars - Bad, 3 Stars - Satisfactory, 4 Stars - Very Satisfactory, 5 Stars - Excellent)
+										<b>Instructions:</b> <b>Untick the checkbox</b> if that sentence is objective. If the sentence is subjective, classify it as:<br/> <br/>
+										<b>Functional</b> (the technical quality of food and service)<br/>
+										<b>Humanic</b> (the performance, behavior, and appearance of the employees)<br/>
+										<b>Mechanic</b> (the ambience and other design and technical elements)<br/>
+										<b>General</b> (all of the above)<br/> <br/>
+										Then rate each sentence by clicking on a star:<br /><br />
+										1: <b>Poor</b><br/> 2: <b>Bad</b><br/> 3: <b>Satisfactory</b><br/> 4: <b>Very Satisfactory</b><br/> 5: <b>Excellent</b>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -214,30 +252,33 @@
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'g'" ng-class="{'btn-primary': sentence.clue == 'g'}">General</button>
 												</div>
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 1"> <img class="img-responsive" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 2"> <img class="img-responsive" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 3"> <img class="img-responsive" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 4"> <img class="img-responsive" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 5"> <img class="img-responsive" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 											</div>
 										</div>
@@ -255,30 +296,33 @@
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'g'" ng-class="{'btn-primary': sentence.clue == 'g'}">General</button>
 												</div>
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 1"> <img class="img-responsive" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 2"> <img class="img-responsive" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 3"> <img class="img-responsive" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 4"> <img class="img-responsive" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 5"> <img class="img-responsive" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 											</div>
 										</div>
@@ -296,30 +340,33 @@
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'g'" ng-class="{'btn-primary': sentence.clue == 'g'}">General</button>
 												</div>
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 1"> <img class="img-responsive" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 2"> <img class="img-responsive" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 3"> <img class="img-responsive" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 4"> <img class="img-responsive" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 5"> <img class="img-responsive" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 											</div>
 										</div>
@@ -337,30 +384,33 @@
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'f'" ng-class="{'btn-primary': sentence.clue == 'f'}">Functional</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'h'" ng-class="{'btn-primary': sentence.clue == 'h'}">Humanic</button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-model="sentence.clue" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'm'" ng-class="{'btn-primary': sentence.clue == 'm'}">Mechanic</button>
+												</div>
+												<div class="btn-group">
+													<button type="button" class="btn btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.clue = 'g'" ng-class="{'btn-primary': sentence.clue == 'g'}">General</button>
 												</div>
 											</div>
 											<div class="btn-group btn-group-justified">
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 1" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 1"> <img class="img-responsive" ng-src="{[ sentence.rating >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 2" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 2"> <img class="img-responsive" ng-src="{[ sentence.rating >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 3" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 3"> <img class="img-responsive" ng-src="{[ sentence.rating >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 4" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 4"> <img class="img-responsive" ng-src="{[ sentence.rating >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 												<div class="btn-group">
-													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective"> <img class="img-responsive" ng-click="sentence.rating = 5" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+													<button type="button" class="btn btn-lg btn-default" ng-disabled="!sentence.subjective" ng-click="sentence.rating = 5"> <img class="img-responsive" ng-src="{[ sentence.rating >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 												</div>
 											</div>
 										</div>
@@ -379,7 +429,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<span data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+							<span data-toggle="collapse" data-parent="#accordion">
 								<b>Step 4</b>
 							</span>
 						</h4>
@@ -387,9 +437,10 @@
 					<div id="collapseFour" class="panel-collapse collapse">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-12">					
+								<div class="col-md-12">
 									<div class="well"> <b>Instructions:</b> Input the overall rating for the each review.
-										<br />(1 Star - Poor, 2 Stars - Bad, 3 Stars - Satisfactory, 4 Stars - Very Satisfactory, 5 Stars - Excellent)
+									<br /><br />
+									1: <b>Poor</b><br/> 2: <b>Bad</b><br/> 3: <b>Satisfactory</b><br/> 4: <b>Very Satisfactory</b><br/> 5: <b>Excellent</b>
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -400,19 +451,23 @@
 										<div class="well"> {[ survey.review1 ]} </div>
 										<div class="btn-group btn-group-justified">
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating1 = 1" ng-src="{[ survey.overallRating1 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating1 = 1"> <img class="img-responsive" ng-src="{[ survey.overallRating1 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating1 = 2" ng-src="{[ survey.overallRating1 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating1 = 2">
+												<img class="img-responsive" ng-src="{[ survey.overallRating1 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating1 = 3" ng-src="{[ survey.overallRating1 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating1 = 3">
+												<img class="img-responsive" ng-src="{[ survey.overallRating1 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating1 = 4" ng-src="{[ survey.overallRating1 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating1 = 4">
+												<img class="img-responsive" ng-src="{[ survey.overallRating1 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating1 = 5" ng-src="{[ survey.overallRating1 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating1 = 5">
+												<img class="img-responsive" ng-src="{[ survey.overallRating1 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 										</div>
 									</div>
@@ -425,19 +480,24 @@
 										<div class="well"> {[ survey.review2 ]} </div>
 										<div class="btn-group btn-group-justified">
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating2 = 1" ng-src="{[ survey.overallRating2 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating2 = 1">
+												<img class="img-responsive" ng-src="{[ survey.overallRating2 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating2 = 2" ng-src="{[ survey.overallRating2 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating2 = 2">
+												<img class="img-responsive" ng-src="{[ survey.overallRating2 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating2 = 3" ng-src="{[ survey.overallRating2 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating2 = 3">
+												<img class="img-responsive" ng-src="{[ survey.overallRating2 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating2 = 4" ng-src="{[ survey.overallRating2 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating2 = 4">
+												<img class="img-responsive" ng-src="{[ survey.overallRating2 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating2 = 5" ng-src="{[ survey.overallRating2 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating2 = 5">
+												<img class="img-responsive" ng-src="{[ survey.overallRating2 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 										</div>
 									</div>
@@ -450,19 +510,24 @@
 										<div class="well"> {[ survey.review3 ]} </div>
 										<div class="btn-group btn-group-justified">
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating3 = 1" ng-src="{[ survey.overallRating3 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating3 = 1">
+												<img class="img-responsive" ng-src="{[ survey.overallRating3 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating3 = 2" ng-src="{[ survey.overallRating3 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating3 = 2">
+												<img class="img-responsive" ng-src="{[ survey.overallRating3 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating3 = 3" ng-src="{[ survey.overallRating3 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating3 = 3">
+												<img class="img-responsive" ng-src="{[ survey.overallRating3 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating3 = 4" ng-src="{[ survey.overallRating3 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating3 = 4">
+												<img class="img-responsive" ng-src="{[ survey.overallRating3 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating3 = 5" ng-src="{[ survey.overallRating3 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating3 = 5">
+												<img class="img-responsive" ng-src="{[ survey.overallRating3 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 										</div>
 									</div>
@@ -475,19 +540,24 @@
 										<div class="well"> {[ survey.review4 ]} </div>
 										<div class="btn-group btn-group-justified">
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating4 = 1" ng-src="{[ survey.overallRating4 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating4 = 1">
+												<img class="img-responsive" ng-src="{[ survey.overallRating4 >= 1? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating4 = 2" ng-src="{[ survey.overallRating4 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating4 = 2">
+												<img class="img-responsive" ng-src="{[ survey.overallRating4 >= 2? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating4 = 3" ng-src="{[ survey.overallRating4 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating4 = 3">
+												<img class="img-responsive" ng-src="{[ survey.overallRating4 >= 3? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating4 = 4" ng-src="{[ survey.overallRating4 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating4 = 4">
+												<img class="img-responsive" ng-src="{[ survey.overallRating4 >= 4? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 											<div class="btn-group">
-												<button type="button" class="btn btn-lg btn-default"> <img class="img-responsive" ng-click="survey.overallRating4 = 5" ng-src="{[ survey.overallRating4 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
+												<button type="button" class="btn btn-lg btn-default" ng-click="survey.overallRating4 = 5">
+												<img class="img-responsive" ng-src="{[ survey.overallRating4 >= 5? '{% static 'src/img/yellowStar.jpg' %}' : '{% static 'src/img/grayStar.jpg' %}']}"></button>
 											</div>
 										</div>
 									</div>

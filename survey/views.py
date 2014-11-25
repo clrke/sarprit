@@ -6,11 +6,7 @@ from django.forms.models import model_to_dict
 
 
 def index(request):
-	person = {
-		"name" : "Regine", 
-		"age" : 19
-	}
-	return render(request, 'survey/index.html', {"person": person})
+	return render(request, 'survey/index.html', {"reviews": Review.objects.order_by('-id').all()})
 
 def index2(request):
 	if request.method == "POST":
@@ -60,7 +56,7 @@ def index2(request):
 		for i in range(len(request.POST.getlist('sentence2[]'))):
 			s = Sentence(
 				sentence = request.POST.getlist('sentence2[]')[i],
-				subjective = request.POST.getlist('subjective2[]')[i],
+				subjective = request.POST.getlist('subjective2[]')[i] == 'true',
 				clue = request.POST.getlist('clue2[]')[i],
 				rating = request.POST.getlist('rating2[]')[i],
 				review = r2
@@ -70,7 +66,7 @@ def index2(request):
 		for i in range(len(request.POST.getlist('sentence3[]'))):
 			s = Sentence(
 				sentence = request.POST.getlist('sentence3[]')[i],
-				subjective = request.POST.getlist('subjective3[]')[i],
+				subjective = request.POST.getlist('subjective3[]')[i] == 'true',
 				clue = request.POST.getlist('clue3[]')[i],
 				rating = request.POST.getlist('rating3[]')[i],
 				review = r3
@@ -80,36 +76,48 @@ def index2(request):
 		for i in range(len(request.POST.getlist('sentence4[]'))):
 			s = Sentence(
 				sentence = request.POST.getlist('sentence4[]')[i],
-				subjective = request.POST.getlist('subjective4[]')[i],
+				subjective = request.POST.getlist('subjective4[]')[i] == 'true',
 				clue = request.POST.getlist('clue4[]')[i],
 				rating = request.POST.getlist('rating4[]')[i],
 				review = r4
 			)
 			s.save()
 
-		return to_json(request.POST)
+		return redirect(index)
 	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
-
-def test(request):
-	return to_json([{"data1": "Hello", "data2": "World"}, {"data1": "I", "data2": "am"}, {"data1": "Clarke", "data2": "Plumo"}])
 
 @login_required(login_url= '/admin/login/')
 def sections(request):
-	sections = Section.objects.all()
-	return render(request, 'admin/sections.html', {"sections": sections})
+	if request.method == 'POST':
+		id = int(request.POST['id'])
 
-@login_required(login_url= '/admin/login/')
-def set_section(request,id):
-	for section in Section.objects.all():
-		section.current = False
-		section.save()
+		for section in Section.objects.all():
+			section.current = False
+			section.save()
 
-	section = Section.objects.get(id=id)
-	section.current = True
-	section.save();
+		section = Section.objects.get(id=id)
+		section.current = True
+		section.save();
 
-	return redirect(sections)
+		return redirect(sections)
 
+	else:
+		return render(request, 'admin/sections.html', {"sections": Section.objects.all()})
+
+@login_required(login_url='/admin/login')
+def students(request):
+	current_section = Section.objects.get(current=True)
+
+	if request.method == "POST":
+		data = [student.split('\t') for student in request.POST['students'].split('\r\n')]
+		data = [(student[0], student[1]) for student in data]
+
+		for student in data:
+			Student(student_no=student[0], name=student[1], section=current_section).save()
+
+		return redirect(students)
+
+	return render(request, 'admin/students.html', { "current_section": Section.objects.get(current = True) })
 
 @login_required(login_url= '/admin/login/')
 def data(request):
@@ -129,8 +137,11 @@ def data(request):
 				for sentence in review.sentence_set.all():
 					sentence2 = model_to_dict(sentence)
 					sentences.append(sentence2)
+				review2['to_str']=review.__str__()
 				review2['sentences']=sentences
+			student2['to_str']=student.__str__()
 			student2['reviews']=reviews
+		section2['to_str']=section.__str__()
 		section2['students']=students
 
 	return to_json(sections)

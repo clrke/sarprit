@@ -4,7 +4,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 })
 .controller('SurveyCtrl', ['$http', function ($http) {
 	var survey = this;
-	
+
 	survey.review1 = '';
 	survey.review2 = '';
 	survey.review3 = '';
@@ -30,7 +30,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		var result2 = sentence2.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 		var result3 = sentence3.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
 		var result4 = sentence4.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
-		
+
 		survey.sentences1 = [];
 		survey.sentences2 = [];
 		survey.sentences3 = [];
@@ -45,7 +45,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		if (result3) {
 			for (var i = 0; i < result3.length; i++) {
 				survey.sentences3.push({value: result3[i], subjective: true, rating: 0});
-			}	
+			}
 		}
 		if (result4) {
 			for (var i = 0; i < result4.length; i++) {
@@ -58,9 +58,37 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		if(sentence.subjective) {
 			delete sentence.clue
 			delete sentence.rating
+			sentence.rating = 0;
 		}
 	}
 
+	survey.step2ok = function () {
+		for (var i = 0; i < survey.sentences1.length; i++) {
+			sentence = survey.sentences1[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences2.length; i++) {
+			sentence = survey.sentences2[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences3.length; i++) {
+			sentence = survey.sentences3[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		for (var i = 0; i < survey.sentences4.length; i++) {
+			sentence = survey.sentences4[i];
+			if( ! sentence.value)
+				return false;
+		};
+
+		return true;
+	}
 	survey.step3ok = function () {
 		for (var i = 0; i < survey.sentences1.length; i++) {
 			sentence = survey.sentences1[i];
@@ -102,4 +130,31 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 
 		return true;
 	}
+}])
+.controller('StudentsCtrl', ['$http', '$interval', function ($http, $interval) {
+	var students = this;
+	students.value = [];
+
+	students.refresh = function () {
+		$http.get('/admin/data').success(function (data) {
+			for (var i = 0; i < data.length; i++) {
+				if(data[i].current) {
+					students.value = data[i].students;
+					break;
+				}
+			};
+		});
+	}
+
+	$interval( function () {
+		students.refresh();
+	}, 10000);
+
+	students.refresh();
+}])
+.controller('SystemCtrl', ['$http', function ($http) {
+	var system = this;
+}])
+.controller('TwitterCtrl', ['$http', function ($http) {
+	var twitter = this;
 }]);
