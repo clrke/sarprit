@@ -1,4 +1,5 @@
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import SVC
 from sarprit import feature_extraction
 
 class SubjectivityClassifier(MultinomialNB):
@@ -50,3 +51,17 @@ class SentimentClassifier(MultinomialNB):
 		feature_names, features = feature_extraction.extract(predict_data, self.feature_names)
 
 		return super(SentimentClassifier, self).predict(features)
+
+
+class OverallClassifier(SVC):
+	def __init__(self):
+		super(OverallClassifier, self).__init__()
+
+	def fit(self, training_data, target):
+		self.features= training_data
+		self.target = target
+
+		return super(OverallClassifier, self).fit(self.features, self.target)
+
+	def predict(self, predict_data):
+		return super(OverallClassifier, self).predict(predict_data)

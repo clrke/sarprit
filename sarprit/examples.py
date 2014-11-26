@@ -1,5 +1,5 @@
 from sarprit import classifiers
-from survey.models import Sentence
+from survey.models import Sentence, Review
 
 def subjective_sentences():
 	return [
@@ -53,3 +53,20 @@ def sentiment_classifier(clue):
 	target = [1] * len(s1) + [2] * len(s2) + [3] * len(s3) + [4] * len(s4) + [5] * len(s5)
 
 	return classifiers.SentimentClassifier().fit(training_data, target)
+
+
+def overall_classifier():
+	reviews=Review.objects.all()
+	features=[]
+	targets=[]
+	for review in reviews:
+		sentence_count=review.sentence_set.count()
+		f=sum([sentence.rating for sentence in review.sentence_set.filter(clue='f')])/sentence_count
+		h=sum([sentence.rating for sentence in review.sentence_set.filter(clue='h')])/sentence_count
+		m=sum([sentence.rating for sentence in review.sentence_set.filter(clue='m')])/sentence_count
+		g=sum([sentence.rating for sentence in review.sentence_set.filter(clue='g')])/sentence_count
+
+		features.append([f,h,m,g])
+		targets.append(review.overall_sentiment)
+
+	return classifiers.OverallClassifier().fit(features, targets)
