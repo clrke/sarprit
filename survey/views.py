@@ -146,3 +146,19 @@ def data(request):
 
 	return to_json(sections)
 
+def data2(request):
+	reviews = []
+	for review in Review.objects.all():
+		review2 = model_to_dict(review)
+		review2['to_str'] = review.__str__()
+		review2['author'] = review.student.student_no
+		reviews.append(review2)
+
+	sentences = []
+	for sentence in Sentence.objects.all():
+		sentence2 = model_to_dict(sentence)
+		sentence2['to_str'] = sentence.__str__()
+		sentence2['author'] = sentence.review.student.student_no
+		sentences.append(sentence2)
+
+	return to_json({"reviews":reviews, "sentences":sentences});
