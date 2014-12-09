@@ -1,7 +1,7 @@
 from nltk.tokenize import TreebankWordTokenizer
 
 def get_unigrams(sentence):
-	return TreebankWordTokenizer().tokenize(sentence)
+	return [unigram.lower() for unigram in TreebankWordTokenizer().tokenize(sentence)]
 
 def get_all_unigrams(setences):
 	all_unigrams = []
