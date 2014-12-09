@@ -7,10 +7,13 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 	Sarprit.loading = false;
 
 	Sarprit.analyze = function (review) {
-		Sarprit.loading = true;
 		Sarprit.sentences = []
 
 		var sentences = review.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
+
+		Sarprit.loading = true;
+		Sarprit.curLoaded = 0;
+		Sarprit.maxLoaded = sentences.length * 3;
 
 		for (var i = 0; i < sentences.length; i++) {
 			Sarprit.sentences.push({value: sentences[i]});
@@ -20,13 +23,29 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 			$http.get('/classify/1/'+i+'/'+Sarprit.sentences[i].value).success(function (data) {
 				Sarprit.sentences[data.id] = data;
 
+				Sarprit.curLoaded++;
+
 				$http.get('/classify/2/'+data.id+'/'+Sarprit.sentences[data.id].value).success(function (data) {
 					Sarprit.sentences[data.id].clue = data.clue;
 					Sarprit.sentences[data.id].clue_id = data.clue_id;
 
+					Sarprit.curLoaded++;
+
 					$http.get('/classify/3/'+Sarprit.sentences[data.id].clue.toLowerCase()[0]+'/'+data.id+'/'+Sarprit.sentences[data.id].value).success(function (data) {
-						Sarprit.sentences[data.id].rating =
-						data.rating;
+						Sarprit.sentences[data.id].rating = data.rating;
+
+						Sarprit.curLoaded++;
+
+						if(Sarprit.curLoaded == Sarprit.maxLoaded) {
+							var ratings = '';
+							for (var i = 0; i < Sarprit.sentences.length; i++) {
+								ratings += Sarprit.sentences[i].rating;
+							};
+							$http.get('/classify/4/'+ratings).success(function (data) {
+								Sarprit.overallSentiment = data.rating;
+								Sarprit.loaded = false;
+							});
+						}
 					});
 				});
 			});

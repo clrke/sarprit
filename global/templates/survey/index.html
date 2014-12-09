@@ -73,7 +73,7 @@
 						<textarea class="form-control" placeholder="Insert review here" ng-model="review"></textarea>
 					</div>
 					<button type="submit" class="btn btn-primary"> Analyze </button>
-					<b ng-show="Sarprit.loading">Loading...</b>
+					<b ng-show="Sarprit.loading">Loading... [{[ Sarprit.curLoaded ]} / {[ Sarprit.maxLoaded ]}]</b>
 				</form>
 				<ul class="list-group" ng-show="Sarprit.sentences">
 					<li class="list-group-item list-group-item-info">
