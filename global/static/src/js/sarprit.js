@@ -2,6 +2,15 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
 })
+.controller('SarpritCtrl', [function () {
+	var Sarprit = this;
+	Sarprit.loading = false;
+
+	Sarprit.analyze = function (review) {
+		Sarprit.loading = true;
+		Sarprit.sentences = review.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
+	}
+}])
 .controller('SurveyCtrl', ['$http', function ($http) {
 	var survey = this;
 
