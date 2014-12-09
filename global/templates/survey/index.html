@@ -77,15 +77,15 @@
 				</form>
 				<ul class="list-group">
 					<li class="list-group-item list-group-item-info" ng-show="Sarprit.sentences">
-						<b> Sentence Splitting: </b>
+						<b> Sentence splitting: </b>
 						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences">{[ sentence ]}</li>
+							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences">{[ sentence.value ]}</li>
 						</ul>
 					</li>
 					<li class="list-group-item list-group-item-info" ng-show="Sarprit.sentences">
-						<b> Sentence Splitting: </b>
-						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences">{[ sentence ]}</li>
+						<b> Subjectivity classification: </b>
+						<ul class="list-group" >
+							<li class="list-group-item" ng-class="sentence.is_subjective ? 'list-group-item-success' : 'list-group-item-default'" ng-repeat="sentence in Sarprit.sentences">{[ sentence.value ]}</li>
 						</ul>
 					</li>
 				</ul>

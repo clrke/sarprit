@@ -70,3 +70,18 @@ def overall_classifier():
 		targets.append(review.overall_sentiment)
 
 	return classifiers.OverallClassifier().fit(features, targets)
+
+print('Initializing subjectivity classifier...')
+classifier1 = subjectivity_classifier();
+print('Initializing clues classifier...')
+classifier2 = clues_classifier();
+print('Initializing sentiment classifier for functional sentences...')
+classifier3a = sentiment_classifier('f');
+print('Initializing sentiment classifier for humanic sentences...')
+classifier3b = sentiment_classifier('h');
+print('Initializing sentiment classifier for mechanic sentences...')
+classifier3c = sentiment_classifier('m');
+print('Initializing sentiment classifier for general sentences...')
+classifier3d = sentiment_classifier('g');
+print('Initializing overall senteiment classifier...')
+classifier4 = overall_classifier();

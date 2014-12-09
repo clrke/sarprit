@@ -2,13 +2,25 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
 })
-.controller('SarpritCtrl', [function () {
+.controller('SarpritCtrl', ['$http', function ($http) {
 	var Sarprit = this;
 	Sarprit.loading = false;
 
 	Sarprit.analyze = function (review) {
 		Sarprit.loading = true;
-		Sarprit.sentences = review.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
+		Sarprit.sentences = []
+
+		var sentences = review.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
+
+		for (var i = 0; i < sentences.length; i++) {
+			Sarprit.sentences.push({value: sentences[i]});
+		};
+
+		for (var i = 0; i < Sarprit.sentences.length; i++) {
+			$http.get('/classify/1/'+Sarprit.sentences[i].value+'/'+i).success(function (data) {
+				Sarprit.sentences[data.id] = data;
+			});
+		};
 	}
 }])
 .controller('SurveyCtrl', ['$http', function ($http) {
