@@ -151,10 +151,10 @@
 									<div class="form-group">
 										<div class="input-group" ng-repeat="sentence in survey.sentences1">
 											<input type="text" class="form-control" ng-model="sentence.value">
-											<span class="btn btn-default input-group-addon" ng-click="survey.sentences1.splice($index, 0, {value: '', subjective: true, rating: 0})">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences1.splice($index+1, 0, {value: '', subjective: true, rating: 0})">
 												<b>+</b>
 											</span>
-											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences1.splice($index, 1)">
+											<span class="btn btn-default input-group-addon" ng-if="survey.sentences1.length > 1" ng-click="survey.sentences1.splice($index, 1)">
 												<b>-</b>
 											</span>
 										</div>
@@ -167,10 +167,10 @@
 									<div class="form-group">
 										<div class="input-group" ng-repeat="sentence in survey.sentences2">
 											<input type="text" class="form-control" ng-model="sentence.value">
-											<span class="btn btn-default input-group-addon" ng-click="survey.sentences2.splice($index, 0, {value: '', subjective: true, rating: 0})">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences2.splice($index+1, 0, {value: '', subjective: true, rating: 0})">
 												<b>+</b>
 											</span>
-											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences2.splice($index, 1)">
+											<span class="btn btn-default input-group-addon" ng-if="survey.sentences2.length > 1" ng-click="survey.sentences2.splice($index, 1)">
 												<b>-</b>
 											</span>
 										</div>
@@ -183,10 +183,10 @@
 									<div class="form-group">
 										<div class="input-group" ng-repeat="sentence in survey.sentences3">
 											<input type="text" class="form-control" ng-model="sentence.value">
-											<span class="btn btn-default input-group-addon" ng-click="survey.sentences3.splice($index, 0, {value: '', subjective: true, rating: 0})">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences3.splice($index+1, 0, {value: '', subjective: true, rating: 0})">
 												<b>+</b>
 											</span>
-											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences3.splice($index, 1)">
+											<span class="btn btn-default input-group-addon" ng-if="survey.sentences3.length > 1" ng-click="survey.sentences3.splice($index, 1)">
 												<b>-</b>
 											</span>
 										</div>
@@ -199,10 +199,10 @@
 									<div class="form-group">
 										<div class="input-group" ng-repeat="sentence in survey.sentences4">
 											<input type="text" class="form-control" ng-model="sentence.value">
-											<span class="btn btn-default input-group-addon" ng-click="survey.sentences4.splice($index, 0, {value: '', subjective: true, rating: 0})">
+											<span class="btn btn-default input-group-addon" ng-click="survey.sentences4.splice($index+1, 0, {value: '', subjective: true, rating: 0})">
 												<b>+</b>
 											</span>
-											<span class="btn btn-default input-group-addon" ng-if=" ! $first" ng-click="survey.sentences4.splice($index, 1)">
+											<span class="btn btn-default input-group-addon" ng-if="survey.sentences4.length > 1" ng-click="survey.sentences4.splice($index, 1)">
 												<b>-</b>
 											</span>
 										</div>
