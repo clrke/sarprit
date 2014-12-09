@@ -22,18 +22,18 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		};
 
 		for (var i = 0; i < Sarprit.sentences.length; i++) {
-			$http.get('/classify/1/'+i+'/'+Sarprit.sentences[i].value).success(function (data) {
+			$http.get('/classify/1/'+i+'/'+encodeURIComponent(Sarprit.sentences[i].value)).success(function (data) {
 				Sarprit.sentences[data.id] = data;
 
 				Sarprit.curLoaded++;
 
-				$http.get('/classify/2/'+data.id+'/'+Sarprit.sentences[data.id].value).success(function (data) {
+				$http.get('/classify/2/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
 					Sarprit.sentences[data.id].clue = data.clue;
 					Sarprit.sentences[data.id].clue_id = data.clue_id;
 
 					Sarprit.curLoaded++;
 
-					$http.get('/classify/3/'+Sarprit.sentences[data.id].clue.toLowerCase()[0]+'/'+data.id+'/'+Sarprit.sentences[data.id].value).success(function (data) {
+					$http.get('/classify/3/'+Sarprit.sentences[data.id].clue.toLowerCase()[0]+'/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
 						Sarprit.sentences[data.id].rating = data.rating;
 
 						Sarprit.curLoaded++;
