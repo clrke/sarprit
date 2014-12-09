@@ -25,3 +25,8 @@ def sentiment(request, clue, id, sentence):
 	rating = int(classifier.predict([sentence])[0])
 
 	return to_json({'id': id, 'rating': rating})
+
+def overall(request, functional, humanic, mechanic, general):
+	rating = classifier4.predict([[float(functional), float(humanic), float(mechanic), float(general)]])[0]
+
+	return to_json({'rating': int(rating)})
