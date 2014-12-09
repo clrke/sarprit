@@ -91,7 +91,15 @@
 					<li class="list-group-item list-group-item-info">
 						<b> Clues classification: </b>
 						<ul class="list-group" >
-							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true}"><b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
+							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true}" ng-show="sentence.clue"><b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
+						</ul>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<b> Sentiment analysis: </b>
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true}" ng-show="sentence.rating">
+								<img src="{% static 'src/img/yellowStar.jpg' %}" ng-repeat="i in Sarprit.range(sentence.rating) track by $index" style="width: 20px; height: 20px"><img src="{% static 'src/img/grayStar.jpg' %}" ng-repeat="i in Sarprit.range(5-sentence.rating) track by $index" style="width: 20px; height: 20px">
+								<b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
 						</ul>
 					</li>
 				</ul>

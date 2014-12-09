@@ -19,16 +19,27 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		for (var i = 0; i < Sarprit.sentences.length; i++) {
 			$http.get('/classify/1/'+i+'/'+Sarprit.sentences[i].value).success(function (data) {
 				Sarprit.sentences[data.id] = data;
+
+				$http.get('/classify/2/'+data.id+'/'+Sarprit.sentences[data.id].value).success(function (data) {
+					Sarprit.sentences[data.id].clue = data.clue;
+					Sarprit.sentences[data.id].clue_id = data.clue_id;
+
+					$http.get('/classify/3/'+Sarprit.sentences[data.id].clue.toLowerCase()[0]+'/'+data.id+'/'+Sarprit.sentences[data.id].value).success(function (data) {
+						Sarprit.sentences[data.id].rating =
+						data.rating;
+					});
+				});
 			});
 		};
 
 		for (var i = 0; i < Sarprit.sentences.length; i++) {
-			$http.get('/classify/2/'+i+'/'+Sarprit.sentences[i].value).success(function (data) {
-				Sarprit.sentences[data.id].clue = data.clue;
-				Sarprit.sentences[data.id].clue_id = data.clue_id;
-			});
+
 		};
 	}
+
+	Sarprit.range = function(n) {
+        return new Array(n);
+    };
 }])
 .controller('SurveyCtrl', ['$http', function ($http) {
 	var survey = this;
