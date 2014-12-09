@@ -43,7 +43,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 							};
 							$http.get('/classify/4/'+ratings).success(function (data) {
 								Sarprit.overallSentiment = data.rating;
-								Sarprit.loaded = false;
+								Sarprit.loading = false;
 							});
 						}
 					});
