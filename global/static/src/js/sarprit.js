@@ -17,8 +17,15 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		};
 
 		for (var i = 0; i < Sarprit.sentences.length; i++) {
-			$http.get('/classify/1/'+Sarprit.sentences[i].value+'/'+i).success(function (data) {
+			$http.get('/classify/1/'+i+'/'+Sarprit.sentences[i].value).success(function (data) {
 				Sarprit.sentences[data.id] = data;
+			});
+		};
+
+		for (var i = 0; i < Sarprit.sentences.length; i++) {
+			$http.get('/classify/2/'+i+'/'+Sarprit.sentences[i].value).success(function (data) {
+				Sarprit.sentences[data.id].clue = data.clue;
+				Sarprit.sentences[data.id].clue_id = data.clue_id;
 			});
 		};
 	}

@@ -75,17 +75,23 @@
 					<button type="submit" class="btn btn-primary"> Analyze </button>
 					<b ng-show="Sarprit.loading">Loading...</b>
 				</form>
-				<ul class="list-group">
-					<li class="list-group-item list-group-item-info" ng-show="Sarprit.sentences">
+				<ul class="list-group" ng-show="Sarprit.sentences">
+					<li class="list-group-item list-group-item-info">
 						<b> Sentence splitting: </b>
 						<ul class="list-group">
 							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences">{[ sentence.value ]}</li>
 						</ul>
 					</li>
-					<li class="list-group-item list-group-item-info" ng-show="Sarprit.sentences">
+					<li class="list-group-item list-group-item-info">
 						<b> Subjectivity classification: </b>
 						<ul class="list-group" >
 							<li class="list-group-item" ng-class="sentence.is_subjective ? 'list-group-item-success' : 'list-group-item-default'" ng-repeat="sentence in Sarprit.sentences">{[ sentence.value ]}</li>
+						</ul>
+					</li>
+					<li class="list-group-item list-group-item-info">
+						<b> Clues classification: </b>
+						<ul class="list-group" >
+							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true}"><b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
 						</ul>
 					</li>
 				</ul>
