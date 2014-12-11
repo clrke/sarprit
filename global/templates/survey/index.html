@@ -93,12 +93,36 @@
 					<li class="list-group-item list-group-item-info">
 						<b> Subjectivity classification: </b>
 						<ul class="list-group" >
+							<li class="list-group-item">
+								<div class="table-responsive table-responsive2">
+									<table class="table table-bordered">
+										<tr>
+											<th ng-repeat="feature_name in Sarprit.sentences[0].features[0]"> {[ feature_name | lowercase ]} </th>
+										</tr>
+										<tr ng-repeat="sentence in Sarprit.sentences">
+											<td ng-repeat="feature in sentence.features[1][0] track by $index"> {[ feature ? (feature | number) : ''  ]} </td>
+										</tr>
+									</table>
+								</div>
+							</li>
 							<li class="list-group-item" ng-class="sentence.is_subjective ? 'list-group-item-success' : 'list-group-item-default'" ng-repeat="sentence in Sarprit.sentences">{[ sentence.value ]}</li>
 						</ul>
 					</li>
 					<li class="list-group-item list-group-item-info">
 						<b> Clues classification: </b>
 						<ul class="list-group" >
+							<li class="list-group-item">
+								<div class="table-responsive table-responsive2">
+									<table class="table table-bordered">
+										<tr>
+											<th ng-repeat="feature_name in Sarprit.sentences[0].features2[0]"> {[ feature_name | lowercase ]} </th>
+										</tr>
+										<tr ng-repeat="sentence in Sarprit.sentences">
+											<td ng-repeat="feature in sentence.features2[1][0] track by $index"> {[ feature ? (feature | number) : ''  ]} </td>
+										</tr>
+									</table>
+								</div>
+							</li>
 							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true}" ng-show="sentence.clue"><b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
 						</ul>
 					</li>
@@ -107,7 +131,18 @@
 						<ul class="list-group">
 							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true}" ng-show="sentence.rating">
 								<img src="{% static 'src/img/yellowStar.jpg' %}" ng-repeat="i in Sarprit.range(sentence.rating) track by $index" style="width: 20px; height: 20px"><img src="{% static 'src/img/grayStar.jpg' %}" ng-repeat="i in Sarprit.range(5-sentence.rating) track by $index" style="width: 20px; height: 20px">
-								<b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
+								<b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}
+								<div class="table-responsive table-responsive2">
+									<table class="table table-bordered">
+										<tr>
+											<th ng-repeat="feature_name in sentence.features3[0]"> {[ feature_name | lowercase ]} </th>
+										</tr>
+										<tr>
+											<td ng-repeat="feature in sentence.features3[1][0] track by $index"> {[ feature ? (feature | number) : ''  ]} </td>
+										</tr>
+									</table>
+								</div>
+							</li>
 						</ul>
 					</li>
 				</ul>

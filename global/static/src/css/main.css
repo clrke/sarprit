@@ -1,3 +1,5 @@
+.table-responsive2 { width:600px; max-width:600px; overflow-x:scroll;}
+
 body {
 	background-color: #ACF;
 }

@@ -30,11 +30,13 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 				$http.get('/classify/2/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
 					Sarprit.sentences[data.id].clue = data.clue;
 					Sarprit.sentences[data.id].clue_id = data.clue_id;
+					Sarprit.sentences[data.id].features2 = data.features;
 
 					Sarprit.curLoaded++;
 
 					$http.get('/classify/3/'+Sarprit.sentences[data.id].clue.toLowerCase()[0]+'/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
 						Sarprit.sentences[data.id].rating = data.rating;
+						Sarprit.sentences[data.id].features3 = data.features;
 
 						Sarprit.curLoaded++;
 
