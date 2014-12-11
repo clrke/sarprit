@@ -1,7 +1,7 @@
 from nltk.tokenize import TreebankWordTokenizer
 
 def get_unigrams(sentence):
-	return [unigram.lower() for unigram in TreebankWordTokenizer().tokenize(sentence)]
+	return [unigram for unigram in TreebankWordTokenizer().tokenize(sentence)]
 
 def get_all_unigrams(setences):
 	all_unigrams = []
@@ -23,6 +23,22 @@ def get_all_features(sentences):
 
 	return all_features
 
+def get_capitalization_points(feature):
+	capitalization_points = 0
+	for c in feature:
+		if c.isupper():
+			capitalization_points += 1
+
+	return 1 + capitalization_points / len(feature)
+
+def get_feature_points(features, feature):
+	feature_points = 0
+	for f in features:
+		if f.lower() == feature.lower():
+			feature_points += get_capitalization_points(f)
+
+	return feature_points
+
 def extract(sentences, feature_names=None):
 	if feature_names is None:
 		feature_names = get_all_features(sentences)
@@ -31,6 +47,6 @@ def extract(sentences, feature_names=None):
 
 	for sentence in sentences:
 		features = get_features(sentence)
-		data.append([features.count(feature) for feature in feature_names])
+		data.append([get_feature_points(features, feature) for feature in feature_names])
 
 	return feature_names, data
