@@ -84,7 +84,7 @@ print('Initializing sentiment classifier for mechanic sentences...')
 classifier3c = sentiment_classifier('m')
 print('Initializing sentiment classifier for general sentences...')
 classifier3d = sentiment_classifier('g')
-print('Initializing overall senteiment classifier...')
+print('Initializing overall sentiment classifier...')
 classifier4 = overall_classifier()
 
 def classifiers_refresh():
@@ -102,5 +102,5 @@ def classifiers_refresh():
 	classifier3c = sentiment_classifier('m')
 	print('Initializing sentiment classifier for general sentences...')
 	classifier3d = sentiment_classifier('g')
-	print('Initializing overall senteiment classifier...')
+	print('Initializing overall sentiment classifier...')
 	classifier4 = overall_classifier()
