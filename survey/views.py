@@ -3,7 +3,7 @@ from sarprit.shortcuts import to_json
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
-
+from sarprit.examples import classifiers_refresh
 
 def index(request):
 	return render(request, 'survey/index.html', {"reviews": Review.objects.order_by('-id').all()})
@@ -78,6 +78,8 @@ def index2(request):
 				review = r4
 			)
 			s.save()
+
+		classifiers_refresh()
 
 		return redirect(index)
 	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
