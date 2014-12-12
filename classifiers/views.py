@@ -3,6 +3,17 @@ from sarprit.shortcuts import to_json
 from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 from sarprit.feature_extraction import extract
 
+def home(request):
+	return render(request, 'classifiers/index.html',
+		{
+			'classifier1' : { 'feature_names': classifier1.feature_names, 'data': [(classifier1.features[i], classifier1.target[i]) for i in range(len(classifier1.features))] },
+			'classifier2' : classifier2,
+			'classifier3a' : classifier3a,
+			'classifier3b' : classifier3b,
+			'classifier3c' : classifier3c,
+			'classifier3d' : classifier3d,
+			'classifier4' : classifier4,
+		})
 def subjectivity(request, id, sentence):
 	is_subjective = classifier1.predict([sentence])[0]
 	return to_json({'id': id, 'value': sentence, 'is_subjective': int(is_subjective) is 0, 'features': extract([sentence], classifier1.feature_names)})
