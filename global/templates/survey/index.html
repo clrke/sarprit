@@ -70,7 +70,7 @@
 			<div class="well" ng-controller="SarpritCtrl as Sarprit" ng-show="nav1 == 3">
 				<form ng-submit="Sarprit.analyze(review)">
 					<div class="form-group">
-						<textarea class="form-control" placeholder="Insert review here" ng-model="review"></textarea>
+						<textarea class="form-control" placeholder="Insert review here" ng-model="review" required></textarea>
 						<div class="panel panel-default" ng-show="Sarprit.loading || Sarprit.overallSentiment">
 							<div class="panel-body">
 								<b ng-show="Sarprit.loading">Loading... [{[ Sarprit.curLoaded ]} / {[ Sarprit.maxLoaded ]}]</b>
