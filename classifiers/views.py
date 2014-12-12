@@ -12,7 +12,7 @@ def home(request):
 			'classifier3b' : { 'feature_names': classifier3b.feature_names, 'data': [(classifier3b.features[i], classifier3b.target[i]) for i in range(len(classifier3b.features))] },
 			'classifier3c' : { 'feature_names': classifier3c.feature_names, 'data': [(classifier3c.features[i], classifier3c.target[i]) for i in range(len(classifier3c.features))] },
 			'classifier3d' : { 'feature_names': classifier3d.feature_names, 'data': [(classifier3d.features[i], classifier3d.target[i]) for i in range(len(classifier3d.features))] },
-			'classifier4' : classifier4,
+			'classifier4' :  { 'feature_names': classifier4.feature_names, 'data': sorted([(classifier4.features[i], classifier4.target[i]) for i in range(len(classifier4.features))], key=lambda x: x[1]) },
 		})
 def subjectivity(request, id, sentence):
 	is_subjective = classifier1.predict([sentence])[0]

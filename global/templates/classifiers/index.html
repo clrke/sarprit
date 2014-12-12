@@ -201,6 +201,38 @@
 					</div>
 				</div>
 			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
+						Overall Sentiment Analysis (<b>Green:</b> Positive, <b>White:</b> Neutral, <b>Red:</b> Negative)
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive2">
+						<table class="table table-bordered">
+							<tr>
+								{% for feature_name in classifier4.feature_names %}
+									<th> {{ feature_name }} </th>
+								{% endfor %}
+							</tr>
+							{% for features, target in classifier4.data %}
+								<tr class="
+									{% if target < 3 %}
+										danger
+									{% elif target == 3 %}
+										default
+									{% elif target > 3 %}
+										success
+									{% endif %}">
+									{% for feature in features %}
+										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+									{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

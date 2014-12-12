@@ -58,6 +58,7 @@ class OverallClassifier(SVC):
 		super(OverallClassifier, self).__init__()
 
 	def fit(self, training_data, target):
+		self.feature_names = ['Functional', 'Humanic', 'Mechanic', 'General']
 		self.features= training_data
 		self.target = target
 
