@@ -73,6 +73,134 @@
 					</div>
 				</div>
 			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
+						Sentiment Analysis <b>[Functional]</b> (<b>Green:</b> Positive, <b>White:</b> Neutral, <b>Red:</b> Negative)
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive2">
+						<table class="table table-bordered">
+							<tr>
+								{% for feature_name in classifier3a.feature_names %}
+									<th> {{ feature_name }} </th>
+								{% endfor %}
+							</tr>
+							{% for features, target in classifier3a.data %}
+								<tr class="
+									{% if target < 3 %}
+										danger
+									{% elif target == 3 %}
+										default
+									{% elif target > 3 %}
+										success
+									{% endif %}">
+									{% for feature in features %}
+										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+									{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
+						Sentiment Analysis <b>[Humanic]</b> (<b>Green:</b> Positive, <b>White:</b> Neutral, <b>Red:</b> Negative)
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive2">
+						<table class="table table-bordered">
+							<tr>
+								{% for feature_name in classifier3b.feature_names %}
+									<th> {{ feature_name }} </th>
+								{% endfor %}
+							</tr>
+							{% for features, target in classifier3b.data %}
+								<tr class="
+									{% if target < 3 %}
+										danger
+									{% elif target == 3 %}
+										default
+									{% elif target > 3 %}
+										success
+									{% endif %}">
+									{% for feature in features %}
+										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+									{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
+						Sentiment Analysis <b>[Mechanic]</b> (<b>Green:</b> Positive, <b>White:</b> Neutral, <b>Red:</b> Negative)
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive2">
+						<table class="table table-bordered">
+							<tr>
+								{% for feature_name in classifier3c.feature_names %}
+									<th> {{ feature_name }} </th>
+								{% endfor %}
+							</tr>
+							{% for features, target in classifier3c.data %}
+								<tr class="
+									{% if target < 3 %}
+										danger
+									{% elif target == 3 %}
+										default
+									{% elif target > 3 %}
+										success
+									{% endif %}">
+									{% for feature in features %}
+										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+									{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
+						Sentiment Analysis <b>[General]</b> (<b>Green:</b> Positive, <b>White:</b> Neutral, <b>Red:</b> Negative)
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive2">
+						<table class="table table-bordered">
+							<tr>
+								{% for feature_name in classifier3d.feature_names %}
+									<th> {{ feature_name }} </th>
+								{% endfor %}
+							</tr>
+							{% for features, target in classifier3d.data %}
+								<tr class="
+									{% if target < 3 %}
+										danger
+									{% elif target == 3 %}
+										default
+									{% elif target > 3 %}
+										success
+									{% endif %}">
+									{% for feature in features %}
+										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+									{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
