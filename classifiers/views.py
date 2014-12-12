@@ -7,7 +7,7 @@ def home(request):
 	return render(request, 'classifiers/index.html',
 		{
 			'classifier1' : { 'feature_names': classifier1.feature_names, 'data': [(classifier1.features[i], classifier1.target[i]) for i in range(len(classifier1.features))] },
-			'classifier2' : classifier2,
+			'classifier2' : { 'feature_names': classifier2.feature_names, 'data': [(classifier2.features[i], classifier2.target[i]) for i in range(len(classifier2.features))] },
 			'classifier3a' : classifier3a,
 			'classifier3b' : classifier3b,
 			'classifier3c' : classifier3c,

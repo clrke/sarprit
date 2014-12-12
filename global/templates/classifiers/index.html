@@ -39,6 +39,40 @@
 					</div>
 				</div>
 			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
+						Clues Classification (<b>Blue:</b> Functional, <b>Yellow:</b> Humanic, <b>Red:</b> Mechanic, <b>Green:</b> General)
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive2">
+						<table class="table table-bordered">
+							<tr>
+								{% for feature_name in classifier2.feature_names %}
+									<th> {{ feature_name }} </th>
+								{% endfor %}
+							</tr>
+							{% for features, target in classifier2.data %}
+								<tr class="
+									{% if target == 0 %}
+										info
+									{% elif target == 1 %}
+										warning
+									{% elif target == 2 %}
+										danger
+									{% elif target == 3 %}
+										success
+									{% endif %}">
+									{% for feature in features %}
+										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+									{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
