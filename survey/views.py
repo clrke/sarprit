@@ -41,7 +41,7 @@ def index2(request):
 		for i in range(len(request.POST.getlist('sentence1[]'))):
 			s = Sentence(
 				sentence = request.POST.getlist('sentence1[]')[i],
-				subjective = request.POST.getlist('subjective1[]')[i],
+				subjective = request.POST.getlist('subjective1[]')[i] == 'true',
 				clue = request.POST.getlist('clue1[]')[i],
 				rating = request.POST.getlist('rating1[]')[i],
 				review = r1
