@@ -8,7 +8,7 @@ def get_all_unigrams(setences):
 
 	for sentence in setences:
 		for token in get_unigrams(sentence):
-			if token not in all_unigrams:
+			if token.lower() not in [unigram.lower() for unigram in all_unigrams]:
 				all_unigrams.append(token)
 
 	return all_unigrams
