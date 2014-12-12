@@ -17,59 +17,43 @@
 <body>
 	<div class="col-md-offset-1 col-md-10">
 		<form method="post" action="/survey/" ng-controller="SurveyCtrl as survey"> {% csrf_token %}
-			<div class="well">
-				<center>
-					<div class="form-inline">
-						<h2><b>Section: {{ current_section }}</b></h2> <br />
-						<b>Student Number: </b>
-						<select class="form-control" name="student">
-							{% for student in current_section.student_set.all %}
-								{% if not student.review_set.all|length %}
-									<option>{{ student.student_no.upper }}</option>
-								{% endif %}
-							{% endfor %}
-						</select>
+			<input type="hidden" name="namedrop1" ng-value="survey.name1" />
+			<input type="hidden" name="namedrop2" ng-value="survey.name2" />
+			<input type="hidden" name="namedrop3" ng-value="survey.name3" />
+			<input type="hidden" name="namedrop4" ng-value="survey.name4" />
 
-						<input type="hidden" name="namedrop1" ng-value="survey.name1" />
-						<input type="hidden" name="namedrop2" ng-value="survey.name2" />
-						<input type="hidden" name="namedrop3" ng-value="survey.name3" />
-						<input type="hidden" name="namedrop4" ng-value="survey.name4" />
+			<input type="hidden" name="overall_sentiment1" ng-value="survey.overallRating1" />
+			<input type="hidden" name="overall_sentiment2" ng-value="survey.overallRating2" />
+			<input type="hidden" name="overall_sentiment3" ng-value="survey.overallRating3" />
+			<input type="hidden" name="overall_sentiment4" ng-value="survey.overallRating4" />
 
-						<input type="hidden" name="overall_sentiment1" ng-value="survey.overallRating1" />
-						<input type="hidden" name="overall_sentiment2" ng-value="survey.overallRating2" />
-						<input type="hidden" name="overall_sentiment3" ng-value="survey.overallRating3" />
-						<input type="hidden" name="overall_sentiment4" ng-value="survey.overallRating4" />
+			<span ng-repeat="sentence in survey.sentences1">
+				<input type="hidden" name="sentence1[]" ng-value="sentence.value">
+				<input type="hidden" name="subjective1[]" ng-value="sentence.subjective">
+				<input type="hidden" name="clue1[]" ng-value="sentence.clue">
+				<input type="hidden" name="rating1[]" ng-value="sentence.rating">
+			</span>
 
-						<span ng-repeat="sentence in survey.sentences1">
-							<input type="hidden" name="sentence1[]" ng-value="sentence.value">
-							<input type="hidden" name="subjective1[]" ng-value="sentence.subjective">
-							<input type="hidden" name="clue1[]" ng-value="sentence.clue">
-							<input type="hidden" name="rating1[]" ng-value="sentence.rating">
-						</span>
+			<span ng-repeat="sentence in survey.sentences2">
+				<input type="hidden" name="sentence2[]" ng-value="sentence.value">
+				<input type="hidden" name="subjective2[]" ng-value="sentence.subjective">
+				<input type="hidden" name="clue2[]" ng-value="sentence.clue">
+				<input type="hidden" name="rating2[]" ng-value="sentence.rating">
+			</span>
 
-						<span ng-repeat="sentence in survey.sentences2">
-							<input type="hidden" name="sentence2[]" ng-value="sentence.value">
-							<input type="hidden" name="subjective2[]" ng-value="sentence.subjective">
-							<input type="hidden" name="clue2[]" ng-value="sentence.clue">
-							<input type="hidden" name="rating2[]" ng-value="sentence.rating">
-						</span>
+			<span ng-repeat="sentence in survey.sentences3">
+				<input type="hidden" name="sentence3[]" ng-value="sentence.value">
+				<input type="hidden" name="subjective3[]" ng-value="sentence.subjective">
+				<input type="hidden" name="clue3[]" ng-value="sentence.clue">
+				<input type="hidden" name="rating3[]" ng-value="sentence.rating">
+			</span>
 
-						<span ng-repeat="sentence in survey.sentences3">
-							<input type="hidden" name="sentence3[]" ng-value="sentence.value">
-							<input type="hidden" name="subjective3[]" ng-value="sentence.subjective">
-							<input type="hidden" name="clue3[]" ng-value="sentence.clue">
-							<input type="hidden" name="rating3[]" ng-value="sentence.rating">
-						</span>
-
-						<span ng-repeat="sentence in survey.sentences4">
-							<input type="hidden" name="sentence4[]" ng-value="sentence.value">
-							<input type="hidden" name="subjective4[]" ng-value="sentence.subjective">
-							<input type="hidden" name="clue4[]" ng-value="sentence.clue">
-							<input type="hidden" name="rating4[]" ng-value="sentence.rating">
-						</span>
-					</div>
-				</center>
-			</div>
+			<span ng-repeat="sentence in survey.sentences4">
+				<input type="hidden" name="sentence4[]" ng-value="sentence.value">
+				<input type="hidden" name="subjective4[]" ng-value="sentence.subjective">
+				<input type="hidden" name="clue4[]" ng-value="sentence.clue">
+				<input type="hidden" name="rating4[]" ng-value="sentence.rating">
+			</span>
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-default">
 					<div class="panel-heading">

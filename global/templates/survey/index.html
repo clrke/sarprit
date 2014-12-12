@@ -24,7 +24,6 @@
 				<ul class="list-group">
 					<li class="list-group-item" ng-repeat="review in system.reviews | orderBy: '-id'">
 						{[ review.to_str ]} <br/>
-						<small style="color:#999; padding-left: 20px"> by {[ review.author ]} </small>
 					</li>
 				</ul>
 			</div>
@@ -63,7 +62,6 @@
 				<ul class="list-group">
 					<li class="list-group-item" ng-repeat="sentence in system.sentences | orderBy: '-id' | filter: {subjective: nav2, clue: nav3, rating: nav4}">
 						{[ sentence.to_str ]} <br/>
-						<small style="color:#999; padding-left: 20px"> by {[ sentence.author ]} </small>
 					</li>
 				</ul>
 			</div>

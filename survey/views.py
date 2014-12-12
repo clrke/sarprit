@@ -14,7 +14,6 @@ def index2(request):
 		r1 = Review(
 			namedrop=request.POST['namedrop1'],
 			overall_sentiment=request.POST['overall_sentiment1'],
-			student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
 		)
 		r1.save()
 
@@ -22,7 +21,6 @@ def index2(request):
 		r2 = Review(
 			namedrop=request.POST['namedrop2'],
 			overall_sentiment=request.POST['overall_sentiment2'],
-			student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
 		)
 		r2.save()
 
@@ -30,14 +28,12 @@ def index2(request):
 			r3 = Review(
 				namedrop=request.POST['namedrop3'],
 				overall_sentiment=request.POST['overall_sentiment3'],
-				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
 			)
 			r3.save()
 		if len(request.POST.getlist('sentence4[]')):
 			r4 = Review(
 				namedrop=request.POST['namedrop4'],
 				overall_sentiment=request.POST['overall_sentiment4'],
-				student=Student.objects.filter(student_no__iexact=request.POST['student'])[0]
 			)
 			r4.save()
 
@@ -151,14 +147,12 @@ def data2(request):
 	for review in Review.objects.all():
 		review2 = model_to_dict(review)
 		review2['to_str'] = review.__str__()
-		review2['author'] = review.student.student_no
 		reviews.append(review2)
 
 	sentences = []
 	for sentence in Sentence.objects.all():
 		sentence2 = model_to_dict(sentence)
 		sentence2['to_str'] = sentence.__str__()
-		sentence2['author'] = sentence.review.student.student_no
 		sentences.append(sentence2)
 
 	return to_json({"reviews":reviews, "sentences":sentences});
