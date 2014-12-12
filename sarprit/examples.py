@@ -88,6 +88,8 @@ print('Initializing overall senteiment classifier...')
 classifier4 = overall_classifier()
 
 def classifiers_refresh():
+	from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
+
 	print('Initializing subjectivity classifier...')
 	classifier1 = subjectivity_classifier()
 	print('Initializing clues classifier...')
