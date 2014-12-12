@@ -31,7 +31,7 @@
 							{% for features, target in classifier1.data %}
 								<tr class="{% if target == 0 %} success {% else %} danger {% endif %}">
 									{% for feature in features %}
-										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+										<td> {% if feature %} <small> <small> <small> {{ feature | floatformat:2 }} </small> </small> </small> {% endif %} </td>
 									{% endfor %}
 								</tr>
 							{% endfor %}
@@ -65,7 +65,7 @@
 										success
 									{% endif %}">
 									{% for feature in features %}
-										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+										<td> {% if feature %} <small> <small> <small> {{ feature | floatformat:2 }} </small> </small> </small> {% endif %} </td>
 									{% endfor %}
 								</tr>
 							{% endfor %}
@@ -97,7 +97,7 @@
 										success
 									{% endif %}">
 									{% for feature in features %}
-										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+										<td> {% if feature %} <small> <small> <small> {{ feature | floatformat:2 }} </small> </small> </small> {% endif %} </td>
 									{% endfor %}
 								</tr>
 							{% endfor %}
@@ -129,7 +129,7 @@
 										success
 									{% endif %}">
 									{% for feature in features %}
-										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+										<td> {% if feature %} <small> <small> <small> {{ feature | floatformat:2 }} </small> </small> </small> {% endif %} </td>
 									{% endfor %}
 								</tr>
 							{% endfor %}
@@ -161,7 +161,7 @@
 										success
 									{% endif %}">
 									{% for feature in features %}
-										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+										<td> {% if feature %} <small> <small> <small> {{ feature | floatformat:2 }} </small> </small> </small> {% endif %} </td>
 									{% endfor %}
 								</tr>
 							{% endfor %}
@@ -193,7 +193,7 @@
 										success
 									{% endif %}">
 									{% for feature in features %}
-										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+										<td> {% if feature %} <small> <small> <small> {{ feature | floatformat:2 }} </small> </small> </small> {% endif %} </td>
 									{% endfor %}
 								</tr>
 							{% endfor %}
@@ -225,7 +225,7 @@
 										success
 									{% endif %}">
 									{% for feature in features %}
-										<td> {% if feature %} {{ feature | floatformat:2 }} {% endif %} </td>
+										<td> {% if feature %} <small> <small> <small> {{ feature | floatformat:2 }} </small> </small> </small> {% endif %} </td>
 									{% endfor %}
 								</tr>
 							{% endfor %}
