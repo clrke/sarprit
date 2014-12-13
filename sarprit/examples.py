@@ -72,35 +72,34 @@ def overall_classifier():
 	return classifiers.OverallClassifier().fit(features, targets)
 
 
-print('Initializing subjectivity classifier...')
-classifier1 = subjectivity_classifier()
-print('Initializing clues classifier...')
-classifier2 = clues_classifier()
-print('Initializing sentiment classifier for functional sentences...')
-classifier3a = sentiment_classifier('f')
-print('Initializing sentiment classifier for humanic sentences...')
-classifier3b = sentiment_classifier('h')
-print('Initializing sentiment classifier for mechanic sentences...')
-classifier3c = sentiment_classifier('m')
-print('Initializing sentiment classifier for general sentences...')
-classifier3d = sentiment_classifier('g')
-print('Initializing overall sentiment classifier...')
-classifier4 = overall_classifier()
-
 def classifiers_refresh():
-	from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
-
 	print('Initializing subjectivity classifier...')
+	global classifier1
 	classifier1 = subjectivity_classifier()
 	print('Initializing clues classifier...')
+	global classifier2
 	classifier2 = clues_classifier()
 	print('Initializing sentiment classifier for functional sentences...')
+	global classifier3a
 	classifier3a = sentiment_classifier('f')
 	print('Initializing sentiment classifier for humanic sentences...')
+	global classifier3b
 	classifier3b = sentiment_classifier('h')
 	print('Initializing sentiment classifier for mechanic sentences...')
+	global classifier3c
 	classifier3c = sentiment_classifier('m')
 	print('Initializing sentiment classifier for general sentences...')
+	global classifier3d
 	classifier3d = sentiment_classifier('g')
 	print('Initializing overall sentiment classifier...')
+	global classifier4
 	classifier4 = overall_classifier()
+
+classifier1 = None
+classifier2 = None
+classifier3a = None
+classifier3b = None
+classifier3c = None
+classifier3d = None
+classifier4 = None
+classifiers_refresh()

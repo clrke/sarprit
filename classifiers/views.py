@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from sarprit.shortcuts import to_json
-from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 from sarprit.feature_extraction import extract
 
 def home(request):
+	from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 	return render(request, 'classifiers/index.html',
 		{
 			'classifier1' : { 'feature_names': classifier1.feature_names, 'data': [(classifier1.features[i], classifier1.target[i]) for i in range(len(classifier1.features))] },
