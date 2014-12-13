@@ -1,6 +1,4 @@
-### Implementation of Subjectivity and Clues Classifications in 
-### Sentiment Analysis of Philippine Restaurants Reviews in Twitter
-### Using Multinomial Naive Bayes and Support Vector Classifiers
+Sentiment Analyzer of Philippine Restaurants Reviews in Twitter
 ====
 This is a system developed to find the positivity and negativity of Philippine restaurants reviews that have been written in tweet form.
 
