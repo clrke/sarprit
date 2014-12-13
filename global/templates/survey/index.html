@@ -16,9 +16,9 @@
 		</div>
 		<div class="container">
 			<ul class="nav nav-tabs" ng-init="nav1 = 1">
-				<li role="presentation" ng-class="{'active': nav1 == 1}" ng-model="nav1" ng-click="nav1 = 1"><a href="#">Whole Review</a> </li>
-				<li role="presentation" ng-class="{'active': nav1 == 2}" ng-model="nav1" ng-click="nav1 = 2"><a href="#">Per Sentence</a></li>
-				<li role="presentation" ng-class="{'active': nav1 == 3}" ng-model="nav1" ng-click="nav1 = 3"><a href="#">Test Analysis</a></li>
+				<li role="presentation" ng-class="{'active': nav1 == 1}" ng-click="nav1 = 1"><a href="#">Whole Review</a> </li>
+				<li role="presentation" ng-class="{'active': nav1 == 2}" ng-click="nav1 = 2"><a href="#">Per Sentence</a></li>
+				<li role="presentation" ng-class="{'active': nav1 == 3}" ng-click="nav1 = 3"><a href="#">Test Analysis</a></li>
 			</ul>
 			<div class="well" ng-controller="SystemCtrl as system" ng-show="nav1 == 1">
 				<ul class="list-group">
