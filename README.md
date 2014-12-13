@@ -17,7 +17,7 @@ And install __Python 3.4__ along with the following dependencies:
     $ pip install django numpy scipy scikit-learn
 
 #### Windows Installers
-    http://www.lfd.uci.edu/~gohlke/pythonlibs/
+* http://www.lfd.uci.edu/~gohlke/pythonlibs/
     
 ## How to use
 
