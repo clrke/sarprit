@@ -24,10 +24,16 @@
 					<div class="table-responsive2">
 						<table class="table table-bordered">
 							<tr>
-								<th colspan="2"> <small> <small> <small> Subjectivity Classification </small> </small> </small> </th>
-								<th colspan="4"> <small> <small> <small> Clues Classification </small> </small> </small> </th>
-								<th colspan="3"> <small> <small> <small> Sentiment Analysis </small> </small> </small> </th>
-								<th colspan="3"> <small> <small> <small> Overall Sentiment Analysis </small> </small> </small> </th>
+								<th colspan="2" rowspan="2"> <small> <small> <small> Subjectivity Classification </small> </small> </small> </th>
+								<th colspan="4" rowspan="2"> <small> <small> <small> Clues Classification </small> </small> </small> </th>
+								<th colspan="12"> <small> <small> <small> Sentiment Analysis </small> </small> </small> </th>
+								<th colspan="3" rowspan="2"> <small> <small> <small> Overall Sentiment Analysis </small> </small> </small> </th>
+							</tr>
+							<tr>
+								<th colspan="3"> <small> <small> <small> Functional </small> </small> </small> </th>
+								<th colspan="3"> <small> <small> <small> Humanic </small> </small> </small> </th>
+								<th colspan="3"> <small> <small> <small> Mechanic </small> </small> </small> </th>
+								<th colspan="3"> <small> <small> <small> General </small> </small> </small> </th>
 							</tr>
 							<tr>
 								<th> <small> <small> <small> Subjective </small> </small> </small> </th>
@@ -36,12 +42,21 @@
 								<th> <small> <small> <small> Humanic </small> </small> </small> </th>
 								<th> <small> <small> <small> Mechanic </small> </small> </small> </th>
 								<th> <small> <small> <small> General </small> </small> </small> </th>
-								<th> <small> <small> <small> Positive </small> </small> </small> </th>
-								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
 								<th> <small> <small> <small> Negative </small> </small> </small> </th>
-								<th> <small> <small> <small> Positive </small> </small> </small> </th>
 								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
+								<th> <small> <small> <small> Positive </small> </small> </small> </th>
 								<th> <small> <small> <small> Negative </small> </small> </small> </th>
+								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
+								<th> <small> <small> <small> Positive </small> </small> </small> </th>
+								<th> <small> <small> <small> Negative </small> </small> </small> </th>
+								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
+								<th> <small> <small> <small> Positive </small> </small> </small> </th>
+								<th> <small> <small> <small> Negative </small> </small> </small> </th>
+								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
+								<th> <small> <small> <small> Positive </small> </small> </small> </th>
+								<th> <small> <small> <small> Negative </small> </small> </small> </th>
+								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
+								<th> <small> <small> <small> Positive </small> </small> </small> </th>
 							</tr>
 							{% for tr in mutual_information.table_data %}
 								<tr>

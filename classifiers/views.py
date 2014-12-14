@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from sarprit.shortcuts import to_json
+from sarprit.shortcuts import to_json, normalize_sentiment
 from sarprit.feature_extraction import extract
 
 def home(request):
@@ -10,10 +10,10 @@ def home(request):
 	mutual_information = {
 		'subjectivity' : 	[mi[:mi_max] for mi in get_mutual_information(classifier1.features, classifier1.feature_names, classifier1.target)],
 		'clue' : 			[mi[:mi_max] for mi in get_mutual_information(classifier2.features, classifier2.feature_names, classifier2.target)],
-		# 'sentiment1' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3a.features, classifier3a.feature_names, classifier3a.target)],
-		# 'sentiment2' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3b.features, classifier3b.feature_names, classifier3b.target)],
-		# 'sentiment3' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3c.features, classifier3c.feature_names, classifier3c.target)],
-		# 'sentiment4' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3d.features, classifier3d.feature_names, classifier3d.target)],
+		'sentiment1' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3a.features, classifier3a.feature_names, [normalize_sentiment(target) for target in classifier3a.target])],
+		'sentiment2' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3b.features, classifier3b.feature_names, [normalize_sentiment(target) for target in classifier3b.target])],
+		'sentiment3' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3c.features, classifier3c.feature_names, [normalize_sentiment(target) for target in classifier3c.target])],
+		'sentiment4' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3d.features, classifier3d.feature_names, [normalize_sentiment(target) for target in classifier3d.target])],
 		# 'overall' : 		[mi[:mi_max] for mi in get_mutual_information(classifier4.features, classifier4.feature_names, classifier4.target)],
 	}
 	mutual_information['table_data'] = [
@@ -24,6 +24,18 @@ def home(request):
 			mutual_information['clue'][1][i],
 			mutual_information['clue'][2][i],
 			mutual_information['clue'][3][i],
+			mutual_information['sentiment1'][0][i],
+			mutual_information['sentiment1'][1][i],
+			mutual_information['sentiment1'][2][i],
+			mutual_information['sentiment2'][0][i],
+			mutual_information['sentiment2'][1][i],
+			mutual_information['sentiment2'][2][i],
+			mutual_information['sentiment3'][0][i],
+			mutual_information['sentiment3'][1][i],
+			mutual_information['sentiment3'][2][i],
+			mutual_information['sentiment4'][0][i],
+			mutual_information['sentiment4'][1][i],
+			mutual_information['sentiment4'][2][i],
 		)
 		for i in range(len(mutual_information['subjectivity'][0]))
 	]
