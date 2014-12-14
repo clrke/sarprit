@@ -6,3 +6,8 @@ body {
 .pager2 { margin:0 !important; }
 body { margin-top: 30px }
 textarea {resize: none;}
+
+table.table.table-bordered > tbody > tr:first-child > th { border-top: 3px solid #aaa !important }
+table.table.table-bordered > tbody > tr > th.table-bordered-top								{ border-top: 3px solid #aaa !important }
+table.table.table-bordered > tbody > tr > th.table-bordered-left,td.table-bordered-left		{ border-left: 3px solid #aaa !important }
+table.table.table-bordered > tbody > tr > th.table-bordered-right,td.table-bordered-right 	{ border-right: 3px solid #aaa !important}
