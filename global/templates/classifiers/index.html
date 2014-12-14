@@ -17,6 +17,46 @@
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h1 class="panel-title">
+						Mutual Information
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive2">
+						<table class="table table-bordered">
+							<tr>
+								<th colspan="2"> <small> <small> <small> Subjectivity Classification </small> </small> </small> </th>
+								<th colspan="4"> <small> <small> <small> Clues Classification </small> </small> </small> </th>
+								<th colspan="3"> <small> <small> <small> Sentiment Analysis </small> </small> </small> </th>
+								<th colspan="3"> <small> <small> <small> Overall Sentiment Analysis </small> </small> </small> </th>
+							</tr>
+							<tr>
+								<th> <small> <small> <small> Subjective </small> </small> </small> </th>
+								<th> <small> <small> <small> Objective </small> </small> </small> </th>
+								<th> <small> <small> <small> Functional </small> </small> </small> </th>
+								<th> <small> <small> <small> Humanic </small> </small> </small> </th>
+								<th> <small> <small> <small> Mechanic </small> </small> </small> </th>
+								<th> <small> <small> <small> General </small> </small> </small> </th>
+								<th> <small> <small> <small> Positive </small> </small> </small> </th>
+								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
+								<th> <small> <small> <small> Negative </small> </small> </small> </th>
+								<th> <small> <small> <small> Positive </small> </small> </small> </th>
+								<th> <small> <small> <small> Neutral </small> </small> </small> </th>
+								<th> <small> <small> <small> Negative </small> </small> </small> </th>
+							</tr>
+							{% for tr in mutual_information.table_data %}
+								<tr>
+									{% for td in tr %}
+										<td> <small> <small> <small> {{ td.0 }} ({{ td.1 | floatformat:4 }}) </small> </small> </small> </td>
+									{% endfor %}
+								</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
 						Subjectivity Classification
 					</h1>
 				</div>

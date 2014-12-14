@@ -1,4 +1,5 @@
 from nltk.tokenize import TreebankWordTokenizer
+from numpy import mean, argsort
 
 def get_unigrams(sentence):
 	return [unigram for unigram in TreebankWordTokenizer().tokenize(sentence)]
@@ -50,3 +51,15 @@ def extract(sentences, feature_names=None):
 		data.append([get_feature_points(features, feature) for feature in feature_names])
 
 	return feature_names, data
+
+def get_mutual_information(all_features, feature_names, targets):
+	mutual_information = []
+	for target in range(max(targets)+1):
+		mi_values = [mean([(all_features[j][i] if targets[j] == target else 0) for j in range(len(all_features))]) for i in range(len(all_features[0]))]
+		mi = []
+		for i in argsort(mi_values)[::-1]:
+			mi.append((feature_names[i], mi_values[i]))
+
+		mutual_information.append(mi)
+
+	return mutual_information

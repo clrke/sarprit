@@ -4,8 +4,29 @@ from sarprit.feature_extraction import extract
 
 def home(request):
 	from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
+	from sarprit.feature_extraction import get_mutual_information
+
+	mi_max = 12
+	mutual_information = {
+		'subjectivity' : 	[mi[:mi_max] for mi in get_mutual_information(classifier1.features, classifier1.feature_names, classifier1.target)],
+		# 'clue' : 			get_mutual_information(classifier2.features, classifier2.feature_names),
+		# 'sentiment1' : 		get_mutual_information(classifier3a.features, classifier3a.feature_names),
+		# 'sentiment2' : 		get_mutual_information(classifier3b.features, classifier3b.feature_names),
+		# 'sentiment3' : 		get_mutual_information(classifier3c.features, classifier3c.feature_names),
+		# 'sentiment4' : 		get_mutual_information(classifier3d.features, classifier3d.feature_names),
+		# 'overall' : 		get_mutual_information(classifier4.features, classifier4.feature_names),
+	}
+	mutual_information['table_data'] = [
+		(
+			mutual_information['subjectivity'][0][i],
+			mutual_information['subjectivity'][1][i],
+		)
+		for i in range(len(mutual_information['subjectivity'][0]))
+	]
+
 	return render(request, 'classifiers/index.html',
 		{
+			'mutual_information': mutual_information,
 			'classifier1' : { 'feature_names': classifier1.feature_names, 'data': [(classifier1.features[i], classifier1.target[i]) for i in range(len(classifier1.features))] },
 			'classifier2' : { 'feature_names': classifier2.feature_names, 'data': [(classifier2.features[i], classifier2.target[i]) for i in range(len(classifier2.features))] },
 			'classifier3a' : { 'feature_names': classifier3a.feature_names, 'data': [(classifier3a.features[i], classifier3a.target[i]) for i in range(len(classifier3a.features))] },
@@ -14,6 +35,7 @@ def home(request):
 			'classifier3d' : { 'feature_names': classifier3d.feature_names, 'data': [(classifier3d.features[i], classifier3d.target[i]) for i in range(len(classifier3d.features))] },
 			'classifier4' :  { 'feature_names': classifier4.feature_names, 'data': sorted([(classifier4.features[i], classifier4.target[i]) for i in range(len(classifier4.features))], key=lambda x: x[1]) },
 		})
+
 def subjectivity(request, id, sentence):
 	from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 	is_subjective = classifier1.predict([sentence])[0]
