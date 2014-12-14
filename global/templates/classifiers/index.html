@@ -84,7 +84,11 @@
 											{% elif forloop.counter0 == 20 %}	success
 											{% endif %}
 										">
-											<small> <small> <small> <center> {{ td.0 | lower }} ({{ td.1 | floatformat:4 }}) </center> </small> </small> </small>
+											{% if td %}
+												<small> <small> <small> <center> {{ td.0 | lower }} ({{ td.1 | floatformat:4 }}) </center> </small> </small> </small>
+											{% else %}
+												&nbsp;
+											{% endif %}
 										</td>
 									{% endfor %}
 								</tr>

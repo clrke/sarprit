@@ -14,7 +14,7 @@ def home(request):
 		'sentiment2' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3b.features, classifier3b.feature_names, [normalize_sentiment(target) for target in classifier3b.target])],
 		'sentiment3' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3c.features, classifier3c.feature_names, [normalize_sentiment(target) for target in classifier3c.target])],
 		'sentiment4' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3d.features, classifier3d.feature_names, [normalize_sentiment(target) for target in classifier3d.target])],
-		# 'overall' : 		[mi[:mi_max] for mi in get_mutual_information(classifier4.features, classifier4.feature_names, classifier4.target)],
+		'overall' : 		[mi[:mi_max] for mi in get_mutual_information(classifier4.features, classifier4.feature_names, [normalize_sentiment(target) for target in classifier4.target])],
 	}
 	mutual_information['table_data'] = [
 		(
@@ -36,6 +36,9 @@ def home(request):
 			mutual_information['sentiment4'][0][i],
 			mutual_information['sentiment4'][1][i],
 			mutual_information['sentiment4'][2][i],
+			mutual_information['overall'][0][i] if i < 4 else None,
+			mutual_information['overall'][1][i] if i < 4 else None,
+			mutual_information['overall'][2][i] if i < 4 else None,
 		)
 		for i in range(len(mutual_information['subjectivity'][0]))
 	]
