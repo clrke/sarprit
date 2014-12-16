@@ -16,30 +16,54 @@
 				<h1><center>Implementation of Subjectivity and Clues Classifications in Sentiment Analysis of Reviews on Philippine Restaurants in Twitter Using Multinomial Naive Bayes and Support Vector Classifiers</center></h1>
 			</div>
 		</div>
-		<div ng-controller="ReviewsCtrl as Review" class="container" ng-init="reviews = {{ reviews }}">
+		<div ng-controller="ReviewsCtrl as Review" class="container" ng-init="reviews = {{ reviews }}; reversed = true; sort = 'id'">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<input type="text" class="form-control" placeholder="Search" ng-model="search">
 					<table class="table">
 						<thead>
 							<tr>
-								<th>ID</th> <th>Review</th> <th>Rating</th> <th>Flag</th>
+								<th width="5%">
+									<a href="#" ng-click="sort = 'id'; reversed = ! reversed">
+										ID
+									</a>
+									<small> {[ sort =='id'? (reversed ? '▲' : '▼') : '' ]} </small>
+								</th>
+								<th width="60%">
+									<a href="#" ng-click="sort = 'to_str'; reversed = ! reversed">
+										Review
+									</a>
+									<small> {[ sort =='to_str'? (reversed ? '▲' : '▼') : '' ]} </small>
+								</th>
+								<th width="10%">
+									<a href="#" ng-click="sort = 'overall_sentiment'; reversed = ! reversed">
+										Rating
+									</a>
+									<small> {[ sort =='overall_sentiment'? (reversed ? '▲' : '▼') : '' ]} </small>
+								</th>
+								<th width="25%">
+									<a href="#" ng-click="sort = 'flag'; reversed = ! reversed">
+										Flag
+									</a>
+									<small> {[ sort =='flag'? (reversed ? '▲' : '▼') : '' ]} </small>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="review in reviews | filter: search">
+							<tr ng-repeat="review in reviews | filter: search | orderBy: sort: reversed">
 								<td> {[ review.id ]} </td>
 								<td> {[ review.to_str ]} </td>
 								<td> <img src="{% static 'src/img/yellowStar.jpg' %}" ng-repeat="i in Review.range(review.overall_sentiment) track by $index" style="width: 20px; height: 20px"><img src="{% static 'src/img/grayStar.jpg' %}" ng-repeat="i in Review.range(5-review.overall_sentiment) track by $index" style="width: 20px; height: 20px">
 								<td>
-									<button class="btn" ng-click="flagrating = 1">1</button> <button class="btn" ng-click="flagrating = 2">2</button> <button class="btn" ng-click="flagrating = 3">3</button>
+									<div class="btn-group" role="group">
+										<button class="btn" ng-class="review.flag == 0? 'btn-primary': 'btn-default'" ng-click="review.flag = 0">Discarded</button> <button class="btn" ng-class="review.flag == 1? 'btn-primary': 'btn-default'" ng-click="review.flag = 1">Training</button> <button class="btn" ng-class="review.flag == 2? 'btn-primary': 'btn-default'" ng-click="review.flag = 2">Testing</button>
+									</div>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
-
 		</div>
 	</body>
 </html>
