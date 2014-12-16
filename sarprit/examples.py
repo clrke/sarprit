@@ -103,6 +103,9 @@ def classifiers_refresh():
 	print('Initializing sentiment classifier for general sentences...')
 	global classifier3d
 	classifier3d = sentiment_classifier('g')
+	print('Initializing sentiment classifier for no clue sentences...')
+	global classifier3e
+	classifier3e = sentiment_classifier2()
 	print('Initializing overall sentiment classifier...')
 	global classifier4
 	classifier4 = overall_classifier()
@@ -113,5 +116,6 @@ classifier3a = None
 classifier3b = None
 classifier3c = None
 classifier3d = None
+classifier3e = None
 classifier4 = None
 classifiers_refresh()

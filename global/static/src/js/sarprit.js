@@ -27,50 +27,63 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 
 				Sarprit.curLoaded++;
 
-				$http.get('/classify/2/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
-					Sarprit.sentences[data.id].clue = data.clue;
-					Sarprit.sentences[data.id].clue_id = data.clue_id;
-					Sarprit.sentences[data.id].features2 = data.features;
-
-					Sarprit.curLoaded++;
-
-					$http.get('/classify/3/'+Sarprit.sentences[data.id].clue.toLowerCase()[0]+'/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
-						Sarprit.sentences[data.id].rating = data.rating;
-						Sarprit.sentences[data.id].features3 = data.features;
+				if (Sarprit.analysisType == 0) {
+					$http.get('/classify/2/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
+						Sarprit.sentences[data.id].clue = data.clue;
+						Sarprit.sentences[data.id].clue_id = data.clue_id;
+						Sarprit.sentences[data.id].features2 = data.features;
 
 						Sarprit.curLoaded++;
 
-						if(Sarprit.curLoaded == Sarprit.maxLoaded) {
-							var functional = 0;
-							var humanic = 0;
-							var mechanic = 0;
-							var general = 0;
+						$http.get('/classify/3/'+Sarprit.sentences[data.id].clue.toLowerCase()[0]+'/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
+							Sarprit.sentences[data.id].rating = data.rating;
+							Sarprit.sentences[data.id].features3 = data.features;
 
-							for (var i = 0; i < Sarprit.sentences.length; i++) {
-								sentence = Sarprit.sentences[i];
+							Sarprit.curLoaded++;
 
-								if(sentence.clue_id == 0)
-									functional += sentence.rating;
-								else if(sentence.clue_id == 1)
-									humanic += sentence.rating;
-								else if(sentence.clue_id == 2)
-									mechanic += sentence.rating;
-								else if(sentence.clue_id == 3)
-									general += sentence.rating;
-							};
+							if(Sarprit.curLoaded == Sarprit.maxLoaded) {
+								var functional = 0;
+								var humanic = 0;
+								var mechanic = 0;
+								var general = 0;
 
-							functional /= Sarprit.sentences.length;
-							humanic /= Sarprit.sentences.length;
-							mechanic /= Sarprit.sentences.length;
-							general /= Sarprit.sentences.length;
+								for (var i = 0; i < Sarprit.sentences.length; i++) {
+									sentence = Sarprit.sentences[i];
 
-							$http.get('/classify/4/'+functional+'/'+humanic+'/'+mechanic+'/'+general).success(function (data) {
-								Sarprit.overallSentiment = data.rating;
-								Sarprit.loading = false;
-							});
-						}
+									if(sentence.clue_id == 0)
+										functional += sentence.rating;
+									else if(sentence.clue_id == 1)
+										humanic += sentence.rating;
+									else if(sentence.clue_id == 2)
+										mechanic += sentence.rating;
+									else if(sentence.clue_id == 3)
+										general += sentence.rating;
+								};
+
+								functional /= Sarprit.sentences.length;
+								humanic /= Sarprit.sentences.length;
+								mechanic /= Sarprit.sentences.length;
+								general /= Sarprit.sentences.length;
+
+								$http.get('/classify/4/'+functional+'/'+humanic+'/'+mechanic+'/'+general).success(function (data) {
+									Sarprit.overallSentiment = data.rating;
+									Sarprit.loading = false;
+								});
+							}
+						});
 					});
-				});
+				}
+				else {
+					$http.get('/classify/3/n/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
+						Sarprit.sentences[data.id].rating = data.rating;
+						Sarprit.sentences[data.id].features3 = data.features;
+
+						Sarprit.curLoaded += 2;
+
+						Sarprit.overallSentiment = data.rating;
+						Sarprit.loading = false;
+					});
+				}
 			});
 		};
 	}
