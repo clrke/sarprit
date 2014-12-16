@@ -32,6 +32,7 @@
 				<ul class="nav nav-tabs" ng-init="nav2 = true">
 					<li role="presentation" ng-class="{'active': nav2 == true}" ng-click="nav2 = true; nav3 = 'f'; nav4 = 5" scope="" onload=""><a href="#">Subjective</a> </li>
 					<li role="presentation" ng-class="{'active': nav2 == false}" ng-click="nav2 = false; nav3 = ''; nav4 = ''"><a href="#">Objective</a></li>
+					<li role="presentation" ng-class="{'active': nav2 == None}" ng-click="nav2 = None; nav3 = ''; nav4 = ''"><a href="#">All</a></li>
 				</ul>
 				<ul class="nav nav-tabs" ng-init="nav3 = 'f'" ng-show="nav2">
 					<li role="presentation" ng-class="{'active': nav3 == 'f'}" ng-click="nav3 = 'f'"><a href="#">Functional</a></li>
