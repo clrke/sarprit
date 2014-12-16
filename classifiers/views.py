@@ -77,6 +77,9 @@ def sentiment(request, clue, id, sentence):
 		classifier = classifier3c
 	elif clue == 'g':
 		classifier = classifier3d
+	elif clue == 'n':
+		from sarprit.examples import classifier3e
+		classifier = classifier3e
 
 	rating = int(classifier.predict([sentence])[0])
 

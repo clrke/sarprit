@@ -54,6 +54,18 @@ def sentiment_classifier(clue):
 
 	return classifiers.SentimentClassifier().fit(training_data, target)
 
+def sentiment_classifier2():
+	s1 = [sentence.sentence for sentence in Sentence.objects.filter(rating=1)]
+	s2 = [sentence.sentence for sentence in Sentence.objects.filter(rating=2)]
+	s3 = [sentence.sentence for sentence in Sentence.objects.filter(rating=3)]
+	s4 = [sentence.sentence for sentence in Sentence.objects.filter(rating=4)]
+	s5 = [sentence.sentence for sentence in Sentence.objects.filter(rating=5)]
+
+	training_data = s1 + s2 + s3 + s4 + s5
+	target = [1] * len(s1) + [2] * len(s2) + [3] * len(s3) + [4] * len(s4) + [5] * len(s5)
+
+	return classifiers.SentimentClassifier().fit(training_data, target)
+
 
 def overall_classifier():
 	reviews=Review.objects.all()
@@ -91,6 +103,9 @@ def classifiers_refresh():
 	print('Initializing sentiment classifier for general sentences...')
 	global classifier3d
 	classifier3d = sentiment_classifier('g')
+	print('Initializing sentiment classifier for no clue sentences...')
+	global classifier3e
+	classifier3e = sentiment_classifier2()
 	print('Initializing overall sentiment classifier...')
 	global classifier4
 	classifier4 = overall_classifier()
@@ -101,5 +116,6 @@ classifier3a = None
 classifier3b = None
 classifier3c = None
 classifier3d = None
+classifier3e = None
 classifier4 = None
 classifiers_refresh()
