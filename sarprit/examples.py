@@ -54,6 +54,18 @@ def sentiment_classifier(clue):
 
 	return classifiers.SentimentClassifier().fit(training_data, target)
 
+def sentiment_classifier2():
+	s1 = [sentence.sentence for sentence in Sentence.objects.filter(rating=1)]
+	s2 = [sentence.sentence for sentence in Sentence.objects.filter(rating=2)]
+	s3 = [sentence.sentence for sentence in Sentence.objects.filter(rating=3)]
+	s4 = [sentence.sentence for sentence in Sentence.objects.filter(rating=4)]
+	s5 = [sentence.sentence for sentence in Sentence.objects.filter(rating=5)]
+
+	training_data = s1 + s2 + s3 + s4 + s5
+	target = [1] * len(s1) + [2] * len(s2) + [3] * len(s3) + [4] * len(s4) + [5] * len(s5)
+
+	return classifiers.SentimentClassifier().fit(training_data, target)
+
 
 def overall_classifier():
 	reviews=Review.objects.all()
