@@ -19,6 +19,7 @@
 		<div ng-controller="ReviewsCtrl as Review" class="container" ng-init="reviews = {{ reviews }}">
 			<div class="panel panel-default">
 				<div class="panel-body">
+					<input type="text" class="form-control" placeholder="Search" ng-model="search">
 					<table class="table">
 						<thead>
 							<tr>
@@ -26,7 +27,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="review in reviews">
+							<tr ng-repeat="review in reviews | filter: search">
 								<td> {[ review.id ]} </td>
 								<td> {[ review.to_str ]} </td>
 								<td> <img src="{% static 'src/img/yellowStar.jpg' %}" ng-repeat="i in Review.range(review.overall_sentiment) track by $index" style="width: 20px; height: 20px"><img src="{% static 'src/img/grayStar.jpg' %}" ng-repeat="i in Review.range(5-review.overall_sentiment) track by $index" style="width: 20px; height: 20px">
