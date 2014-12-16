@@ -158,3 +158,12 @@ def data2(request):
 		sentences.append(sentence2)
 
 	return to_json({"reviews":reviews, "sentences":sentences});
+
+def reviews_table(request):
+	reviews = []
+	for review in Review.objects.all():
+		review2 = model_to_dict(review)
+		review2['to_str'] = review.__str__()
+		reviews.append(review2)
+
+	return render(request,'tables/index.html', {'reviews': reviews})

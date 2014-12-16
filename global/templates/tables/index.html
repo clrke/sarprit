@@ -1,0 +1,44 @@
+{% load staticfiles %}
+{% load filters %}
+
+<html ng-app="SarpritApp">
+	<head>
+		<title> SARPRiT </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+		<script type="text/javascript" src="{% static 'lib/angularjs/angular.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'src/js/sarprit.js' %}"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="well">
+				<h1><center>Implementation of Subjectivity and Clues Classifications in Sentiment Analysis of Reviews on Philippine Restaurants in Twitter Using Multinomial Naive Bayes and Support Vector Classifiers</center></h1>
+			</div>
+		</div>
+		<div ng-controller="ReviewsCtrl as Review" class="container" ng-init="reviews = {{ reviews }}">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>ID</th> <th>Review</th> <th>Rating</th> <th>Flag</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="review in reviews">
+								<td> {[ review.id ]} </td>
+								<td> {[ review.to_str ]} </td>
+								<td> <img src="{% static 'src/img/yellowStar.jpg' %}" ng-repeat="i in Review.range(review.overall_sentiment) track by $index" style="width: 20px; height: 20px"><img src="{% static 'src/img/grayStar.jpg' %}" ng-repeat="i in Review.range(5-review.overall_sentiment) track by $index" style="width: 20px; height: 20px">
+								<td>
+									<button class="btn" ng-click="flagrating = 1">1</button> <button class="btn" ng-click="flagrating = 2">2</button> <button class="btn" ng-click="flagrating = 3">3</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>
