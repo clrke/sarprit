@@ -13,8 +13,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Review',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('sentences', models.CharField(max_length=500)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('namedrop', models.CharField(max_length=50, blank=True)),
+                ('overall_sentiment', models.IntegerField(max_length=1)),
+                ('flag', models.IntegerField(default=0)),
             ],
             options={
             },
@@ -23,10 +25,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Section',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('course', models.CharField(max_length=10)),
                 ('year', models.IntegerField()),
                 ('section', models.CharField(max_length=3)),
+                ('current', models.BooleanField(default=False)),
             ],
             options={
             },
@@ -35,10 +38,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Sentence',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
                 ('sentence', models.CharField(max_length=1000)),
-                ('clue', models.CharField(max_length=50)),
-                ('review', models.CharField(max_length=30)),
+                ('subjective', models.BooleanField(default=True)),
+                ('clue', models.CharField(max_length=1)),
+                ('rating', models.IntegerField(max_length=1)),
+                ('review', models.ForeignKey(to='survey.Review')),
             ],
             options={
             },
@@ -47,12 +52,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Student',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(primary_key=True, serialize=False, auto_created=True, verbose_name='ID')),
+                ('student_no', models.CharField(max_length=16)),
                 ('name', models.CharField(max_length=50)),
-                ('age', models.IntegerField(max_length=5)),
+                ('should_display', models.BooleanField(default=True)),
+                ('section', models.ForeignKey(to='survey.Section')),
             ],
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='review',
+            name='student',
+            field=models.ForeignKey(to='survey.Student', null=True),
+            preserve_default=True,
         ),
     ]
