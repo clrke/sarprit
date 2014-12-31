@@ -3,3 +3,9 @@ numpy
 scipy
 scikit-learn
 nltk
+dj-static
+dj-database-url
+psycopg2
+gunicorn
+static==0.4
+wsgiref==0.1.2
