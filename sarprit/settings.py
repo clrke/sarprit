@@ -92,6 +92,13 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'global/static'),
 )
 
+# Set default for required environment variables
+if 'DJANGO_ENVIRONMENT' not in os.environ:
+    os.environ['DJANGO_ENVIRONMENT'] = 'development'
+
+if 'SCIPY_INSTALLED' not in os.environ:
+    os.environ['SCIPY_INSTALLED'] = 'yes'
+
 # On production
 if os.environ['DJANGO_ENVIRONMENT'] == 'production':
     import dj_database_url
