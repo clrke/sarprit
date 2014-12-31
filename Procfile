@@ -1,1 +1,1 @@
-web: gunicorn cls.wsgi --log-file -
+web: gunicorn sarprit.wsgi --log-file -
