@@ -22,7 +22,11 @@ class Migration(migrations.Migration):
             field=models.IntegerField(default=1, max_length=1),
             preserve_default=False,
         ),
-        migrations.AlterField(
+        migrations.RemoveField(
+            model_name='review',
+            name='overall_sentiment',
+        ),
+        migrations.AddField(
             model_name='review',
             name='overall_sentiment',
             field=models.IntegerField(max_length=1),
