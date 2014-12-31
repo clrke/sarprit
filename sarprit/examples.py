@@ -22,7 +22,7 @@ def objective_sentences():
 	]
 
 if os.environ['SCIPY_INSTALLED'] == 'yes':
-	from sarprit import classifiers
+	from classifiers import classifiers
 	def subjectivity_classifier():
 		ss = [sentence.sentence for sentence in Sentence.objects.filter(subjective=True)]
 		os = [sentence.sentence for sentence in Sentence.objects.filter(subjective=False)]
