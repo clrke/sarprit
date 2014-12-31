@@ -82,7 +82,7 @@ def index2(request):
 		classifiers_refresh()
 
 		return redirect(index)
-	return render(request, 'survey/index2.html', { "current_section": Section.objects.get(current = True) })
+	return render(request, 'survey/index2.html')
 
 @login_required(login_url= '/admin/login/')
 def sections(request):
