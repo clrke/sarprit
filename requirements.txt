@@ -6,6 +6,6 @@ gunicorn
 static==0.4
 wsgiref==0.1.2
 nltk
-numpy
-scipy
-scikit-learn
+numpy==1.8.1
+scipy==0.14.0
+scikit-learn==0.14.1
