@@ -31,6 +31,7 @@ class CluesClassifier(MultinomialNB):
 		return super(CluesClassifier, self).fit(self.features, self.target)
 
 	def predict(self, predict_data):
+		print(len(self.features), len(predict_data))
 		feature_names, features = feature_extraction.extract(predict_data, self.feature_names)
 
 		return super(CluesClassifier, self).predict(features)

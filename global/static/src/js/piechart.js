@@ -7,15 +7,22 @@ $(document).ready(function () {
         $("#positive").removeClass("active");
         $("#negative").removeClass("active");
         $("#neutral").removeClass("active");
+        $("#positive-list").hide();
+        $("#negative-list").hide();
+        $("#neutral-list").hide();
+
         switch(i) {
             case 0:
                 $("#positive").addClass("active");
+                $("#positive-list").show();
                 break;
             case 1:
                 $("#negative").addClass("active");
+                $("#negative-list").show();
                 break;
             case 2:
                 $("#neutral").addClass("active");
+                $("#neutral-list").show();
                 break;
         }
     }

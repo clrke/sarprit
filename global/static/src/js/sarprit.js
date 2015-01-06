@@ -15,7 +15,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 	Sarprit.analyze = function (review) {
 		Sarprit.sentences = []
 
-		var sentences = review.match( /((#[\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
+		var sentences = review.match( /(([@#][\w^#]+ *)|([$^\.!\?]+[\.!\?]* *))/g );
 
 		Sarprit.loading = true;
 		Sarprit.curLoaded = 0;

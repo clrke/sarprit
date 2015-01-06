@@ -12,9 +12,9 @@
 		<script type="text/javascript" src="{% static 'lib/highcharts/js/modules/exporting.js' %}"></script>
 		<script type="text/javascript" src="{% static 'src/js/piechart.js' %}"></script>
         <script type="text/javascript">
-            var positive = 35;
-            var negative = 45;
-            var neutral = 20;
+            var positive = {{ positives_count }};
+            var negative = {{ negatives_count }};
+            var neutral = {{ neutrals_count }};
             var restaurant = '{{ restaurant }}';
         </script>
 	</head>
@@ -33,8 +33,26 @@
                     <li role="presentation" id="neutral"> <a href="#"> Neutral </a></li>
                 </ul>
 
-                <ul class="list-group">
-                    {% for review in reviews %}
+                <ul class="list-group" id="positive-list">
+                    {% for review in positives %}
+                        <li class="list-group-item">
+                            {{ review.text }} <br/>
+                            <small> {{ review.created_at }} </small>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <ul class="list-group" id="negative-list" style="display:none;">
+                    {% for review in negatives %}
+                        <li class="list-group-item">
+                            {{ review.text }} <br/>
+                            <small> {{ review.created_at }} </small>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <ul class="list-group" id="neutral-list" style="display:none;">
+                    {% for review in neutrals %}
                         <li class="list-group-item">
                             {{ review.text }} <br/>
                             <small> {{ review.created_at }} </small>
