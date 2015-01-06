@@ -14,7 +14,7 @@ def home(request):
 		'sentiment2' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3b.features, classifier3b.feature_names, [normalize_sentiment(target) for target in classifier3b.target])],
 		'sentiment3' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3c.features, classifier3c.feature_names, [normalize_sentiment(target) for target in classifier3c.target])],
 		'sentiment4' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3d.features, classifier3d.feature_names, [normalize_sentiment(target) for target in classifier3d.target])],
-		'overall' : 		[mi[:mi_max] for mi in get_mutual_information(classifier4[1][0][0][0][0].features, classifier4[1][0][0][0][0].feature_names, [normalize_sentiment(target) for target in classifier4[1][0][0][0][0].target])],
+		'overall' : 		[mi[:mi_max] for mi in get_mutual_information(classifier4[1][0][0][0].features, classifier4[1][0][0][0].feature_names, [normalize_sentiment(target) for target in classifier4[1][0][0][0].target])],
 	}
 	mutual_information['table_data'] = [
 		(
@@ -52,7 +52,7 @@ def home(request):
 			'classifier3b' : { 'feature_names': classifier3b.feature_names, 'data': [(classifier3b.features[i], classifier3b.target[i]) for i in range(len(classifier3b.features))] },
 			'classifier3c' : { 'feature_names': classifier3c.feature_names, 'data': [(classifier3c.features[i], classifier3c.target[i]) for i in range(len(classifier3c.features))] },
 			'classifier3d' : { 'feature_names': classifier3d.feature_names, 'data': [(classifier3d.features[i], classifier3d.target[i]) for i in range(len(classifier3d.features))] },
-			'classifier4' :  { 'feature_names': classifier4[1][0][0][0][0].feature_names, 'data': sorted([(classifier4[1][0][0][0][0].features[i], classifier4[1][0][0][0][0].target[i]) for i in range(len(classifier4[1][0][0][0][0].features))], key=lambda x: x[1]) },
+			'classifier4' :  { 'feature_names': classifier4[1][0][0][0].feature_names, 'data': sorted([(classifier4[1][0][0][0].features[i], classifier4[1][0][0][0].target[i]) for i in range(len(classifier4[1][0][0][0].features))], key=lambda x: x[1]) },
 		})
 
 def subjectivity(request, id, sentence):
