@@ -5,6 +5,7 @@ psycopg2
 gunicorn
 static==0.4
 wsgiref==0.1.2
+tweepy
 nltk
 numpy==1.8.1
 scipy==0.14.0
