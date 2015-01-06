@@ -68,8 +68,7 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 
 		return classifiers.SentimentClassifier().fit(training_data, target)
 
-
-	def overall_classifier():
+	def overall_classifier2():
 		reviews=Review.objects.all()
 		features=[]
 		targets=[]
@@ -84,6 +83,49 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 			targets.append(review.overall_sentiment)
 
 		return classifiers.OverallClassifier().fit(features, targets)
+
+	def overall_classifier():
+		reviews=Review.objects.all()
+
+		sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
+		overall_classifiers = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
+
+		for review in reviews:
+			f=1 if review.sentence_set.filter(clue='f').count() > 0 else 0
+			h=1 if review.sentence_set.filter(clue='h').count() > 0 else 0
+			m=1 if review.sentence_set.filter(clue='m').count() > 0 else 0
+			g=1 if review.sentence_set.filter(clue='g').count() > 0 else 0
+
+			sorted_reviews[f][h][m][g].append(review)
+
+		for f in range(2):
+			for h in range(2):
+				for m in range(2):
+					for g in range(2):
+						features = []
+						targets = []
+
+						for review in sorted_reviews[f][h][m][g]:
+							f_sentences = review.sentence_set.filter(clue='f')
+							h_sentences = review.sentence_set.filter(clue='h')
+							m_sentences = review.sentence_set.filter(clue='m')
+							g_sentences = review.sentence_set.filter(clue='g')
+
+							feature_f=0 if f_sentences.count() == 0 else sum([sentence.rating for sentence in f_sentences])/f_sentences.count()
+							feature_h=0 if h_sentences.count() == 0 else sum([sentence.rating for sentence in h_sentences])/h_sentences.count()
+							feature_m=0 if m_sentences.count() == 0 else sum([sentence.rating for sentence in m_sentences])/m_sentences.count()
+							feature_g=0 if g_sentences.count() == 0 else sum([sentence.rating for sentence in g_sentences])/g_sentences.count()
+
+							features.append([feature_f, feature_h, feature_m, feature_g])
+							targets.append(review.overall_sentiment)
+
+						try:
+							overall_classifiers[f][h][m][g] = classifiers.OverallClassifier().fit(features, targets)
+						except:
+							print("Fail: ", f, h, m, g)
+							overall_classifiers[f][h][m][g] = classifiers.OverallClassifier().fit([[1,1,1,1], [5,5,5,5]], [1,5])
+
+		return sorted_reviews, overall_classifiers
 
 	def classifiers_refresh():
 		print('Initializing subjectivity classifier...')
