@@ -68,7 +68,7 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 
 		return classifiers.SentimentClassifier().fit(training_data, target)
 
-	def overall_classifier():
+	def overall_classifier2():
 		reviews=Review.objects.all()
 		features=[]
 		targets=[]
@@ -84,7 +84,7 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 
 		return classifiers.OverallClassifier().fit(features, targets)
 
-	def overall_classifier2():
+	def overall_classifier():
 		reviews=Review.objects.all()
 
 		sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
