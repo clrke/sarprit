@@ -2,6 +2,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[');
     $interpolateProvider.endSymbol(']}');
 })
+.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}])
 .controller('SarpritCtrl', ['$http', function ($http) {
 	var Sarprit = this;
 	Sarprit.loading = false;
@@ -263,6 +267,9 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 }])
 .controller('ReviewsCtrl', ['$http', function ($http) {
 	var Review = this;
+	Review.save = function (review) {
+		$http.get("/review/save/"+review.id+"/"+review.flag);
+	}
 	Review.range = function(n) {
         return new Array(n);
     };
