@@ -5,6 +5,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 .controller('SarpritCtrl', ['$http', function ($http) {
 	var Sarprit = this;
 	Sarprit.loading = false;
+	Sarprit.prohibited = false;
 	Sarprit.overallSentiment = 0;
 
 	Sarprit.analyze = function (review) {
@@ -84,6 +85,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 						Sarprit.loading = false;
 					});
 				}
+			}).error(function (data) {
+				Sarprit.loading = false;
+				Sarprit.prohibited = true;
+				Sarprit.sentences = [];
 			});
 		};
 	}
@@ -252,4 +257,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 }])
 .controller('TwitterCtrl', ['$http', function ($http) {
 	var twitter = this;
+}])
+.controller('ReviewsCtrl', ['$http', function ($http) {
+	var Review = this;
+	Review.range = function(n) {
+        return new Array(n);
+    };
 }]);

@@ -1,0 +1,11 @@
+django == 1.7.1
+dj-static
+dj-database-url
+psycopg2
+gunicorn
+static==0.4
+wsgiref==0.1.2
+nltk
+numpy
+scipy
+scikit-learn
