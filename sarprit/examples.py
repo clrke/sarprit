@@ -87,10 +87,20 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 	def overall_classifier2():
 		reviews=Review.objects.all()
 
-		reviews = [[[[[]]*2]*2]*2]*2
+		sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
 		overall_classifiers = [[[[None]*2]*2]*2]*2
 
-		return reviews, overall_classifiers
+		for review in reviews:
+			f=1 if review.sentence_set.filter(clue='f').count() > 0 else 0
+			h=1 if review.sentence_set.filter(clue='h').count() > 0 else 0
+			m=1 if review.sentence_set.filter(clue='m').count() > 0 else 0
+			g=1 if review.sentence_set.filter(clue='g').count() > 0 else 0
+
+			print(f, h, m, g, review)
+
+			(sorted_reviews[f][h][m][g]).append(review)
+
+		return sorted_reviews, overall_classifiers
 
 	def classifiers_refresh():
 		print('Initializing subjectivity classifier...')
