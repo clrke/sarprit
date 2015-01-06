@@ -257,4 +257,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 }])
 .controller('TwitterCtrl', ['$http', function ($http) {
 	var twitter = this;
+}])
+.controller('ReviewsCtrl', ['$http', function ($http) {
+	var Review = this;
+	Review.range = function(n) {
+        return new Array(n);
+    };
 }]);
