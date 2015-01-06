@@ -19,6 +19,9 @@
 		<div ng-controller="ReviewsCtrl as Review" class="container" ng-init="reviews = {{ reviews }}; reversed = true; sort = 'id'">
 			<div class="panel panel-default">
 				<div class="panel-body">
+					<div class="span pull-right">
+						<b>Results: {[ (reviews | filter: search).length ]} </b>
+					</div>
 					<input type="text" class="form-control" placeholder="Search" ng-model="search">
 					<table class="table">
 						<thead>
