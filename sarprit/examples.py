@@ -96,9 +96,7 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 			m=1 if review.sentence_set.filter(clue='m').count() > 0 else 0
 			g=1 if review.sentence_set.filter(clue='g').count() > 0 else 0
 
-			print(f, h, m, g, review)
-
-			(sorted_reviews[f][h][m][g]).append(review)
+			sorted_reviews[f][h][m][g].append(review)
 
 		return sorted_reviews, overall_classifiers
 
