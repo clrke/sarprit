@@ -59,12 +59,12 @@
 								<td> <img src="{% static 'src/img/yellowStar.jpg' %}" ng-repeat="i in Review.range(review.overall_sentiment) track by $index" style="width: 20px; height: 20px"><img src="{% static 'src/img/grayStar.jpg' %}" ng-repeat="i in Review.range(5-review.overall_sentiment) track by $index" style="width: 20px; height: 20px">
 								<td>
 									<div class="btn-group" role="group">
-										<button class="btn" ng-class="review.flag == 0? 'btn-primary': 'btn-default'" ng-click="review.flag = 0">Discarded</button> <button class="btn" ng-class="review.flag == 1? 'btn-primary': 'btn-default'" ng-click="review.flag = 1">Training</button> <button class="btn" ng-class="review.flag == 2? 'btn-primary': 'btn-default'" ng-click="review.flag = 2">Testing</button>
+										<button class="btn" ng-class="review.flag == 0? 'btn-primary': 'btn-default'" ng-click="review.flag = 0; Review.save(review)">Discarded</button> <button class="btn" ng-class="review.flag == 1? 'btn-primary': 'btn-default'" ng-click="review.flag = 1; Review.save(review)">Training</button> <button class="btn" ng-class="review.flag == 2? 'btn-primary': 'btn-default'" ng-click="review.flag = 2; Review.save(review)">Testing</button>
 									</div>
 								</td>
 							</tr>
 						</tbody>
-					</table>
+					</table
 				</div>
 			</div>
 		</div>
