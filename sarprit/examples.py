@@ -68,7 +68,6 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 
 		return classifiers.SentimentClassifier().fit(training_data, target)
 
-
 	def overall_classifier():
 		reviews=Review.objects.all()
 		features=[]
@@ -84,6 +83,14 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 			targets.append(review.overall_sentiment)
 
 		return classifiers.OverallClassifier().fit(features, targets)
+
+	def overall_classifier2():
+		reviews=Review.objects.all()
+
+		reviews = [[[[[]]*2]*2]*2]*2
+		overall_classifiers = [[[[None]*2]*2]*2]*2
+
+		return reviews, overall_classifiers
 
 	def classifiers_refresh():
 		print('Initializing subjectivity classifier...')
