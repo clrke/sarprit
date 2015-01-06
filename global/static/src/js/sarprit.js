@@ -5,6 +5,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 .controller('SarpritCtrl', ['$http', function ($http) {
 	var Sarprit = this;
 	Sarprit.loading = false;
+	Sarprit.prohibited = false;
 	Sarprit.overallSentiment = 0;
 
 	Sarprit.analyze = function (review) {
@@ -84,6 +85,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 						Sarprit.loading = false;
 					});
 				}
+			}).error(function (data) {
+				Sarprit.loading = false;
+				Sarprit.prohibited = true;
+				Sarprit.sentences = [];
 			});
 		};
 	}
