@@ -83,6 +83,14 @@ def overall_classifier():
 
 	return classifiers.OverallClassifier().fit(features, targets)
 
+def overall_classifier2():
+	reviews=Review.objects.all()
+
+	reviews = [[[[[]]*2]*2]*2]*2
+	overall_classifiers = [[[[None]*2]*2]*2]*2
+
+	return reviews, overall_classifiers
+
 
 def classifiers_refresh():
 	print('Initializing subjectivity classifier...')
