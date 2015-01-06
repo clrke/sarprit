@@ -80,9 +80,12 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 						Sarprit.sentences[data.id].features3 = data.features;
 
 						Sarprit.curLoaded += 2;
+						Sarprit.overallSentiment += data.rating;
 
-						Sarprit.overallSentiment = data.rating;
-						Sarprit.loading = false;
+						if(Sarprit.curLoaded == Sarprit.maxLoaded) {
+							Sarprit.overallSentiment = Math.ceil(Sarprit.overallSentiment / Sarprit.sentences.length);
+							Sarprit.loading = false;
+						}
 					});
 				}
 			}).error(function (data) {
