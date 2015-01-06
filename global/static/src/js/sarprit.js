@@ -83,7 +83,7 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 						Sarprit.overallSentiment += data.rating;
 
 						if(Sarprit.curLoaded == Sarprit.maxLoaded) {
-							Sarprit.overallSentiment = Math.ceil(Sarprit.overallSentiment / Sarprit.sentences.length);
+							Sarprit.overallSentiment = Math.round(Sarprit.overallSentiment / Sarprit.sentences.length);
 							Sarprit.loading = false;
 						}
 					});
