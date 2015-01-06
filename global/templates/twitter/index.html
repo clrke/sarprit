@@ -35,7 +35,10 @@
 
                 <ul class="list-group">
                     {% for review in reviews %}
-                        <li class="list-group-item">{{ review.text }}</li>
+                        <li class="list-group-item">
+                            {{ review.text }} <br/>
+                            <small> {{ review.created_at }} </small>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
