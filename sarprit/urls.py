@@ -4,10 +4,7 @@ from django.contrib import admin
 import survey.urls
 import classifiers.urls
 import rootword.urls
-
-def twitter(request):
-	from django.shortcuts import render
-	return render(request, 'twitter/index.html')
+import twitter.urls
 
 def review_save(request, id, flag):
 	from survey.models import Review
@@ -24,6 +21,6 @@ urlpatterns = patterns('',
     url(r'^reviews/', "survey.views.reviews_table"),
     url(r'^rootword/', include(rootword.urls)),
     url(r'', include(survey.urls)),
-    url(r'^twitter/', twitter),
+    url(r'^twitter/', include(twitter.urls)),
     url(r'^review/save/(?P<id>\d+)/(?P<flag>\d)', review_save)
 )

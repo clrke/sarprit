@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>SARPRiT | Twitter</title>
+        {% load staticfiles %}
+        <script type="text/javascript" src="{% static 'lib/jquery/jquery-1.11.1.min.js' %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+		<script type="text/javascript" src="{% static 'lib/angularjs/angular.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'lib/highcharts/js/highcharts.js' %}"></script>
+		<script type="text/javascript" src="{% static 'lib/highcharts/js/modules/exporting.js' %}"></script>
+		<script type="text/javascript" src="{% static 'src/js/piechart.js' %}"></script>
+        <script type="text/javascript">
+            var positive = 35;
+            var negative = 45;
+            var neutral = 20;
+            var restaurant = 'Jollibee';
+        </script>
+	</head>
+	<body class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div id="piechart" style="min-width: 310px; height: 400px; margin: 0 auto">
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" id="positive" class="active"> <a href="#"> Positive </a></li>
+                    <li role="presentation" id="negative"> <a href="#"> Negative </a></li>
+                    <li role="presentation" id="neutral"> <a href="#"> Neutral </a></li>
+                </ul>
+
+                <ul class="list-group">
+                    {% for review in reviews %}
+                        <li class="list-group-item">{{ review.text }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+	</body>
+</html>
