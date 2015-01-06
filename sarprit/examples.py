@@ -125,7 +125,7 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 							print("Fail: ", f, h, m, g)
 							overall_classifiers[f][h][m][g] = classifiers.OverallClassifier().fit([[1,1,1,1], [5,5,5,5]], [1,5])
 
-		return sorted_reviews, overall_classifiers
+		return overall_classifiers
 
 	def classifiers_refresh():
 		print('Initializing subjectivity classifier...')
