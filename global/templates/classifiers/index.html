@@ -198,7 +198,7 @@
 							{% if td %}
 							<small> <small> <small> <center>
 								{{ td.0 | lower }} <br/>
-								({% if forloop.counter0 < 18 %}{{ td.1 | percentage }}{% else %}{{ td.1 | floatformat:4 }}{% endif %})
+								({% if forloop.counter0 < 18 %}{{ td.1 | percentage }}{% else %}{{ td.1 | floatformat:2 }}{% endif %})
 							</center> </small> </small> </small>
 							{% else %}
 							&nbsp;
