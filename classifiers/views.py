@@ -14,8 +14,14 @@ def home(request):
 		'sentiment2' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3b.features, classifier3b.feature_names, [normalize_sentiment(target) for target in classifier3b.target])],
 		'sentiment3' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3c.features, classifier3c.feature_names, [normalize_sentiment(target) for target in classifier3c.target])],
 		'sentiment4' : 		[mi[:mi_max] for mi in get_mutual_information(classifier3d.features, classifier3d.feature_names, [normalize_sentiment(target) for target in classifier3d.target])],
-		'overall' : 		[mi[:mi_max] for mi in get_mutual_information(classifier4[1][0][0][0].features, classifier4[1][0][0][0].feature_names, [normalize_sentiment(target) for target in classifier4[1][0][0][0].target])],
 	}
+
+	for g in range(2):
+		for m in range(2):
+			for h in range(2):
+				for f in range(2):
+					mutual_information['overall'+str(f)+str(h)+str(m)+str(g)] = [mi[:mi_max] for mi in get_mutual_information(classifier4[f][h][m][g].features, classifier4[f][h][m][g].feature_names, [normalize_sentiment(target) for target in classifier4[f][h][m][g].target])]
+
 	mutual_information['table_data'] = [
 		(
 			mutual_information['subjectivity'][0][i],
@@ -36,9 +42,54 @@ def home(request):
 			mutual_information['sentiment4'][0][i],
 			mutual_information['sentiment4'][1][i],
 			mutual_information['sentiment4'][2][i],
-			mutual_information['overall'][0][i] if i < 4 else None,
-			mutual_information['overall'][1][i] if i < 4 else None,
-			mutual_information['overall'][2][i] if i < 4 else None,
+			mutual_information['overall0000'][0][i] if i < 4 else None,
+			mutual_information['overall0000'][1][i] if i < 4 else None,
+			mutual_information['overall0000'][2][i] if i < 4 else None,
+			mutual_information['overall1000'][0][i] if i < 4 else None,
+			mutual_information['overall1000'][1][i] if i < 4 else None,
+			mutual_information['overall1000'][2][i] if i < 4 else None,
+			mutual_information['overall0100'][0][i] if i < 4 else None,
+			mutual_information['overall0100'][1][i] if i < 4 else None,
+			mutual_information['overall0100'][2][i] if i < 4 else None,
+			mutual_information['overall1100'][0][i] if i < 4 else None,
+			mutual_information['overall1100'][1][i] if i < 4 else None,
+			mutual_information['overall1100'][2][i] if i < 4 else None,
+			mutual_information['overall0010'][0][i] if i < 4 else None,
+			mutual_information['overall0010'][1][i] if i < 4 else None,
+			mutual_information['overall0010'][2][i] if i < 4 else None,
+			mutual_information['overall1010'][0][i] if i < 4 else None,
+			mutual_information['overall1010'][1][i] if i < 4 else None,
+			mutual_information['overall1010'][2][i] if i < 4 else None,
+			mutual_information['overall0110'][0][i] if i < 4 else None,
+			mutual_information['overall0110'][1][i] if i < 4 else None,
+			mutual_information['overall0110'][2][i] if i < 4 else None,
+			mutual_information['overall1110'][0][i] if i < 4 else None,
+			mutual_information['overall1110'][1][i] if i < 4 else None,
+			mutual_information['overall1110'][2][i] if i < 4 else None,
+			mutual_information['overall0001'][0][i] if i < 4 else None,
+			mutual_information['overall0001'][1][i] if i < 4 else None,
+			mutual_information['overall0001'][2][i] if i < 4 else None,
+			mutual_information['overall1001'][0][i] if i < 4 else None,
+			mutual_information['overall1001'][1][i] if i < 4 else None,
+			mutual_information['overall1001'][2][i] if i < 4 else None,
+			mutual_information['overall0101'][0][i] if i < 4 else None,
+			mutual_information['overall0101'][1][i] if i < 4 else None,
+			mutual_information['overall0101'][2][i] if i < 4 else None,
+			mutual_information['overall1101'][0][i] if i < 4 else None,
+			mutual_information['overall1101'][1][i] if i < 4 else None,
+			mutual_information['overall1101'][2][i] if i < 4 else None,
+			mutual_information['overall0011'][0][i] if i < 4 else None,
+			mutual_information['overall0011'][1][i] if i < 4 else None,
+			mutual_information['overall0011'][2][i] if i < 4 else None,
+			mutual_information['overall1011'][0][i] if i < 4 else None,
+			mutual_information['overall1011'][1][i] if i < 4 else None,
+			mutual_information['overall1011'][2][i] if i < 4 else None,
+			mutual_information['overall0111'][0][i] if i < 4 else None,
+			mutual_information['overall0111'][1][i] if i < 4 else None,
+			mutual_information['overall0111'][2][i] if i < 4 else None,
+			mutual_information['overall1111'][0][i] if i < 4 else None,
+			mutual_information['overall1111'][1][i] if i < 4 else None,
+			mutual_information['overall1111'][2][i] if i < 4 else None,
 		)
 		for i in range(len(mutual_information['subjectivity'][0]))
 	]
