@@ -20,7 +20,7 @@ def home(request):
 		for m in range(2):
 			for h in range(2):
 				for f in range(2):
-					mutual_information['overall'+str(f)+str(h)+str(m)+str(g)] = [mi[:mi_max] for mi in get_mutual_information(classifier4[f][h][m][g].features, classifier4[f][h][m][g].feature_names, [normalize_sentiment(target) for target in classifier4[f][h][m][g].target], False)]
+					mutual_information['overall'+str(f)+str(h)+str(m)+str(g)] = [mi[:mi_max] for mi in get_mutual_information(classifier4[f][h][m][g].features, classifier4[f][h][m][g].feature_names, [normalize_sentiment(target) for target in classifier4[f][h][m][g].target], True)]
 
 	mutual_information['table_data'] = [
 		(

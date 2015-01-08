@@ -52,17 +52,20 @@ def extract(sentences, feature_names=None):
 
 	return feature_names, data
 
-def get_mutual_information(all_features, feature_names, targets, sort=True):
+def get_mutual_information(all_features, feature_names, targets, overall_sentiment=False):
 	mutual_information = []
 	for target in range(max(targets)+1):
-		mi_values = [mean([(all_features[j][i] if targets[j] == target else 0) for j in range(len(all_features))]) for i in range(len(all_features[0]))]
+		if overall_sentiment:
+			mi_values = [mean([all_features[j][i] for j in range(len(all_features)) if targets[j] == target]) for i in range(len(all_features[0]))]
+		else:
+			mi_values = [mean([(all_features[j][i] if targets[j] == target else 0) for j in range(len(all_features))]) for i in range(len(all_features[0]))]
 		mi = []
 
-		if sort:
-			for i in argsort(mi_values)[::-1]:
+		if overall_sentiment:
+			for i in range(len(mi_values)):
 				mi.append((feature_names[i], mi_values[i]))
 		else:
-			for i in range(len(mi_values)):
+			for i in argsort(mi_values)[::-1]:
 				mi.append((feature_names[i], mi_values[i]))
 
 		mutual_information.append(mi)
