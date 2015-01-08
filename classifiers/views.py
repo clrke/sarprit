@@ -136,10 +136,10 @@ def sentiment(request, clue, id, sentence):
 def overall(request, functional, humanic, mechanic, general):
 	from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 
-	f=0 if functional == 0 else 1
-	h=0 if humanic == 0 else 1
-	m=0 if mechanic == 0 else 1
-	g=0 if general == 0 else 1
+	f=0 if functional == '0' else 1
+	h=0 if humanic == '0' else 1
+	m=0 if mechanic == '0' else 1
+	g=0 if general == '0' else 1
 
 	rating = classifier4[f][h][m][g].predict([[functional, humanic, mechanic, general]])[0]
 
