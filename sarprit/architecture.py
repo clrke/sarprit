@@ -1,5 +1,24 @@
 import re
 from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
+from survey.models import Review
+
+
+def get_conjunctions():
+	conjunctions = []
+	for review in Review.objects.all():
+		prev_sentence_ended = True
+		for sentence in review.sentence_set.all():
+			sentence = sentence.sentence.strip()
+			if not prev_sentence_ended and sentence[0] != '#':
+				if  sentence.split()[0] not in conjunctions:
+					conjunctions.append(sentence.split()[0])
+
+			if sentence[-1] == '.' or sentence[-1] == '!' or sentence[-1] == '?':
+				prev_sentence_ended = True
+			else:
+				prev_sentence_ended = False
+
+	return conjunctions
 
 def sentence_split(review):
 	return [s[0] for s in re.findall(r'(([@#][\w^#]+ *)|([^\.!\?]*[\.!\?]* *))', review)]
@@ -45,3 +64,4 @@ def classify(review):
 	overall_sentiment = classifier4[f][h][m][g].predict([[overall_f, overall_h, overall_m, overall_g]])
 
 	return overall_sentiment[0]
+
