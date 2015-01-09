@@ -10,4 +10,5 @@ def search(query):
 
 	api = tweepy.API(auth)
 
-	return api.search(q=query, rpp=20, show_user=True)
+	max_tweets = 100
+	return [status for status in tweepy.Cursor(api.search, q=query+' -RT').items(max_tweets)]
