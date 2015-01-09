@@ -21,7 +21,10 @@ def get_conjunctions():
 	return conjunctions
 
 def sentence_split(review):
-	return [s[0] for s in re.findall(r'(([@#][\w^#]+ *)|([^\.!\?]*[\.!\?]* *))', review)]
+	sentences = [s[0] for s in re.findall(r'(([@#][\w^#]+ *)|([^\.!\?]*[\.!\?]* *))', review)]
+	sentences.pop()
+
+	return sentences
 
 def classify(review):
 	# sentence splitting
@@ -32,6 +35,10 @@ def classify(review):
 
 	# remove objective sentences
 	sentences = [sentences[i] for i in range(len(subjectivity)) if subjectivity[i] == 0]
+
+	# if all are objective sentences
+	if len(sentences) is 0:
+		return 3
 
 	# clues classification
 	clues = classifier2.predict(sentences)
