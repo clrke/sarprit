@@ -10,7 +10,6 @@ def home(request, restaurant):
 	neutrals = []
 
 	for review in reviews:
-		print(review.text)
 		prediction = classify(review.text)
 
 		if prediction > 3:
