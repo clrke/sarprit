@@ -27,7 +27,7 @@ class Review (models.Model):
 	namedrop = models.CharField(max_length=50, blank=True)
 	overall_sentiment = models.IntegerField(max_length=1)
 	flag = models.IntegerField(default=0)
-	student = models.ForeignKey(Student, null=True)
+	student = models.ForeignKey(Student, null=True, blank=True)
 
 	def __str__(self):
 		review = "["+str(self.overall_sentiment)+"] "
