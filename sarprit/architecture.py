@@ -26,9 +26,23 @@ def get_conjunctions():
 
 	return conjunctions
 
+def phrase_split(sentence):
+	phrase_parts = re.split('(%s)'%'|'.join(get_conjunctions()), sentence)
+
+	phrases = [phrase_parts[0]]
+
+	for i in range(len(phrase_parts) // 2):
+		phrases.extend(["%s%s" % (phrase_parts[1+i*2], phrase_parts[2+i*2])])
+
+	return phrases
+
 def sentence_split(review):
-	sentences = [s[0] for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))', review)]
-	sentences.pop()
+	phrases = [phrase[0] for phrase in [phrase_split(s[0]) for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))', review)]]
+
+	sentences = []
+	for i in range(len(phrases)):
+		if phrases[i] != '':
+			sentences.append(phrases[i])
 
 	return sentences
 
