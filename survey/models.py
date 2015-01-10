@@ -39,7 +39,7 @@ class Review (models.Model):
 class Sentence (models.Model):
 	sentence = models.CharField(max_length=1000)
 	subjective = models.BooleanField(default=True)
-	clue = models.CharField(max_length=1)
+	clue = models.CharField(max_length=1, blank=True, null=True)
 	rating = models.IntegerField(max_length=1)
 	review = models.ForeignKey(Review)
 
