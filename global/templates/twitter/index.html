@@ -36,6 +36,7 @@
                 <ul class="list-group" id="positive-list">
                     {% for review in positives %}
                         <li class="list-group-item">
+                            <b>{{ review.user.name }} </b> <br/>
                             {{ review.text }} <br/>
                             <small> {{ review.created_at }} </small>
                         </li>
@@ -45,6 +46,7 @@
                 <ul class="list-group" id="negative-list" style="display:none;">
                     {% for review in negatives %}
                         <li class="list-group-item">
+                            <b>{{ review.user.name }} </b> <br/>
                             {{ review.text }} <br/>
                             <small> {{ review.created_at }} </small>
                         </li>
@@ -54,6 +56,7 @@
                 <ul class="list-group" id="neutral-list" style="display:none;">
                     {% for review in neutrals %}
                         <li class="list-group-item">
+                            <b>{{ review.user.name }} </b> <br/>
                             {{ review.text }} <br/>
                             <small> {{ review.created_at }} </small>
                         </li>
