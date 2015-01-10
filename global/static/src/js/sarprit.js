@@ -15,7 +15,8 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 	Sarprit.analyze = function (review) {
 		Sarprit.sentences = []
 
-		var sentences = review.match( /(([@#][\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
+		var sentences = review.match( /(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))/g );
+		sentences.pop();
 
 		Sarprit.loading = true;
 		Sarprit.curLoaded = 0;
@@ -128,10 +129,15 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		var sentence3 = survey.review3? survey.review3 : "";
 		var sentence4 = survey.review4? survey.review4 : "";
 
-		var result1 = sentence1.match( /(([@#][\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
-		var result2 = sentence2.match( /(([@#][\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
-		var result3 = sentence3.match( /(([@#][\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
-		var result4 = sentence4.match( /(([@#][\w^#]+ *)|([^\.!\?]+[\.!\?]* *))/g );
+		var result1 = sentence1.match( /(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))/g );
+		var result2 = sentence2.match( /(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))/g );
+		var result3 = sentence3.match( /(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))/g );
+		var result4 = sentence4.match( /(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))/g );
+
+		result1.pop();
+		result2.pop();
+		result3.pop();
+		result4.pop();
 
 		survey.sentences1 = [];
 		survey.sentences2 = [];

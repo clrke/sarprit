@@ -21,7 +21,7 @@ def get_conjunctions():
 	return conjunctions
 
 def sentence_split(review):
-	sentences = [s[0] for s in re.findall(r'(([@#][\w^#]+ *)|([^\.!\?]*[\.!\?]* *))', review)]
+	sentences = [s[0] for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))', review)]
 	sentences.pop()
 
 	return sentences
