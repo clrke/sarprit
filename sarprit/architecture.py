@@ -2,6 +2,11 @@ import re
 from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 from survey.models import Review
 
+def is_smiley(word):
+	hats, eyes, noses, mouths = r"O30o<\|", r":;8BX=<o\.", r"-~'^_", r"\)\(\/\\\|3DPO0\$\*\."
+	pattern = "[%s]*[%s][%s]?[%s]+" % tuple(map(re.escape, [hats, eyes, noses, mouths]))
+
+	return re.match(pattern, word) != None
 
 def get_conjunctions():
 	conjunctions = []
@@ -9,11 +14,12 @@ def get_conjunctions():
 		prev_sentence_ended = True
 		for sentence in review.sentence_set.all():
 			sentence = sentence.sentence.strip()
-			if not prev_sentence_ended and sentence[0] != '#':
-				if  sentence.split()[0] not in conjunctions:
+
+			if not prev_sentence_ended and sentence[0] != '#' and sentence[0] != '@':
+				if len(sentence.split()) != 1 and sentence.split()[0] not in conjunctions:
 					conjunctions.append(sentence.split()[0])
 
-			if sentence[-1] == '.' or sentence[-1] == '!' or sentence[-1] == '?':
+			if sentence[0] == '#' or sentence[0] == '@' or sentence[-1] == '.' or sentence[-1] == '!' or sentence[-1] == '?' or is_smiley(sentence.split()[-1]):
 				prev_sentence_ended = True
 			else:
 				prev_sentence_ended = False
