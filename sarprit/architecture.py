@@ -55,7 +55,7 @@ def classify(review):
 	sentences = sentence_split(review)
 
 	# normalize hashtags
-	[(print(sentence), normalize_hashtag(sentence)) for sentence in sentences if sentence[0] == '#']
+	sentences = [normalize_hashtag(sentences[i]) if sentences[i][0] == '#' else sentences[i] for i in range(len(sentences))]
 
 	# subjectivity classification
 	subjectivity = classifier1.predict(sentences)
