@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from . import api
 from sarprit.architecture import classify
+from html.parser import HTMLParser
 
 def home(request, restaurant):
 	reviews = api.search(restaurant)
@@ -10,6 +11,11 @@ def home(request, restaurant):
 	neutrals = []
 
 	for review in reviews:
+		unescape = HTMLParser().unescape
+
+		review.text = unescape(review.text)
+		review.user.name = unescape(review.user.name)
+
 		prediction = classify(review.text)
 
 		if prediction > 3:
