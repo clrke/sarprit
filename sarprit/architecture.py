@@ -36,6 +36,10 @@ def phrase_split(sentence):
 
 	return phrases
 
+def normalize_hashtag(hashtag):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1 \2', hashtag)
+    return re.sub('([a-z0-9])([A-Z])', r'\1 \2', s1)
+
 def sentence_split(review):
 	phrases = [phrase[0] for phrase in [phrase_split(s[0]) for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))', review)]]
 
@@ -49,6 +53,9 @@ def sentence_split(review):
 def classify(review):
 	# sentence splitting
 	sentences = sentence_split(review)
+
+	# normalize hashtags
+	[(print(sentence), normalize_hashtag(sentence)) for sentence in sentences if sentence[0] == '#']
 
 	# subjectivity classification
 	subjectivity = classifier1.predict(sentences)
