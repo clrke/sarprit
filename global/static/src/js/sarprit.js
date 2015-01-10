@@ -98,7 +98,39 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 					}
 				}
 				else {
-					Sarprit.curLoaded+= 3;
+					Sarprit.curLoaded += 3;
+					if(Sarprit.curLoaded == Sarprit.maxLoaded) {
+						var functional = 0;
+						var humanic = 0;
+						var mechanic = 0;
+						var general = 0;
+
+						for (var i = 0; i < Sarprit.sentences.length; i++) {
+							sentence = Sarprit.sentences[i];
+
+							if(sentence.clue_id == 0)
+								functional += sentence.rating;
+							else if(sentence.clue_id == 1)
+								humanic += sentence.rating;
+							else if(sentence.clue_id == 2)
+								mechanic += sentence.rating;
+							else if(sentence.clue_id == 3)
+								general += sentence.rating;
+						};
+
+						functional /= Sarprit.sentences.length;
+						humanic /= Sarprit.sentences.length;
+						mechanic /= Sarprit.sentences.length;
+						general /= Sarprit.sentences.length;
+
+						if(functional == humanic && humanic == mechanic && mechanic == general && general == 0) {
+							functional = humanic = mechanic = general = 3;
+						}
+						$http.get('/classify/4/'+functional+'/'+humanic+'/'+mechanic+'/'+general).success(function (data) {
+							Sarprit.overallSentiment = data.rating;
+							Sarprit.loading = false;
+						});
+					}
 				}
 			}).error(function (data) {
 				Sarprit.loading = false;

@@ -123,7 +123,7 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 							overall_classifiers[f][h][m][g] = classifiers.OverallClassifier().fit(features, targets)
 						except:
 							print("Fail: ", f, h, m, g)
-							overall_classifiers[f][h][m][g] = classifiers.OverallClassifier().fit([[1,1,1,1], [5,5,5,5]], [1,5])
+							overall_classifiers[f][h][m][g] = classifiers.OverallClassifier().fit([[1,1,1,1], [3, 3, 3, 3], [5,5,5,5]], [1,3,5])
 
 		return overall_classifiers
 
