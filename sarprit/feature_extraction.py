@@ -1,5 +1,6 @@
 from nltk.tokenize import TreebankWordTokenizer
 from numpy import mean, argsort
+import re
 
 def get_unigrams(sentence):
 	return [unigram for unigram in TreebankWordTokenizer().tokenize(sentence)]
@@ -14,8 +15,79 @@ def get_all_unigrams(setences):
 
 	return all_unigrams
 
+def get_rootword(word):
+	word = word.lower()
+
+	rootword = re.findall(r'^nakaka(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^makaka(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^naka(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^maka(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^pag(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^ang(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^ma(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^an(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^napaka(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^(\w+)ng', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^pinaka(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^an(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^ka(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^am(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^(\w*)um(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^(\w*)in(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^ni(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^nan(\w+)', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	rootword = re.findall(r'^(\w+)an', word)
+	if len(rootword) > 0: return ''.join(syllable for syllable in rootword[0])
+
+	return word
+
 def get_features(sentence):
 	features = get_unigrams(sentence)
+
+	additional_features = []
+	for feature in features:
+		rootword = get_rootword(feature)
+		if rootword != feature:
+			additional_features.append(rootword)
+
+	for feature in additional_features:
+		features.append(feature)
 
 	return features
 
