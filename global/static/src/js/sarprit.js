@@ -56,23 +56,48 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 									var mechanic = 0;
 									var general = 0;
 
+									var fcount = 0;
+									var hcount = 0;
+									var mcount = 0;
+									var gcount = 0;
+
 									for (var i = 0; i < Sarprit.sentences.length; i++) {
 										sentence = Sarprit.sentences[i];
 
-										if(sentence.clue_id == 0)
+										if(sentence.clue_id == 0) {
 											functional += sentence.rating;
-										else if(sentence.clue_id == 1)
+											fcount++;
+										}
+										else if(sentence.clue_id == 1) {
 											humanic += sentence.rating;
-										else if(sentence.clue_id == 2)
+											hcount++;
+										}
+										else if(sentence.clue_id == 2) {
 											mechanic += sentence.rating;
-										else if(sentence.clue_id == 3)
+											mcount++;
+										}
+										else if(sentence.clue_id == 3) {
 											general += sentence.rating;
+											gcount++;
+										}
 									};
 
-									functional /= Sarprit.sentences.length;
-									humanic /= Sarprit.sentences.length;
-									mechanic /= Sarprit.sentences.length;
-									general /= Sarprit.sentences.length;
+									if(fcount == 0)
+										fcount = 1;
+
+									if(hcount == 0)
+										hcount = 1;
+
+									if(mcount == 0)
+										mcount = 1;
+
+									if(gcount == 0)
+										gcount = 1;
+
+									functional /= fcount;
+									humanic /= hcount;
+									mechanic /= mcount;
+									general /= gcount;
 
 									$http.get('/classify/4/'+functional+'/'+humanic+'/'+mechanic+'/'+general).success(function (data) {
 										Sarprit.overallSentiment = data.rating;
