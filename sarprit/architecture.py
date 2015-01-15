@@ -50,23 +50,25 @@ def sentence_split(review):
 
 	return sentences
 
-def classify(review):
+def preprocess(review):
 	# sentence splitting
 	sentences = sentence_split(review)
 
 	# normalize hashtags
 	sentences = [normalize_hashtag(sentences[i]) if sentences[i][0] == '#' else sentences[i] for i in range(len(sentences))]
 
+	return sentences
+
+def filter_subjective(sentences):
 	# subjectivity classification
 	subjectivity = classifier1.predict(sentences)
 
 	# remove objective sentences
 	sentences = [sentences[i] for i in range(len(subjectivity)) if subjectivity[i] == 0]
 
-	# if all are objective sentences
-	if len(sentences) is 0:
-		return 3
+	return sentences
 
+def seperate_clues(sentences):
 	# clues classification
 	clues = classifier2.predict(sentences)
 
@@ -76,12 +78,18 @@ def classify(review):
 	m_sentences = [sentences[i] for i in range(len(clues)) if clues[i] == 2]
 	g_sentences = [sentences[i] for i in range(len(clues)) if clues[i] == 3]
 
+	return f_sentences, h_sentences, m_sentences, g_sentences
+
+def analyze_sentiments(f_sentences, h_sentences, m_sentences, g_sentences):
 	# sentiment analysis per clue
 	f_sentiments = [] if len(f_sentences) == 0 else classifier3a.predict(f_sentences)
 	h_sentiments = [] if len(h_sentences) == 0 else classifier3b.predict(h_sentences)
 	m_sentiments = [] if len(m_sentences) == 0 else classifier3c.predict(m_sentences)
 	g_sentiments = [] if len(g_sentences) == 0 else classifier3d.predict(g_sentences)
 
+	return f_sentiments, h_sentiments, m_sentiments, g_sentiments
+
+def analyze_overall_sentiment(f_sentiments, h_sentiments, m_sentiments, g_sentiments):
 	# get type of SVM to use
 	f = 0 if len(f_sentiments) == 0 else 1
 	h = 0 if len(h_sentiments) == 0 else 1
@@ -89,13 +97,32 @@ def classify(review):
 	g = 0 if len(g_sentiments) == 0 else 1
 
 	# get overall sentiment analysis of each
-	overall_f = 0 if len(f_sentences) == 0 else sum(f_sentiments)/len(f_sentences)
-	overall_h = 0 if len(h_sentences) == 0 else sum(h_sentiments)/len(h_sentences)
-	overall_m = 0 if len(m_sentences) == 0 else sum(m_sentiments)/len(m_sentences)
-	overall_g = 0 if len(g_sentences) == 0 else sum(g_sentiments)/len(g_sentences)
+	overall_f = 0 if len(f_sentiments) == 0 else sum(f_sentiments)/len(f_sentiments)
+	overall_h = 0 if len(h_sentiments) == 0 else sum(h_sentiments)/len(h_sentiments)
+	overall_m = 0 if len(m_sentiments) == 0 else sum(m_sentiments)/len(m_sentiments)
+	overall_g = 0 if len(g_sentiments) == 0 else sum(g_sentiments)/len(g_sentiments)
 
 	# overall sentiment analysis
 	overall_sentiment = classifier4[f][h][m][g].predict([[overall_f, overall_h, overall_m, overall_g]])
 
 	return overall_sentiment[0]
 
+def classify(review):
+	# preprocessing
+	sentences = preprocess(review)
+
+	# subjectivity filtration
+	sentences = filter_subjective(sentences)
+
+	# if all are objective sentences
+	if len(sentences) is 0:
+		return 3 # neutral
+
+	# seperation of sentences by clues classification
+	f_sentences, h_sentences, m_sentences, g_sentences = seperate_clues(sentences)
+
+	# analyze sentiments
+	f_sentiments, h_sentiments, m_sentiments, g_sentiments = analyze_sentiments(
+		f_sentences, h_sentences, m_sentences, g_sentences)
+
+	return analyze_overall_sentiment(f_sentiments, h_sentiments, m_sentiments, g_sentiments)
