@@ -116,7 +116,7 @@ def classify(review):
 
 	# if all are objective sentences
 	if len(sentences) is 0:
-		return 3 # neutral
+		return 3, [[],[],[],[]] # neutral
 
 	# seperation of sentences by clues classification
 	f_sentences, h_sentences, m_sentences, g_sentences = seperate_clues(sentences)
@@ -125,4 +125,5 @@ def classify(review):
 	f_sentiments, h_sentiments, m_sentiments, g_sentiments = analyze_sentiments(
 		f_sentences, h_sentences, m_sentences, g_sentences)
 
-	return analyze_overall_sentiment(f_sentiments, h_sentiments, m_sentiments, g_sentiments)
+	return (analyze_overall_sentiment(f_sentiments, h_sentiments, m_sentiments, g_sentiments),
+		[f_sentences, h_sentences, m_sentences, g_sentences])
