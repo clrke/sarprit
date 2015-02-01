@@ -2,6 +2,7 @@ from django.shortcuts import render
 from . import api
 from sarprit.architecture import classify
 from html.parser import HTMLParser
+import re
 
 def home(request, restaurant):
 	reviews = api.search(restaurant)
@@ -16,6 +17,9 @@ def home(request, restaurant):
 
 		review.text = unescape(review.text)
 		review.user.name = unescape(review.user.name)
+
+		# remove links from tweets
+		review.text = re.sub(r'(https?://[A-Za-z0-9]+\.[A-Za-z0-9]+/[A-Za-z0-9]+) *', '', review.text)
 
 		classification = classify(review.text)
 		print(classification)

@@ -111,6 +111,10 @@ def classify(review):
 	# preprocessing
 	sentences = preprocess(review)
 
+	# if review is contains nothing
+	if len(sentences) is 0:
+		return 3, [[],[],[],[]] # neutral
+
 	# subjectivity filtration
 	sentences = filter_subjective(sentences)
 
