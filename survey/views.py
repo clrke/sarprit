@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from sarprit.shortcuts import to_json
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from sarprit.examples import classifiers_refresh
+from sarprit import architecture
 
 def index(request):
 	return render(request, 'survey/index.html', {"reviews": Review.objects.order_by('-id').all()})
@@ -167,3 +169,9 @@ def reviews_table(request):
 		reviews.append(review2)
 
 	return render(request,'tables/index.html', {'reviews': reviews})
+
+# preprocess for survey step 1 submissions
+def preprocess(request, review):
+	return JsonResponse({"review": review,
+		"sentences": [{"value": value, "subjective": True, "rating": 0}
+			for value in architecture.preprocess(review)]})

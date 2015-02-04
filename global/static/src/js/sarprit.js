@@ -187,43 +187,57 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 	survey.overallRating3 = 0;
 	survey.overallRating4 = 0;
 
+	var Sentence = function (value) {
+		return {
+			value: value? value: "Loading...",
+			subjective: true,
+			rating: 0
+		};
+	}
 	survey.splitReviews = function() {
-		var sentence1 = survey.review1;
-		var sentence2 = survey.review2;
-		var sentence3 = survey.review3? survey.review3 : "";
-		var sentence4 = survey.review4? survey.review4 : "";
+		var review1 = survey.review1;
+		var review2 = survey.review2;
+		var review3 = survey.review3? survey.review3 : "";
+		var review4 = survey.review4? survey.review4 : "";
 
-		var result1 = sentence1.match( phraseSplitter );
-		var result2 = sentence2.match( phraseSplitter );
-		var result3 = sentence3.match( phraseSplitter );
-		var result4 = sentence4.match( phraseSplitter );
+		survey.sentences1 = [Sentence()];
+		survey.sentences2 = [Sentence()];
+		if(review3) survey.sentences3 = [Sentence()];
+		if(review4) survey.sentences4 = [Sentence()];
 
-		result1.pop();
-		result2.pop();
-		result3.pop();
-		result4.pop();
+		$http.get('/sentence/preprocess/'+survey.review1)
+			.success(function (data) {
+				survey.sentences1 = data.sentences;
+			})
+			.error(function () {
+				survey.sentences = [review1];
+			});
 
-		survey.sentences1 = [];
-		survey.sentences2 = [];
-		survey.sentences3 = [];
-		survey.sentences4 = [];
+		$http.get('/sentence/preprocess/'+survey.review2)
+			.success(function (data) {
+				survey.sentences2 = data.sentences;
+			})
+			.error(function () {
+				survey.sentences = [review2];
+			});
 
-		for (var i = 0; i < result1.length; i++) {
-			survey.sentences1.push({value: result1[i], subjective: true, rating: 0});
-		}
-		for (var i = 0; i < result2.length; i++) {
-			survey.sentences2.push({value: result2[i], subjective: true, rating: 0});
-		}
-		if (result3) {
-			for (var i = 0; i < result3.length; i++) {
-				survey.sentences3.push({value: result3[i], subjective: true, rating: 0});
-			}
-		}
-		if (result4) {
-			for (var i = 0; i < result4.length; i++) {
-				survey.sentences4.push({value: result4[i], subjective: true, rating: 0});
-			}
-		}
+		if(review3)
+			$http.get('/sentence/preprocess/'+survey.review3)
+				.success(function (data) {
+					survey.sentences3 = data.sentences;
+				})
+				.error(function () {
+					survey.sentences = [review3];
+				});
+
+		if(review4)
+			$http.get('/sentence/preprocess/'+survey.review4)
+				.success(function (data) {
+					survey.sentences4 = data.sentences;
+				})
+				.error(function () {
+					survey.sentences = [review4];
+				});
 	}
 
 	survey.removeRatings = function (sentence) {
