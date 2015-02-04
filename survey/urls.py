@@ -13,4 +13,6 @@ urlpatterns = patterns('',
 
     url(r'^sentence/preprocess/(?P<review>.+)$', views.preprocess),
     url(r'^sentence/classify/(?P<id>\d+)/(?P<sentence>.+)$', views.classify),
+    url(r'^review/classify/(?P<f>\d+)/(?P<h>\d+)/(?P<m>\d+)/(?P<g>\d+)$',
+    	views.classify_overall_sentiment),
 )

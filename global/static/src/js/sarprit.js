@@ -279,6 +279,105 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		};
 	}
 
+	survey.classifyOverallSentiment = function () {
+		var f = 0; var f_count = 0;
+		var h = 0; var h_count = 0;
+		var m = 0; var m_count = 0;
+		var g = 0; var g_count = 0;
+		for (var i = 0; i < survey.sentences1.length; i++) {
+			var sentence = survey.sentences1[i];
+			switch(sentence.clue) {
+				case 'f': f += sentence.rating; f_count++;
+				case 'h': h += sentence.rating; h_count++;
+				case 'm': m += sentence.rating; m_count++;
+				case 'g': g += sentence.rating; g_count++;
+			}
+		};
+		if(f_count > 0) f = f / f_count;
+		if(h_count > 0) h = h / h_count;
+		if(m_count > 0) m = m / m_count;
+		if(g_count > 0) g = g / g_count;
+
+		$http.get('/review/classify/'+f+'/'+h+'/'+m+'/'+g)
+			.success(function (data) {
+				survey.overallRating1 = data.overall_sentiment;
+			});
+
+		var f = 0; var f_count = 0;
+		var h = 0; var h_count = 0;
+		var m = 0; var m_count = 0;
+		var g = 0; var g_count = 0;
+		for (var i = 0; i < survey.sentences2.length; i++) {
+			var sentence = survey.sentences2[i];
+			switch(sentence.clue) {
+				case 'f': f += sentence.rating; f_count++;
+				case 'h': h += sentence.rating; h_count++;
+				case 'm': m += sentence.rating; m_count++;
+				case 'g': g += sentence.rating; g_count++;
+			}
+		};
+		if(f_count > 0) f = f / f_count;
+		if(h_count > 0) h = h / h_count;
+		if(m_count > 0) m = m / m_count;
+		if(g_count > 0) g = g / g_count;
+
+		$http.get('/review/classify/'+f+'/'+h+'/'+m+'/'+g)
+			.success(function (data) {
+				survey.overallRating2 = data.overall_sentiment;
+			});
+
+		if(survey.review3) {
+			var f = 0; var f_count = 0;
+			var h = 0; var h_count = 0;
+			var m = 0; var m_count = 0;
+			var g = 0; var g_count = 0;
+			for (var i = 0; i < survey.sentences3.length; i++) {
+				var sentence = survey.sentences3[i];
+				switch(sentence.clue) {
+					case 'f': f += sentence.rating; f_count++;
+					case 'h': h += sentence.rating; h_count++;
+					case 'm': m += sentence.rating; m_count++;
+					case 'g': g += sentence.rating; g_count++;
+				}
+			};
+			if(f_count > 0) f = f / f_count;
+			if(h_count > 0) h = h / h_count;
+			if(m_count > 0) m = m / m_count;
+			if(g_count > 0) g = g / g_count;
+
+			$http.get('/review/classify/'+f+'/'+h+'/'+m+'/'+g)
+				.success(function (data) {
+					survey.overallRating3 = data.overall_sentiment;
+				});
+		}
+
+		if(survey.review4) {
+			var f = 0; var f_count = 0;
+			var h = 0; var h_count = 0;
+			var m = 0; var m_count = 0;
+			var g = 0; var g_count = 0;
+			for (var i = 0; i < survey.sentences4.length; i++) {
+				var sentence = survey.sentences4[i];
+				switch(sentence.clue) {
+					case 'f': f += sentence.rating; f_count++;
+					case 'h': h += sentence.rating; h_count++;
+					case 'm': m += sentence.rating; m_count++;
+					case 'g': g += sentence.rating; g_count++;
+				}
+			};
+			if(f_count > 0) f = f / f_count;
+			if(h_count > 0) h = h / h_count;
+			if(m_count > 0) m = m / m_count;
+			if(g_count > 0) g = g / g_count;
+
+			$http.get('/review/classify/'+f+'/'+h+'/'+m+'/'+g)
+				.success(function (data) {
+					survey.overallRating4 = data.overall_sentiment;
+				});
+		}
+
+	}
+
 	survey.step2ok = function () {
 		for (var i = 0; i < survey.sentences1.length; i++) {
 			sentence = survey.sentences1[i];

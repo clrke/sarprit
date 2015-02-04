@@ -7,6 +7,7 @@ from django.forms.models import model_to_dict
 from sarprit.examples import classifiers_refresh
 from sarprit import architecture
 from sarprit.examples import  classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
+from sarprit.architecture import analyze_overall_sentiment
 
 def index(request):
 	return render(request, 'survey/index.html', {"reviews": Review.objects.order_by('-id').all()})
@@ -211,3 +212,18 @@ def classify(request, id, sentence):
 			"rating": rating
 		}
 	});
+
+def classify_overall_sentiment(request, f, h, m, g):
+	f = int(f)
+	h = int(h)
+	m = int(m)
+	g = int(g)
+	return JsonResponse({
+		"overall_sentiment": int(analyze_overall_sentiment(
+			[f] if f > 0 else [],
+			[h] if h > 0 else [],
+			[m] if m > 0 else [],
+			[g] if g > 0 else [],
+		))
+	})
+
