@@ -56,7 +56,12 @@ def preprocess(review):
 	sentences = sentence_split(review)
 
 	# normalize hashtags
-	sentences = [normalize_hashtag(sentences[i]) if sentences[i][0] == '#' else sentences[i] for i in range(len(sentences))]
+	sentences = [
+		normalize_hashtag(sentences[i])
+			if len(sentences[i]) > 0 and sentences[i][0] == '#'
+			else sentences[i]
+		for i in range(len(sentences))
+	]
 
 	return sentences
 
@@ -109,6 +114,10 @@ def analyze_overall_sentiment(f_sentiments, h_sentiments, m_sentiments, g_sentim
 	return overall_sentiment[0]
 
 def classify(review):
+
+	if review is '':
+		return 3, [[],[],[],[]] # neutral
+
 	# preprocessing
 	sentences = preprocess(review)
 
