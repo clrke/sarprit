@@ -41,12 +41,13 @@ def normalize_hashtag(hashtag):
     return re.sub('([a-z0-9])([A-Z])', r'\1 \2', s1)
 
 def sentence_split(review):
-	phrases = [phrase[0] for phrase in [phrase_split(s[0]) for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))', review)]]
+	phrases_list = [phrase for phrase in [phrase_split(s[0]) for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))', review)]]
 
 	sentences = []
-	for i in range(len(phrases)):
-		if phrases[i] != '':
-			sentences.append(phrases[i])
+	for phrases in phrases_list:
+		for phrase in phrases:
+			if phrase != '':
+				sentences.append(phrase)
 
 	return sentences
 
