@@ -47,7 +47,7 @@ def sentence_split(review):
 	for phrases in phrases_list:
 		for phrase in phrases:
 			if phrase != '':
-				sentences.append(phrase)
+				sentences.append(phrase.strip())
 
 	return sentences
 
