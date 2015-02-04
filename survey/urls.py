@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='home'),
     url(r'^survey/$', views.index2, name='home2'),
 
-    url(r'^sentence/preprocess/(?P<review>.+)$', views.preprocess)
+    url(r'^sentence/preprocess/(?P<review>.+)$', views.preprocess),
+    url(r'^sentence/classify/(?P<id>\d+)/(?P<sentence>.+)$', views.classify),
 )

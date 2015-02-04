@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
 from sarprit.examples import classifiers_refresh
 from sarprit import architecture
+from sarprit.examples import  classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 
 def index(request):
 	return render(request, 'survey/index.html', {"reviews": Review.objects.order_by('-id').all()})
@@ -175,3 +176,38 @@ def preprocess(request, review):
 	return JsonResponse({"review": review,
 		"sentences": [{"value": value, "subjective": True, "rating": 0}
 			for value in architecture.preprocess(review)]})
+
+def classify(request, id, sentence):
+	subjective = int(classifier1.predict([sentence])[0])
+
+	if subjective is 0:
+		clue = int(classifier2.predict([sentence])[0])
+		if clue is 0:
+			clue = 'f'
+			classifier3 = classifier3a
+		elif clue is 1:
+			clue = 'h'
+			classifier3 = classifier3b
+		elif clue is 2:
+			clue = 'm'
+			classifier3 = classifier3c
+		elif clue is 3:
+			clue = 'g'
+			classifier3 = classifier3d
+
+		rating = int(classifier3.predict([sentence])[0])
+	else:
+		clue = None
+		rating = 0
+
+	print(subjective, clue, rating)
+
+	return JsonResponse({
+		"id": id,
+		"sentence": {
+			"value": sentence,
+			"subjective": subjective is 0,
+			"clue": clue,
+			"rating": rating
+		}
+	});

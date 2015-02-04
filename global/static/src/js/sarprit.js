@@ -248,6 +248,37 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		}
 	}
 
+	survey.classify = function () {
+		for (var i = 0; i < survey.sentences1.length; i++) {
+			sentence = survey.sentences1[i];
+			$http.get('/sentence/classify/'+i+'/'+sentence.value)
+				.success(function (data) {
+					survey.sentences1[data.id] = data.sentence;
+				});
+		};
+		for (var i = 0; i < survey.sentences2.length; i++) {
+			sentence = survey.sentences2[i];
+			$http.get('/sentence/classify/'+i+'/'+sentence.value)
+				.success(function (data) {
+					survey.sentences2[data.id] = data.sentence;
+				});
+		};
+		for (var i = 0; i < survey.sentences3.length; i++) {
+			sentence = survey.sentences3[i];
+			$http.get('/sentence/classify/'+i+'/'+sentence.value)
+				.success(function (data) {
+					survey.sentences3[data.id] = data.sentence;
+				});
+		};
+		for (var i = 0; i < survey.sentences4.length; i++) {
+			sentence = survey.sentences4[i];
+			$http.get('/sentence/classify/'+i+'/'+sentence.value)
+				.success(function (data) {
+					survey.sentences4[data.id] = data.sentence;
+				});
+		};
+	}
+
 	survey.step2ok = function () {
 		for (var i = 0; i < survey.sentences1.length; i++) {
 			sentence = survey.sentences1[i];
