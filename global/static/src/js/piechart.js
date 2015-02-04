@@ -34,7 +34,7 @@ $(document).ready(function () {
             plotShadow: false
         },
         title: {
-            text: 'Sentiment Analysis of ' + restaurant[0].toUpperCase() + restaurant.substring(1, restaurant.length) + ' in Twitter'
+            text: 'Sentiment Analysis of ' + restaurant[0].toUpperCase() + restaurant.substring(1, restaurant.length) + ' Reviews in Twitter'
         },
         tooltip: {
     	    pointFormat: '<b>{point.percentage:.1f}%</b>'
