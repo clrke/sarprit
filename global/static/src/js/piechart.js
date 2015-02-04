@@ -76,6 +76,60 @@ $(document).ready(function () {
             ]
         }]
     });
+    Highcharts.setOptions({
+        colors: ['#00F', '#FF0', '#F00', '#0F0']
+    });
+    $('#clue-piechart').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Clues Classifications of sentences in ' + restaurant[0].toUpperCase() +
+            restaurant.substring(1, restaurant.length) + ' Reviews in Twitter'
+        },
+        tooltip: {
+            pointFormat: '<b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            },series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function() {
+                            var chart = $('#piechart').highcharts();
+                            for (var i = 0; i <  chart.series[0].data.length; i++){
+                                if (chart.series[0].data[i] == this){
+                                    navActivate(i);
+                                    return;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            data: [
+                ['Functional', fCount],
+                ['Humanic', hCount],
+                ['Mechanic', mCount],
+                ['General', gCount]
+            ]
+        }]
+    });
     var chart = $('#piechart').highcharts();
     $("#positive").click(function () {
         chart.series[0].data[0].select();

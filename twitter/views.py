@@ -12,6 +12,11 @@ def home(request, restaurant):
 	neutrals = []
 	sentences_by_clue = []
 
+	f_sentences = []
+	h_sentences = []
+	m_sentences = []
+	g_sentences = []
+
 	for review in reviews:
 		unescape = HTMLParser().unescape
 
@@ -27,6 +32,11 @@ def home(request, restaurant):
 		prediction = classification[0]
 		sentences_by_clue.append(classification[1])
 
+		[f_sentences.append(sentence) for sentence in classification[1][0]]
+		[h_sentences.append(sentence) for sentence in classification[1][1]]
+		[m_sentences.append(sentence) for sentence in classification[1][2]]
+		[g_sentences.append(sentence) for sentence in classification[1][3]]
+
 		if prediction > 3:
 			positives.append(review)
 		elif prediction < 3:
@@ -41,5 +51,9 @@ def home(request, restaurant):
 			'positives_count': len(positives) * 100 / len(reviews),
 			'negatives_count': len(negatives) * 100 / len(reviews),
 			'neutrals_count': len(neutrals)* 100 / len(reviews),
+			'f_count': len(f_sentences),
+			'h_count': len(h_sentences),
+			'm_count': len(m_sentences),
+			'g_count': len(g_sentences),
 			'sentences_by_clue': sentences_by_clue
 		})

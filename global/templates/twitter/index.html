@@ -16,12 +16,28 @@
             var negative = {{ negatives_count }};
             var neutral = {{ neutrals_count }};
             var restaurant = '{{ restaurant }}';
+            var fCount = {{ f_count }};
+            var hCount = {{ h_count }};
+            var mCount = {{ m_count }};
+            var gCount = {{ g_count }};
         </script>
 	</head>
 	<body class="container">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div id="piechart" style="min-width: 310px; height: 400px; margin: 0 auto">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="piechart" style="min-width: 310px; height: 400px; margin: 0 auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="clue-piechart" style="min-width: 310px; height: 400px; margin: 0 auto">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
