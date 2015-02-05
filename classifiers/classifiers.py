@@ -23,6 +23,8 @@ class SubjectivityClassifier(MultinomialNB):
 
 		return super(SubjectivityClassifier, self).predict_proba(features)
 
+	def score(self, predict_data, target_data, sample_weight=None):
+		return super(SubjectivityClassifier, self).score(predict_data, target_data, sample_weight)
 
 class CluesClassifier(MultinomialNB):
 	def __init__(self):
@@ -45,6 +47,8 @@ class CluesClassifier(MultinomialNB):
 
 		return super(CluesClassifier, self).predict_proba(features)
 
+	def score(self, predict_data, target_data, sample_weight=None):
+		return super(CluesClassifier, self).score(predict_data, target_data, sample_weight)
 
 class SentimentClassifier(MultinomialNB):
 	def __init__(self):
@@ -67,6 +71,8 @@ class SentimentClassifier(MultinomialNB):
 
 		return super(SentimentClassifier, self).predict_proba(features)
 
+	def score(self, predict_data, target_data, sample_weight=None):
+		return super(SentimentClassifier, self).score(predict_data, target_data, sample_weight)
 
 class OverallClassifier(SVC):
 	def __init__(self):
@@ -84,3 +90,6 @@ class OverallClassifier(SVC):
 
 	def predict_proba(self, predict_data):
 		return super(OverallClassifier, self).predict_proba(predict_data)
+
+	def score(self, predict_data, target_data, sample_weight=None):
+		return super(OverallClassifier, self).score(predict_data, target_data, sample_weight)
