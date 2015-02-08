@@ -104,7 +104,7 @@ if os.environ['DJANGO_ENVIRONMENT'] == 'production':
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
 
-    DEBUG = False
+    DEBUG = (os.environ['DEBUG'] == 'yes') if 'DEBUG' in os.environ else False
 
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
