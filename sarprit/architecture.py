@@ -1,5 +1,5 @@
 import re
-from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
+from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier3e, classifier4
 from survey.models import Review
 
 def is_smiley(word):
@@ -141,3 +141,24 @@ def classify(review):
 
 	return (analyze_overall_sentiment(f_sentiments, h_sentiments, m_sentiments, g_sentiments),
 		[f_sentences, h_sentences, m_sentences, g_sentences])
+
+def classify_without_clues(review):
+
+	if review is '':
+		return 3, [[],[],[],[]] # neutral
+
+	# preprocessing
+	sentences = preprocess(review)
+
+	# if review is contains nothing
+	if len(sentences) is 0:
+		return 3, [[],[],[],[]] # neutral
+
+	# subjectivity filtration
+	sentences = filter_subjective(sentences)
+
+	# if all are objective sentences
+	if len(sentences) is 0:
+		return 3, [[],[],[],[]] # neutral
+
+	return classifier3e.predict([' '.join(sentences)]), [[],[],[],[]]

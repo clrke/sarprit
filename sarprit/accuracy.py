@@ -1,8 +1,8 @@
 from survey.models import Review
-from .architecture import classify
+from .architecture import classify, classify_without_clues
 from sarprit.shortcuts import normalize_sentiment
 
-def get_accuracy():
+def get_accuracy(without_clues = False):
 	reviews = Review.objects.all()
 
 	tp = 0
@@ -17,7 +17,10 @@ def get_accuracy():
 	n = 0
 
 	for review in reviews:
-		sentiment, sentences = classify(review.raw_string())
+		if without_clues:
+			sentiment, sentences = classify_without_clues(review.raw_string())
+		else:
+			sentiment, sentences = classify(review.raw_string())
 
 		sentiment1 = normalize_sentiment(sentiment)
 		sentiment2 = normalize_sentiment(review.overall_sentiment)
