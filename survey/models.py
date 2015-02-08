@@ -36,6 +36,9 @@ class Review (models.Model):
 
 		return review
 
+	def raw_string(self):
+		return ' '.join([sentence.sentence for sentence in self.sentence_set.all()])
+
 class Sentence (models.Model):
 	sentence = models.CharField(max_length=1000)
 	subjective = models.BooleanField(default=True)
