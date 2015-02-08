@@ -31,7 +31,7 @@ class Review (models.Model):
 
 	def __str__(self):
 		review = "["+str(self.overall_sentiment)+"] "
-		for sentence in self.sentence_set.all():
+		for sentence in self.sentence_set.all()[::-1]:
 			review += sentence.__str__();
 
 		return review

@@ -12,7 +12,7 @@ def get_conjunctions():
 	conjunctions = []
 	for review in Review.objects.all():
 		prev_sentence_ended = True
-		for sentence in review.sentence_set.all():
+		for sentence in review.sentence_set.all()[::-1]:
 			sentence = sentence.sentence.strip()
 
 			if not prev_sentence_ended and sentence[0] != '#' and sentence[0] != '@':
