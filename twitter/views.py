@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from . import api
 from sarprit.architecture import classify
-from html.parser import HTMLParser
+try:
+	from html.parser import HTMLParser
+except:
+	from HTMLParser import HTMLParser
 import re
 
 def home(request, restaurant):
