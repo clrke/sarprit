@@ -287,10 +287,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		for (var i = 0; i < survey.sentences1.length; i++) {
 			var sentence = survey.sentences1[i];
 			switch(sentence.clue) {
-				case 'f': f += sentence.rating; f_count++;
-				case 'h': h += sentence.rating; h_count++;
-				case 'm': m += sentence.rating; m_count++;
-				case 'g': g += sentence.rating; g_count++;
+				case 'f': f += sentence.rating; f_count++; break;
+				case 'h': h += sentence.rating; h_count++; break;
+				case 'm': m += sentence.rating; m_count++; break;
+				case 'g': g += sentence.rating; g_count++; break;
 			}
 		};
 		if(f_count > 0) f = f / f_count;
@@ -310,10 +310,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 		for (var i = 0; i < survey.sentences2.length; i++) {
 			var sentence = survey.sentences2[i];
 			switch(sentence.clue) {
-				case 'f': f += sentence.rating; f_count++;
-				case 'h': h += sentence.rating; h_count++;
-				case 'm': m += sentence.rating; m_count++;
-				case 'g': g += sentence.rating; g_count++;
+				case 'f': f += sentence.rating; f_count++; break;
+				case 'h': h += sentence.rating; h_count++; break;
+				case 'm': m += sentence.rating; m_count++; break;
+				case 'g': g += sentence.rating; g_count++; break;
 			}
 		};
 		if(f_count > 0) f = f / f_count;
@@ -334,10 +334,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 			for (var i = 0; i < survey.sentences3.length; i++) {
 				var sentence = survey.sentences3[i];
 				switch(sentence.clue) {
-					case 'f': f += sentence.rating; f_count++;
-					case 'h': h += sentence.rating; h_count++;
-					case 'm': m += sentence.rating; m_count++;
-					case 'g': g += sentence.rating; g_count++;
+					case 'f': f += sentence.rating; f_count++; break;
+					case 'h': h += sentence.rating; h_count++; break;
+					case 'm': m += sentence.rating; m_count++; break;
+					case 'g': g += sentence.rating; g_count++; break;
 				}
 			};
 			if(f_count > 0) f = f / f_count;
@@ -359,10 +359,10 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 			for (var i = 0; i < survey.sentences4.length; i++) {
 				var sentence = survey.sentences4[i];
 				switch(sentence.clue) {
-					case 'f': f += sentence.rating; f_count++;
-					case 'h': h += sentence.rating; h_count++;
-					case 'm': m += sentence.rating; m_count++;
-					case 'g': g += sentence.rating; g_count++;
+					case 'f': f += sentence.rating; f_count++; break;
+					case 'h': h += sentence.rating; h_count++; break;
+					case 'm': m += sentence.rating; m_count++; break;
+					case 'g': g += sentence.rating; g_count++; break;
 				}
 			};
 			if(f_count > 0) f = f / f_count;
