@@ -8,6 +8,7 @@ from sarprit.examples import classifiers_refresh
 from sarprit import architecture
 from sarprit.examples import  classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
 from sarprit.architecture import analyze_overall_sentiment
+import json
 
 def index(request):
 	return render(request, 'survey/index.html', {"reviews": Review.objects.order_by('-id').all()})
@@ -171,6 +172,50 @@ def reviews_table(request):
 		reviews.append(review2)
 
 	return render(request,'tables/index.html', {'reviews': reviews})
+
+def reviews_json(request):
+	reviews = []
+	for review in Review.objects.all():
+		review2 = model_to_dict(review)
+
+		sentences = review.sentence_set.all()
+
+		review2['sentences'] = []
+
+		for sentence in sentences:
+			sentence2 = model_to_dict(sentence)
+			review2['sentences'].append(sentence2)
+
+		reviews.append(review2)
+
+	return JsonResponse(reviews, safe=False)
+
+def reviews_add(request):
+	if request.method == 'POST':
+		reviews_json = json.loads(request.POST['json'])
+
+		for review_json in reviews_json:
+			review = Review(
+				namedrop=review_json['namedrop'],
+				overall_sentiment=review_json['overall_sentiment'],
+				flag=review_json['flag']
+			)
+
+			review.save()
+
+			print(review.id)
+
+			for sentence_json in review_json['sentences']:
+				review.sentence_set.create(
+					sentence = sentence_json['sentence'],
+					subjective = sentence_json['subjective'],
+					clue = sentence_json['clue'],
+					rating = sentence_json['rating'],
+				)
+
+		return JsonResponse(reviews_json, safe=False)
+	else:
+		return render(request, 'tables/add.html')
 
 # preprocess for survey step 1 submissions
 def preprocess(request, review):
