@@ -17,7 +17,7 @@ def get_conjunctions():
 
 			if not prev_sentence_ended and sentence[0] != '#' and sentence[0] != '@':
 				if len(sentence.split()) != 1 and sentence.split()[0] not in conjunctions:
-					conjunctions.append(sentence.split()[0])
+					conjunctions.append(re.escape(sentence.split()[0]))
 
 			if sentence[0] == '#' or sentence[0] == '@' or sentence[-1] == '.' or sentence[-1] == '!' or sentence[-1] == '?' or is_smiley(sentence.split()[-1]):
 				prev_sentence_ended = True
