@@ -16,11 +16,11 @@
 				<h1><center>Implementation of Subjectivity and Clues Classifications in Sentiment Analysis of Reviews on Philippine Restaurants in Twitter Using Multinomial Naive Bayes and Support Vector Classifiers</center></h1>
 			</div>
 		</div>
-		<div ng-controller="ReviewsCtrl as Review" class="container" ng-init="reviews = {{ reviews }}; reversed = true; sort = 'id'">
+		<div ng-controller="ReviewsCtrl as Review" class="container" ng-init="reversed = true; sort = 'id'">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="span pull-right">
-						<b>Results: {[ (reviews | filter: search).length ]} </b>
+						<b>Results: {[ (Review.reviews | filter: search).length ]} </b>
 					</div>
 					<input type="text" class="form-control" placeholder="Search" ng-model="search">
 					<table class="table">
@@ -53,7 +53,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="review in reviews | filter: search | orderBy: sort: reversed">
+							<tr ng-repeat="review in Review.reviews | filter: search | orderBy: sort: reversed">
 								<td> {[ review.id ]} </td>
 								<td> {[ review.to_str ]} </td>
 								<td> <img src="{% static 'src/img/yellowStar.jpg' %}" ng-repeat="i in Review.range(review.overall_sentiment) track by $index" style="width: 20px; height: 20px"><img src="{% static 'src/img/grayStar.jpg' %}" ng-repeat="i in Review.range(5-review.overall_sentiment) track by $index" style="width: 20px; height: 20px">

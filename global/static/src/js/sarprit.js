@@ -481,6 +481,9 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 }])
 .controller('ReviewsCtrl', ['$http', function ($http) {
 	var Review = this;
+	$http.get('/reviews.json').success(function (data) {
+		Review.reviews = data;
+	})
 	Review.save = function (review) {
 		$http.get("/review/save/"+review.id+"/"+review.flag);
 	}
