@@ -177,6 +177,7 @@ def reviews_json(request):
 	reviews = []
 	for review in Review.objects.all():
 		review2 = model_to_dict(review)
+		review2['to_str'] = review.__str__()
 
 		sentences = review.sentence_set.all()
 
