@@ -13,7 +13,7 @@ def review_save(request, id, flag):
 	review = Review.objects.get(id=int(id))
 	review.flag = int(flag)
 	review.save()
-	return {'id':id}
+	return JsonResponse({'id':id})
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
