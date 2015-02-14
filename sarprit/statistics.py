@@ -78,3 +78,23 @@ def get_accuracy(without_clues = False):
 	print("Recall (Negative):", rn)
 	print("F1-score (Negative):", f1n)
 	print()
+
+def randomize_review_flags():
+	from random import shuffle
+
+	reviews = list(Review.objects.all().exclude(flag=0))
+
+	shuffle(reviews)
+
+	length = len(reviews)
+	train_reviews = reviews[:int(length/2)]
+	test_reviews  = reviews[int(length/2):]
+
+	for review in train_reviews:
+		review.flag = 1
+		review.save()
+
+	for review in test_reviews:
+		review.flag = 2
+		review.save()
+
