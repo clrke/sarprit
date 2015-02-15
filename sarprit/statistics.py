@@ -87,11 +87,16 @@ def randomize_review_flags():
 
 	reviews = list(Review.objects.all().exclude(flag=0))
 
+	print("Shuffling reviews...")
 	shuffle(reviews)
 
+	print("Selecting train and test data...")
 	length = len(reviews)
 	train_reviews = reviews[:int(length*3/4)]
 	test_reviews  = reviews[int(length*3/4):]
+
+	print("Train Reviews count:", len(train_reviews))
+	print("Test Reviews count: ", len(test_reviews))
 
 	for review in train_reviews:
 		review.flag = 1
