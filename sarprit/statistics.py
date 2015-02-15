@@ -3,7 +3,7 @@ from .architecture import classify, classify_without_clues
 from sarprit.shortcuts import normalize_sentiment
 
 def get_accuracy(without_clues = False):
-	reviews = Review.objects.all()
+	reviews = Review.objects.filter(flag=2)
 
 	tp = 0
 	te = 0
