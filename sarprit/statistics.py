@@ -90,8 +90,8 @@ def randomize_review_flags():
 	shuffle(reviews)
 
 	length = len(reviews)
-	train_reviews = reviews[:int(length/2)]
-	test_reviews  = reviews[int(length/2):]
+	train_reviews = reviews[:int(length*3/4)]
+	test_reviews  = reviews[int(length*3/4):]
 
 	for review in train_reviews:
 		review.flag = 1
