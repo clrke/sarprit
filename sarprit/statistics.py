@@ -154,6 +154,12 @@ def get_clue_ratio():
 						sscore += review.overall_sentiment
 
 					print()
+					print("%s%s%s%s"%(
+						"F" if f is 1 else "",
+						"H" if h is 1 else "",
+						"M" if m is 1 else "",
+						"G" if g is 1 else "",
+						))
 					print(
 						"Original:   %8sf + %8sh + %8sm + %8sg = %8s" % (
 						 	"%6.2f"%fscore,
