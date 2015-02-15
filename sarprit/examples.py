@@ -152,7 +152,7 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 		return classifiers.OverallClassifier().fit(features, targets)
 
 	def overall_classifier():
-		reviews=Review.objects.all()
+		reviews=Review.objects.filter(flag=1)
 
 		sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
 		overall_classifiers = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
