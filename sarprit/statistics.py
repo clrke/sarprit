@@ -86,6 +86,35 @@ def get_score(sentences):
 	count = len(sentences) or 1
 	return sum([sentence.rating for sentence in sentences])/count
 
+def get_clues_impact(f, h, m, g, fscore, hscore, mscore, gscore, sscore):
+	fdiff = abs(sscore - fscore) if f is 1 else 0
+	hdiff = abs(sscore - hscore) if h is 1 else 0
+	mdiff = abs(sscore - mscore) if m is 1 else 0
+	gdiff = abs(sscore - gscore) if g is 1 else 0
+	diff_sum = (fdiff + hdiff + mdiff + gdiff) or 1
+
+	clues_count = f + h + m + g
+
+	if clues_count > 0:
+		fimpact = 1 - fdiff/diff_sum
+		himpact = 1 - hdiff/diff_sum
+		mimpact = 1 - mdiff/diff_sum
+		gimpact = 1 - gdiff/diff_sum
+	else:
+		fimpact = 0
+		himpact = 0
+		mimpact = 0
+		gimpact = 0
+
+	print(
+		"Impact:     %8sf + %8sh + %8sm + %8sg" % (
+		 	"%2.2f"%(fimpact/((clues_count-1) or 1) if f is 1 else 0),
+		 	"%2.2f"%(himpact/((clues_count-1) or 1) if h is 1 else 0),
+		 	"%2.2f"%(mimpact/((clues_count-1) or 1) if m is 1 else 0),
+		 	"%2.2f"%(gimpact/((clues_count-1) or 1) if g is 1 else 0)
+		 )
+	)
+
 def get_clue_ratio():
 	reviews = Review.objects.filter(flag=1)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
@@ -117,11 +146,11 @@ def get_clue_ratio():
 				for f in range(2):
 					reviews = sorted_reviews[f][h][m][g]
 
-					fscore = 0
-					hscore = 0
-					mscore = 0
-					gscore = 0
-					sscore = 0
+					fscores = []
+					hscores = []
+					mscores = []
+					gscores = []
+					sscores = []
 
 					for review in reviews:
 						f_sentences = [
@@ -137,12 +166,24 @@ def get_clue_ratio():
 							sentence for sentence in review.sentence_set.all() if sentence.clue is 'g'
 						]
 
-						fscore += get_score(f_sentences)
-						hscore += get_score(h_sentences)
-						mscore += get_score(m_sentences)
-						gscore += get_score(g_sentences)
+						fscore = get_score(f_sentences)
+						hscore = get_score(h_sentences)
+						mscore = get_score(m_sentences)
+						gscore = get_score(g_sentences)
 
-						sscore += review.overall_sentiment
+						sscore = review.overall_sentiment
+
+						fscores.append(fscore)
+						hscores.append(hscore)
+						mscores.append(mscore)
+						gscores.append(gscore)
+						sscores.append(sscore)
+
+					fscore = sum([score for score in fscores])/(len(fscores) or 1)
+					hscore = sum([score for score in hscores])/(len(hscores) or 1)
+					mscore = sum([score for score in mscores])/(len(mscores) or 1)
+					gscore = sum([score for score in gscores])/(len(gscores) or 1)
+					sscore = sum([score for score in sscores])/(len(sscores) or 1)
 
 					print()
 					print("%s%s%s%s"%(
@@ -153,11 +194,11 @@ def get_clue_ratio():
 						))
 					print(
 						"Original:   %8sf + %8sh + %8sm + %8sg = %8s" % (
-						 	"%6.2f"%fscore,
-						 	"%6.2f"%hscore,
-						 	"%6.2f"%mscore,
-						 	"%6.2f"%gscore,
-						 	"%6.2f"%sscore
+						 	"%6.2f"%(fscore),
+						 	"%6.2f"%(hscore),
+						 	"%6.2f"%(mscore),
+						 	"%6.2f"%(gscore),
+						 	"%6.2f"%(sscore)
 						 )
 					)
 					print(
@@ -169,33 +210,7 @@ def get_clue_ratio():
 						 	"%2.2f"%(sscore/sscore)
 						 )
 					)
-					fdiff = abs(sscore - fscore) if f is 1 else 0
-					hdiff = abs(sscore - hscore) if h is 1 else 0
-					mdiff = abs(sscore - mscore) if m is 1 else 0
-					gdiff = abs(sscore - gscore) if g is 1 else 0
-					diff_sum = (fdiff + hdiff + mdiff + gdiff) or 1
-
-					clues_count = f + h + m + g
-
-					if clues_count > 0:
-						fimpact = 1 - fdiff/diff_sum
-						himpact = 1 - hdiff/diff_sum
-						mimpact = 1 - mdiff/diff_sum
-						gimpact = 1 - gdiff/diff_sum
-					else:
-						fimpact = 0
-						himpact = 0
-						mimpact = 0
-						gimpact = 0
-
-					print(
-						"Impact:     %8sf + %8sh + %8sm + %8sg" % (
-						 	"%2.2f"%(fimpact/((clues_count-1) or 1) if f is 1 else 0),
-						 	"%2.2f"%(himpact/((clues_count-1) or 1) if h is 1 else 0),
-						 	"%2.2f"%(mimpact/((clues_count-1) or 1) if m is 1 else 0),
-						 	"%2.2f"%(gimpact/((clues_count-1) or 1) if g is 1 else 0)
-						 )
-					)
+					get_clues_impact(f, h, m, g, fscore, hscore, mscore, gscore, sscore)
 
 def randomize_review_flags():
 	from random import shuffle
