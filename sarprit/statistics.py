@@ -82,6 +82,97 @@ def get_accuracy(without_clues = False):
 	print("\tF1-score: ", f1n)
 	print()
 
+def get_clue_ratio():
+	reviews = Review.objects.filter(flag=1)
+	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
+
+	f_sentences = [sentence for sentence in sentences if sentence.clue is 'f']
+	h_sentences = [sentence for sentence in sentences if sentence.clue is 'h']
+	m_sentences = [sentence for sentence in sentences if sentence.clue is 'm']
+	g_sentences = [sentence for sentence in sentences if sentence.clue is 'g']
+
+	print()
+	print("F count:", len(f_sentences))
+	print("H count:", len(h_sentences))
+	print("M count:", len(m_sentences))
+	print("G count:", len(g_sentences))
+
+	sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
+
+	for review in reviews:
+		f=1 if review.sentence_set.filter(clue='f').count() > 0 else 0
+		h=1 if review.sentence_set.filter(clue='h').count() > 0 else 0
+		m=1 if review.sentence_set.filter(clue='m').count() > 0 else 0
+		g=1 if review.sentence_set.filter(clue='g').count() > 0 else 0
+
+		sorted_reviews[f][h][m][g].append(review)
+
+	for g in range(2):
+		for m in range(2):
+			for h in range(2):
+				for f in range(2):
+					reviews = sorted_reviews[f][h][m][g]
+
+					fscore = 0
+					hscore = 0
+					mscore = 0
+					gscore = 0
+					sscore = 0
+
+					for review in reviews:
+						f_sentences = [
+							sentence for sentence in review.sentence_set.all() if sentence.clue is 'f'
+						]
+						h_sentences = [
+							sentence for sentence in review.sentence_set.all() if sentence.clue is 'h'
+						]
+						m_sentences = [
+							sentence for sentence in review.sentence_set.all() if sentence.clue is 'm'
+						]
+						g_sentences = [
+							sentence for sentence in review.sentence_set.all() if sentence.clue is 'g'
+						]
+
+						fcount = len(f_sentences) if len(f_sentences) is not 0 else 1
+						hcount = len(h_sentences) if len(h_sentences) is not 0 else 1
+						mcount = len(m_sentences) if len(m_sentences) is not 0 else 1
+						gcount = len(g_sentences) if len(g_sentences) is not 0 else 1
+
+						fscore += sum([
+							sentence.rating for sentence in f_sentences
+						])/fcount
+						hscore += sum([
+							sentence.rating for sentence in h_sentences
+						])/hcount
+						mscore += sum([
+							sentence.rating for sentence in m_sentences
+						])/mcount
+						gscore += sum([
+							sentence.rating for sentence in g_sentences
+						])/gcount
+
+						sscore += review.overall_sentiment
+
+					print()
+					print(
+						"Original:   %8sf + %8sh + %8sm + %8sg = %8s" % (
+						 	"%6.2f"%fscore,
+						 	"%6.2f"%hscore,
+						 	"%6.2f"%mscore,
+						 	"%6.2f"%gscore,
+						 	"%6.2f"%sscore
+						 )
+					)
+					print(
+						"Simplified: %8sf + %8sh + %8sm + %8sg = %8s" % (
+						 	"%2.2f"%(fscore/sscore),
+						 	"%2.2f"%(hscore/sscore),
+						 	"%2.2f"%(mscore/sscore),
+						 	"%2.2f"%(gscore/sscore),
+						 	"%2.2f"%(sscore/sscore)
+						 )
+					)
+
 def randomize_review_flags():
 	from random import shuffle
 
