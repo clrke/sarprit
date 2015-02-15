@@ -43,10 +43,29 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 
 
 	def clues_classifier():
-		f = [sentence.sentence for sentence in Sentence.objects.filter(clue='f')]
-		h = [sentence.sentence for sentence in Sentence.objects.filter(clue='h')]
-		m = [sentence.sentence for sentence in Sentence.objects.filter(clue='m')]
-		g = [sentence.sentence for sentence in Sentence.objects.filter(clue='g')]
+		f = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(clue='f')
+		]
+
+		h = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(clue='h')
+		]
+
+		m = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(clue='m')
+		]
+
+		g = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(clue='g')
+		]
 
 		training_data = f + h + m + g
 		target = [0] * len(f) + [1] * len(h) + [2] * len(m) + [3] * len(g)
