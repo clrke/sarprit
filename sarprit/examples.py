@@ -73,11 +73,31 @@ if os.environ['SCIPY_INSTALLED'] == 'yes':
 		return classifiers.CluesClassifier().fit(training_data, target)
 
 	def sentiment_classifier(clue):
-		s1 = [sentence.sentence for sentence in Sentence.objects.filter(rating=1, clue=clue)]
-		s2 = [sentence.sentence for sentence in Sentence.objects.filter(rating=2, clue=clue)]
-		s3 = [sentence.sentence for sentence in Sentence.objects.filter(rating=3, clue=clue)]
-		s4 = [sentence.sentence for sentence in Sentence.objects.filter(rating=4, clue=clue)]
-		s5 = [sentence.sentence for sentence in Sentence.objects.filter(rating=5, clue=clue)]
+		s1 = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(rating=1, clue=clue)
+		]
+		s2 = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(rating=2, clue=clue)
+		]
+		s3 = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(rating=3, clue=clue)
+		]
+		s4 = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(rating=4, clue=clue)
+		]
+		s5 = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(rating=5, clue=clue)
+		]
 
 		training_data = s1 + s2 + s3 + s4 + s5
 		target = [1] * len(s1) + [2] * len(s2) + [3] * len(s3) + [4] * len(s4) + [5] * len(s5)
