@@ -186,11 +186,12 @@ def get_clue_ratio():
 					sscore = sum([score for score in sscores])/(len(sscores) or 1)
 
 					print()
-					print("%s%s%s%s"%(
+					print("%s%s%s%s: %d"%(
 						"F" if f is 1 else "",
 						"H" if h is 1 else "",
 						"M" if m is 1 else "",
 						"G" if g is 1 else "",
+						len(fscores)
 						))
 					print(
 						"Original:   %8sf + %8sh + %8sm + %8sg = %8s" % (
