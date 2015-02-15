@@ -82,6 +82,10 @@ def get_accuracy(without_clues = False):
 	print("\tF1-score: ", f1n)
 	print()
 
+def get_score(sentences):
+	count = len(sentences) or 1
+	return sum([sentence.rating for sentence in sentences])/count
+
 def get_clue_ratio():
 	reviews = Review.objects.filter(flag=1)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
@@ -133,23 +137,10 @@ def get_clue_ratio():
 							sentence for sentence in review.sentence_set.all() if sentence.clue is 'g'
 						]
 
-						fcount = len(f_sentences) if len(f_sentences) is not 0 else 1
-						hcount = len(h_sentences) if len(h_sentences) is not 0 else 1
-						mcount = len(m_sentences) if len(m_sentences) is not 0 else 1
-						gcount = len(g_sentences) if len(g_sentences) is not 0 else 1
-
-						fscore += sum([
-							sentence.rating for sentence in f_sentences
-						])/fcount
-						hscore += sum([
-							sentence.rating for sentence in h_sentences
-						])/hcount
-						mscore += sum([
-							sentence.rating for sentence in m_sentences
-						])/mcount
-						gscore += sum([
-							sentence.rating for sentence in g_sentences
-						])/gcount
+						fscore += get_score(f_sentences)
+						hscore += get_score(h_sentences)
+						mscore += get_score(m_sentences)
+						gscore += get_score(g_sentences)
 
 						sscore += review.overall_sentiment
 
