@@ -24,8 +24,17 @@ def objective_sentences():
 if os.environ['SCIPY_INSTALLED'] == 'yes':
 	from classifiers import classifiers
 	def subjectivity_classifier():
-		ss = [sentence.sentence for sentence in Sentence.objects.filter(subjective=True)]
-		os = [sentence.sentence for sentence in Sentence.objects.filter(subjective=False)]
+		ss = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(subjective=True)
+		]
+
+		os = [
+			sentence.sentence for review in
+				Review.objects.filter(flag=1) for sentence in
+					review.sentence_set.filter(subjective=False)
+		]
 
 		training_data = ss + os
 		target = [0] * len(ss) + [1] * len(os)
