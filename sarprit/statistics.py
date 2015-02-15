@@ -178,6 +178,33 @@ def get_clue_ratio():
 						 	"%2.2f"%(sscore/sscore)
 						 )
 					)
+					fdiff = abs(sscore - fscore) if f is 1 else 0
+					hdiff = abs(sscore - hscore) if h is 1 else 0
+					mdiff = abs(sscore - mscore) if m is 1 else 0
+					gdiff = abs(sscore - gscore) if g is 1 else 0
+					diff_sum = (fdiff + hdiff + mdiff + gdiff) or 1
+
+					clues_count = f + h + m + g
+
+					if clues_count > 0:
+						fimpact = 1 - fdiff/diff_sum
+						himpact = 1 - hdiff/diff_sum
+						mimpact = 1 - mdiff/diff_sum
+						gimpact = 1 - gdiff/diff_sum
+					else:
+						fimpact = 0
+						himpact = 0
+						mimpact = 0
+						gimpact = 0
+
+					print(
+						"Impact:     %8sf + %8sh + %8sm + %8sg" % (
+						 	"%2.2f"%(fimpact/((clues_count-1) or 1) if f is 1 else 0),
+						 	"%2.2f"%(himpact/((clues_count-1) or 1) if h is 1 else 0),
+						 	"%2.2f"%(mimpact/((clues_count-1) or 1) if m is 1 else 0),
+						 	"%2.2f"%(gimpact/((clues_count-1) or 1) if g is 1 else 0)
+						 )
+					)
 
 def randomize_review_flags():
 	from random import shuffle
