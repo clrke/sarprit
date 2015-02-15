@@ -107,11 +107,12 @@ def get_clues_impact(f, h, m, g, fscore, hscore, mscore, gscore, sscore):
 		gimpact = 0
 
 	print(
-		"Impact:     %8sf + %8sh + %8sm + %8sg" % (
-		 	"%2.2f"%(fimpact/((clues_count-1) or 1) if f is 1 else 0),
-		 	"%2.2f"%(himpact/((clues_count-1) or 1) if h is 1 else 0),
-		 	"%2.2f"%(mimpact/((clues_count-1) or 1) if m is 1 else 0),
-		 	"%2.2f"%(gimpact/((clues_count-1) or 1) if g is 1 else 0)
+		"Impact:     %8s    %8s    %8s    %8s  = %8s" % (
+		 	"x %2.2f"%(fimpact/((clues_count-1) or 1) if f is 1 else 0),
+		 	"x %2.2f"%(himpact/((clues_count-1) or 1) if h is 1 else 0),
+		 	"x %2.2f"%(mimpact/((clues_count-1) or 1) if m is 1 else 0),
+		 	"x %2.2f"%(gimpact/((clues_count-1) or 1) if g is 1 else 0),
+		 	"x 1.00"
 		 )
 	)
 
