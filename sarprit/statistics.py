@@ -125,11 +125,27 @@ def get_clue_ratio():
 	m_sentences = [sentence for sentence in sentences if sentence.clue is 'm']
 	g_sentences = [sentence for sentence in sentences if sentence.clue is 'g']
 
+	fp = [sentence for sentence in f_sentences if sentence.rating >  3]
+	fe = [sentence for sentence in f_sentences if sentence.rating is 3]
+	fn = [sentence for sentence in f_sentences if sentence.rating <  3]
+
+	hp = [sentence for sentence in h_sentences if sentence.rating >  3]
+	he = [sentence for sentence in h_sentences if sentence.rating is 3]
+	hn = [sentence for sentence in h_sentences if sentence.rating <  3]
+
+	mp = [sentence for sentence in m_sentences if sentence.rating >  3]
+	me = [sentence for sentence in m_sentences if sentence.rating is 3]
+	mn = [sentence for sentence in m_sentences if sentence.rating <  3]
+
+	gp = [sentence for sentence in g_sentences if sentence.rating >  3]
+	ge = [sentence for sentence in g_sentences if sentence.rating is 3]
+	gn = [sentence for sentence in g_sentences if sentence.rating <  3]
+
 	print()
-	print("F count:", len(f_sentences))
-	print("H count:", len(h_sentences))
-	print("M count:", len(m_sentences))
-	print("G count:", len(g_sentences))
+	print("F count: %4s | %4s %4s %4s" % (len(f_sentences), len(fp), len(fe), len(fn)))
+	print("H count: %4s | %4s %4s %4s" % (len(h_sentences), len(hp), len(he), len(hn)))
+	print("M count: %4s | %4s %4s %4s" % (len(m_sentences), len(mp), len(me), len(mn)))
+	print("G count: %4s | %4s %4s %4s" % (len(g_sentences), len(gp), len(ge), len(gn)))
 
 	sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
 
