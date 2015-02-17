@@ -136,10 +136,8 @@ def get_accuracy(without_clues = False):
 	reviews = Review.objects.filter(flag=2)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
 
-	# Accuracy of Subjectivity Classifier
 	get_subjectivity_classifier_accuracy(sentences)
 
-	# Accuracy of Overall Sentiment Analyzer
 	get_overall_sentiment_classifier_accuracy(reviews, without_clues)
 
 def get_score(sentences):
