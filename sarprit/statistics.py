@@ -31,14 +31,14 @@ def get_subjectivity_classifier_accuracy(sentences):
 
 	print(len(ts), len(to), len(fs), len(fo))
 
-	ps = len(ts)/(len(ts)+len(fs))
-	po = len(to)/(len(to)+len(fo))
+	ps = len(ts)/(len(ts)+len(fs) or 1)
+	po = len(to)/(len(to)+len(fo) or 1)
 
-	rs = len(ts)/len(s)
-	ro = len(to)/len(o)
+	rs = len(ts)/(len(s) or 1)
+	ro = len(to)/(len(o) or 1)
 
-	f1s = 2 * ((ps * rs)/(ps + rs))
-	f1o = 2 * ((po * ro)/(po + ro))
+	f1s = 2 * ((ps * rs)/(ps + rs or 1))
+	f1o = 2 * ((po * ro)/(po + ro or 1))
 
 	print("Subjective:")
 	print("\tPrecision:", ps)
@@ -118,20 +118,20 @@ def get_clues_classifier_accuracy(sentences):
 
 	print(len(tf), len(th), len(tm), len(tg), len(ff), len(fh), len(fm), len(fg))
 
-	pf = len(tf)/(len(tf)+len(ff))
-	ph = len(th)/(len(th)+len(fh))
-	pm = len(tm)/(len(tm)+len(fm))
-	pg = len(tg)/(len(tg)+len(fg))
+	pf = len(tf)/(len(tf)+len(ff) or 1)
+	ph = len(th)/(len(th)+len(fh) or 1)
+	pm = len(tm)/(len(tm)+len(fm) or 1)
+	pg = len(tg)/(len(tg)+len(fg) or 1)
 
-	rf = len(tf)/len(f)
-	rh = len(th)/len(h)
-	rm = len(tm)/len(m)
-	rg = len(tg)/len(g)
+	rf = len(tf)/(len(f) or 1)
+	rh = len(th)/(len(h) or 1)
+	rm = len(tm)/(len(m) or 1)
+	rg = len(tg)/(len(g) or 1)
 
-	f1f = 2 * ((pf * rf)/(pf + rf))
-	f1h = 2 * ((ph * rh)/(ph + rh))
-	f1m = 2 * ((pm * rm)/(pm + rm))
-	f1g = 2 * ((pg * rg)/(pg + rg))
+	f1f = 2 * ((pf * rf)/(pf + rf or 1))
+	f1h = 2 * ((ph * rh)/(ph + rh or 1))
+	f1m = 2 * ((pm * rm)/(pm + rm or 1))
+	f1g = 2 * ((pg * rg)/(pg + rg or 1))
 
 	print("Functional:")
 	print("\tPrecision:", pf)
@@ -219,17 +219,17 @@ def get_clues_sentiment_classifier_accuracy(sentences):
 
 		print(len(tp), len(te), len(tn), len(fp), len(fe), len(fn))
 
-		pp = len(tp)/(len(tp)+len(fp))
-		pe = len(te)/(len(te)+len(fe))
-		pn = len(tn)/(len(tn)+len(fn))
+		pp = len(tp)/(len(tp)+len(fp) or 1)
+		pe = len(te)/(len(te)+len(fe) or 1)
+		pn = len(tn)/(len(tn)+len(fn) or 1)
 
-		rp = len(tp)/len(p)
-		re = len(te)/len(e)
-		rn = len(tn)/len(n)
+		rp = len(tp)/(len(p) or 1)
+		re = len(te)/(len(e) or 1)
+		rn = len(tn)/(len(n) or 1)
 
-		f1p = 2 * ((pp * rp)/(pp + rp))
-		f1e = 2 * ((pe * re)/(pe + re))
-		f1n = 2 * ((pn * rn)/(pn + rn))
+		f1p = 2 * ((pp * rp)/(pp + rp or 1))
+		f1e = 2 * ((pe * re)/(pe + re or 1))
+		f1n = 2 * ((pn * rn)/(pn + rn or 1))
 
 		print("Positive:")
 		print("\tPrecision:", pp)
@@ -300,17 +300,17 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 
 	print(len(tp), len(te), len(tn), len(fp), len(fe), len(fn))
 
-	pp = len(tp)/(len(tp)+len(fp))
-	pe = len(te)/(len(te)+len(fe))
-	pn = len(tn)/(len(tn)+len(fn))
+	pp = len(tp)/(len(tp)+len(fp) or 1)
+	pe = len(te)/(len(te)+len(fe) or 1)
+	pn = len(tn)/(len(tn)+len(fn) or 1)
 
-	rp = len(tp)/len(p)
-	re = len(te)/len(e)
-	rn = len(tn)/len(n)
+	rp = len(tp)/(len(p) or 1)
+	re = len(te)/(len(e) or 1)
+	rn = len(tn)/(len(n) or 1)
 
-	f1p = 2 * ((pp * rp)/(pp + rp))
-	f1e = 2 * ((pe * re)/(pe + re))
-	f1n = 2 * ((pn * rn)/(pn + rn))
+	f1p = 2 * ((pp * rp)/(pp + rp or 1))
+	f1e = 2 * ((pe * re)/(pe + re or 1))
+	f1n = 2 * ((pn * rn)/(pn + rn or 1))
 
 	print("Positive:")
 	print("\tPrecision:", pp)
