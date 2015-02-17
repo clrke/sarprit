@@ -125,7 +125,7 @@ def get_data_ratio():
 
 	print()
 	print("Subjective count:", len(subjective_sentences))
-	print("Objective count:", len(objective_sentences))
+	print("Objective count: ", len(objective_sentences))
 
 	f_sentences = [sentence for sentence in sentences if sentence.clue is 'f']
 	h_sentences = [sentence for sentence in sentences if sentence.clue is 'h']
