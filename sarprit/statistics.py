@@ -1,10 +1,61 @@
-from survey.models import Review
+from survey.models import Review, Sentence
 from .architecture import classify, classify_without_clues
 from sarprit.shortcuts import normalize_sentiment
+from .examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d
 
 def get_accuracy(without_clues = False):
 	reviews = Review.objects.filter(flag=2)
+	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
 
+	# Accuracy of Subjectivity Classifier
+	print("Accuracy of Subjectivity Classifier:")
+	ts = 0
+	to = 0
+	fs = 0
+	fo = 0
+
+	s = 0
+	o = 0
+
+	for sentence in sentences:
+		subjective = classifier1.predict([sentence.sentence])[0]
+		if sentence.subjective:
+			s += 1
+			if subjective == 0:
+				ts += 1
+			else:
+				fo += 1
+		else:
+			o += 1
+			if subjective == 0:
+				fs += 1
+			else:
+				to += 1
+
+		print(ts, to, fs, fo)
+
+	ps = ts/(ts+fs)
+	po = to/(to+fo)
+
+	rs = ts/s
+	ro = to/o
+
+	f1s = 2 * ((ps * rs)/(ps + rs))
+	f1o = 2 * ((po * ro)/(po + ro))
+
+	print("Subjective:")
+	print("\tPrecision:", ps)
+	print("\tRecall:   ", rs)
+	print("\tF1-score: ", f1s)
+	print()
+
+	print("Objective:")
+	print("\tPrecision:", po)
+	print("\tRecall:   ", ro)
+	print("\tF1-score: ", f1o)
+	print()
+
+	# Accuracy of Overall Sentiment Analyzer
 	tp = 0
 	te = 0
 	tn = 0
