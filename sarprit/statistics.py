@@ -120,6 +120,13 @@ def get_data_ratio():
 	reviews = Review.objects.filter(flag=1)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
 
+	subjective_sentences = [sentence for sentence in sentences if sentence.subjective is True]
+	objective_sentences = [sentence for sentence in sentences if sentence.subjective is False]
+
+	print()
+	print("Subjective count:", len(subjective_sentences))
+	print("Objective count:", len(objective_sentences))
+
 	f_sentences = [sentence for sentence in sentences if sentence.clue is 'f']
 	h_sentences = [sentence for sentence in sentences if sentence.clue is 'h']
 	m_sentences = [sentence for sentence in sentences if sentence.clue is 'm']
