@@ -158,7 +158,96 @@ def get_clues_classifier_accuracy(sentences):
 	print()
 
 def get_clues_sentiment_classifier_accuracy(sentences):
-	pass
+	print("Accuracy of Clues Sentiment Classifier:")
+
+	clues = ['f', 'h', 'm', 'g']
+	full_clue_words = ['Functional', 'Humanic', 'Mechanic', 'General']
+
+	for i in range(4):
+		print("Accuracy of %s Sentiment Classifier:"%full_clue_words[i])
+		clue = clues[i]
+
+		tp = []
+		te = []
+		tn = []
+
+		fp = []
+		fe = []
+		fn = []
+
+		p = []
+		e = []
+		n = []
+
+		for sentence in [sentence for sentence in sentences if sentence.clue == clue]:
+			if clue == 'f':
+				classifier = classifier3a
+			elif clue == 'h':
+				classifier = classifier3b
+			elif clue == 'm':
+				classifier = classifier3c
+			elif clue == 'g':
+				classifier = classifier3d
+
+			sentiment1 = normalize_sentiment(int(classifier.predict([sentence.sentence])[0]))
+			sentiment2 = normalize_sentiment(sentence.rating)
+
+			if sentiment1 == 0: # negative
+				n.append(sentence)
+				if sentiment2 == 0: # negative
+					tn.append(sentence)
+				elif sentiment2 == 1: # neutral
+					fe.append(sentence)
+				elif sentiment2 == 2: # positive
+					fp.append(sentence)
+			elif sentiment1 == 1: # neutral
+				e.append(sentence)
+				if sentiment2 == 0: # negative
+					fn.append(sentence)
+				elif sentiment2 == 1: # neutral
+					te.append(sentence)
+				elif sentiment2 == 2: # positive
+					fp.append(sentence)
+			elif sentiment1 == 2: # positive
+				p.append(sentence)
+				if sentiment2 == 0: # negative
+					fn.append(sentence)
+				elif sentiment2 == 1: # neutral
+					fe.append(sentence)
+				elif sentiment2 == 2: # positive
+					tp.append(sentence)
+
+			print(len(tp), len(te), len(tn), len(fp), len(fe), len(fn))
+
+		pp = len(tp)/(len(tp)+len(fp))
+		pe = len(te)/(len(te)+len(fe))
+		pn = len(tn)/(len(tn)+len(fn))
+
+		rp = len(tp)/len(p)
+		re = len(te)/len(e)
+		rn = len(tn)/len(n)
+
+		f1p = 2 * ((pp * rp)/(pp + rp))
+		f1e = 2 * ((pe * re)/(pe + re))
+		f1n = 2 * ((pn * rn)/(pn + rn))
+
+		print("Positive:")
+		print("\tPrecision:", pp)
+		print("\tRecall:   ", rp)
+		print("\tF1-score: ", f1p)
+		print()
+
+		print("Neutral:")
+		print("\tPrecision:", pe)
+		print("\tRecall:   ", re)
+		print("\tF1-score: ", f1e)
+		print()
+
+		print("Negative:")
+		print("\tPrecision:", pn)
+		print("\tRecall:   ", rn)
+		print("\tF1-score: ", f1n)
+		print()
 
 def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("Accuracy of Overall Sentiment Classifier:")
