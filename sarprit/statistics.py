@@ -163,6 +163,8 @@ def get_clue_ratio():
 				for f in range(2):
 					reviews = sorted_reviews[f][h][m][g]
 
+					reviews_count = len(reviews)
+
 					fscores = []
 					hscores = []
 					mscores = []
@@ -196,11 +198,11 @@ def get_clue_ratio():
 						gscores.append(gscore)
 						sscores.append(sscore)
 
-					fscore = sum([score for score in fscores])/(len(fscores) or 1)
-					hscore = sum([score for score in hscores])/(len(hscores) or 1)
-					mscore = sum([score for score in mscores])/(len(mscores) or 1)
-					gscore = sum([score for score in gscores])/(len(gscores) or 1)
-					sscore = sum([score for score in sscores])/(len(sscores) or 1)
+					fscore = sum([score for score in fscores])/(reviews_count or 1)
+					hscore = sum([score for score in hscores])/(reviews_count or 1)
+					mscore = sum([score for score in mscores])/(reviews_count or 1)
+					gscore = sum([score for score in gscores])/(reviews_count or 1)
+					sscore = sum([score for score in sscores])/(reviews_count or 1)
 
 					print()
 					print("%s%s%s%s: %d"%(
@@ -208,7 +210,7 @@ def get_clue_ratio():
 						"H" if h is 1 else "",
 						"M" if m is 1 else "",
 						"G" if g is 1 else "",
-						len(fscores)
+						reviews_count
 						))
 					print(
 						"Original:   %8sf + %8sh + %8sm + %8sg = %8s" % (
