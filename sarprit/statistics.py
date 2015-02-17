@@ -52,6 +52,111 @@ def get_subjectivity_classifier_accuracy(sentences):
 	print("\tF1-score: ", f1o)
 	print()
 
+def get_clues_classifier_accuracy(sentences):
+	print("Accuracy of Clues Classifier:")
+
+	tf = 0
+	th = 0
+	tm = 0
+	tg = 0
+
+	ff = 0
+	fh = 0
+	fm = 0
+	fg = 0
+
+	f = 0
+	h = 0
+	m = 0
+	g = 0
+
+	for sentence in sentences:
+		clue1 = classifier2.predict([sentence.sentence])[0]
+		clue2 = sentence.clue
+
+		if clue2:
+			if clue1 == 0: # functional
+				f += 1
+				if clue2 is 'f':
+					tf += 1
+				elif clue2 is 'h':
+					fh += 1
+				elif clue2 is 'm':
+					fm += 1
+				elif clue2 is 'g':
+					fg += 1
+			elif clue1 == 1: # humanic
+				h += 1
+				if clue2 is 'f':
+					ff += 1
+				elif clue2 is 'h':
+					th += 1
+				elif clue2 is 'm':
+					fm += 1
+				elif clue2 is 'g':
+					fg += 1
+			elif clue1 == 2: # mechanic
+				m += 1
+				if clue2 is 'f':
+					ff += 1
+				elif clue2 is 'h':
+					fh += 1
+				elif clue2 is 'm':
+					tm += 1
+				elif clue2 is 'g':
+					fg += 1
+			elif clue1 == 3: # general
+				g += 1
+				if clue2 is 'f':
+					ff += 1
+				elif clue2 is 'h':
+					fh += 1
+				elif clue2 is 'm':
+					fm += 1
+				elif clue2 is 'g':
+					tg += 1
+
+			print(tf, th, tm, tg, ff, fh, fm, fg)
+
+	pf = tf/(tf+ff)
+	ph = th/(th+fh)
+	pm = tm/(tm+fm)
+	pg = tg/(tg+fg)
+
+	rf = tf/f
+	rh = th/h
+	rm = tm/m
+	rg = tg/g
+
+	f1f = 2 * ((pf * rf)/(pf + rf))
+	f1h = 2 * ((ph * rh)/(ph + rh))
+	f1m = 2 * ((pm * rm)/(pm + rm))
+	f1g = 2 * ((pg * rg)/(pg + rg))
+
+	print("Functional:")
+	print("\tPrecision:", pf)
+	print("\tRecall:   ", rf)
+	print("\tF1-score: ", f1f)
+	print()
+
+	print("Humanic:")
+	print("\tPrecision:", ph)
+	print("\tRecall:   ", rh)
+	print("\tF1-score: ", f1h)
+	print()
+
+	print("Mechanic:")
+	print("\tPrecision:", pm)
+	print("\tRecall:   ", rm)
+	print("\tF1-score: ", f1m)
+	print()
+
+	print("General:")
+	print("\tPrecision:", pg)
+	print("\tRecall:   ", rg)
+	print("\tF1-score: ", f1g)
+	print()
+
 def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("Accuracy of Overall Sentiment Classifier:")
 
@@ -137,7 +242,7 @@ def get_accuracies(without_clues = False):
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
 
 	get_subjectivity_classifier_accuracy(sentences)
-
+	get_clues_classifier_accuracy(sentences)
 	get_overall_sentiment_classifier_accuracy(reviews, without_clues)
 
 def get_score(sentences):
