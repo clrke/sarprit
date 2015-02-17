@@ -71,49 +71,49 @@ def get_clues_classifier_accuracy(sentences):
 	g = []
 
 	for sentence in sentences:
-		clue1 = classifier2.predict([sentence.sentence])[0]
-		clue2 = sentence.clue
+		clue1 = sentence.clue
+		clue2 = classifier2.predict([sentence.sentence])[0]
 
-		if clue2:
-			if clue1 == 0: # functional
+		if clue1:
+			if clue1 is 'f': # functional
 				f.append(sentence)
-				if clue2 is 'f':
+				if clue2 == 0:
 					tf.append(sentence)
-				elif clue2 is 'h':
+				elif clue2 == 1:
 					fh.append(sentence)
-				elif clue2 is 'm':
+				elif clue2 == 2:
 					fm.append(sentence)
-				elif clue2 is 'g':
+				elif clue2 == 3:
 					fg.append(sentence)
-			elif clue1 == 1: # humanic
+			elif clue1 is 'h': # humanic
 				h.append(sentence)
-				if clue2 is 'f':
+				if clue2 == 0:
 					ff.append(sentence)
-				elif clue2 is 'h':
+				elif clue2 == 1:
 					th.append(sentence)
-				elif clue2 is 'm':
+				elif clue2 == 2:
 					fm.append(sentence)
-				elif clue2 is 'g':
+				elif clue2 == 3:
 					fg.append(sentence)
-			elif clue1 == 2: # mechanic
+			elif clue1 is 'm': # mechanic
 				m.append(sentence)
-				if clue2 is 'f':
+				if clue2 == 0:
 					ff.append(sentence)
-				elif clue2 is 'h':
+				elif clue2 == 1:
 					fh.append(sentence)
-				elif clue2 is 'm':
+				elif clue2 == 2:
 					tm.append(sentence)
-				elif clue2 is 'g':
+				elif clue2 == 3:
 					fg.append(sentence)
-			elif clue1 == 3: # general
+			elif clue1 is 'g': # general
 				g.append(sentence)
-				if clue2 is 'f':
+				if clue2 == 0:
 					ff.append(sentence)
-				elif clue2 is 'h':
+				elif clue2 == 1:
 					fh.append(sentence)
-				elif clue2 is 'm':
+				elif clue2 == 2:
 					fm.append(sentence)
-				elif clue2 is 'g':
+				elif clue2 == 3:
 					tg.append(sentence)
 
 	print(len(tf), len(th), len(tm), len(tg), len(ff), len(fh), len(fm), len(fg))
@@ -189,8 +189,8 @@ def get_clues_sentiment_classifier_accuracy(sentences):
 			elif clue == 'g':
 				classifier = classifier3d
 
-			sentiment1 = normalize_sentiment(int(classifier.predict([sentence.sentence])[0]))
-			sentiment2 = normalize_sentiment(sentence.rating)
+			sentiment1 = normalize_sentiment(sentence.rating)
+			sentiment2 = normalize_sentiment(int(classifier.predict([sentence.sentence])[0]))
 
 			if sentiment1 == 0: # negative
 				n.append(sentence)
@@ -270,8 +270,8 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 		else:
 			sentiment, sentences = classify(review.raw_string())
 
-		sentiment1 = normalize_sentiment(sentiment)
-		sentiment2 = normalize_sentiment(review.overall_sentiment)
+		sentiment1 = normalize_sentiment(review.overall_sentiment)
+		sentiment2 = normalize_sentiment(sentiment)
 
 		if sentiment1 == 0: # negative
 			n.append(review)
