@@ -6,36 +6,36 @@ from .examples import classifier1, classifier2, classifier3a, classifier3b, clas
 def get_subjectivity_classifier_accuracy(sentences):
 	print("Accuracy of Subjectivity Classifier:")
 
-	ts = 0
-	to = 0
-	fs = 0
-	fo = 0
+	ts = []
+	to = []
+	fs = []
+	fo = []
 
-	s = 0
-	o = 0
+	s = []
+	o = []
 
 	for sentence in sentences:
 		subjective = classifier1.predict([sentence.sentence])[0]
 		if sentence.subjective:
-			s += 1
+			s.append(sentence)
 			if subjective == 0:
-				ts += 1
+				ts.append(sentence)
 			else:
-				fo += 1
+				fo.append(sentence)
 		else:
-			o += 1
+			o.append(sentence)
 			if subjective == 0:
-				fs += 1
+				fs.append(sentence)
 			else:
-				to += 1
+				to.append(sentence)
 
-		print(ts, to, fs, fo)
+		print(len(ts), len(to), len(fs), len(fo))
 
-	ps = ts/(ts+fs)
-	po = to/(to+fo)
+	ps = len(ts)/(len(ts)+len(fs))
+	po = len(to)/(len(to)+len(fo))
 
-	rs = ts/s
-	ro = to/o
+	rs = len(ts)/len(s)
+	ro = len(to)/len(o)
 
 	f1s = 2 * ((ps * rs)/(ps + rs))
 	f1o = 2 * ((po * ro)/(po + ro))
@@ -55,20 +55,20 @@ def get_subjectivity_classifier_accuracy(sentences):
 def get_clues_classifier_accuracy(sentences):
 	print("Accuracy of Clues Classifier:")
 
-	tf = 0
-	th = 0
-	tm = 0
-	tg = 0
+	tf = []
+	th = []
+	tm = []
+	tg = []
 
-	ff = 0
-	fh = 0
-	fm = 0
-	fg = 0
+	ff = []
+	fh = []
+	fm = []
+	fg = []
 
-	f = 0
-	h = 0
-	m = 0
-	g = 0
+	f = []
+	h = []
+	m = []
+	g = []
 
 	for sentence in sentences:
 		clue1 = classifier2.predict([sentence.sentence])[0]
@@ -76,57 +76,57 @@ def get_clues_classifier_accuracy(sentences):
 
 		if clue2:
 			if clue1 == 0: # functional
-				f += 1
+				f.append(sentence)
 				if clue2 is 'f':
-					tf += 1
+					tf.append(sentence)
 				elif clue2 is 'h':
-					fh += 1
+					fh.append(sentence)
 				elif clue2 is 'm':
-					fm += 1
+					fm.append(sentence)
 				elif clue2 is 'g':
-					fg += 1
+					fg.append(sentence)
 			elif clue1 == 1: # humanic
-				h += 1
+				h.append(sentence)
 				if clue2 is 'f':
-					ff += 1
+					ff.append(sentence)
 				elif clue2 is 'h':
-					th += 1
+					th.append(sentence)
 				elif clue2 is 'm':
-					fm += 1
+					fm.append(sentence)
 				elif clue2 is 'g':
-					fg += 1
+					fg.append(sentence)
 			elif clue1 == 2: # mechanic
-				m += 1
+				m.append(sentence)
 				if clue2 is 'f':
-					ff += 1
+					ff.append(sentence)
 				elif clue2 is 'h':
-					fh += 1
+					fh.append(sentence)
 				elif clue2 is 'm':
-					tm += 1
+					tm.append(sentence)
 				elif clue2 is 'g':
-					fg += 1
+					fg.append(sentence)
 			elif clue1 == 3: # general
-				g += 1
+				g.append(sentence)
 				if clue2 is 'f':
-					ff += 1
+					ff.append(sentence)
 				elif clue2 is 'h':
-					fh += 1
+					fh.append(sentence)
 				elif clue2 is 'm':
-					fm += 1
+					fm.append(sentence)
 				elif clue2 is 'g':
-					tg += 1
+					tg.append(sentence)
 
-			print(tf, th, tm, tg, ff, fh, fm, fg)
+			print(len(tf), len(th), len(tm), len(tg), len(ff), len(fh), len(fm), len(fg))
 
-	pf = tf/(tf+ff)
-	ph = th/(th+fh)
-	pm = tm/(tm+fm)
-	pg = tg/(tg+fg)
+	pf = len(tf)/(len(tf)+len(ff))
+	ph = len(th)/(len(th)+len(fh))
+	pm = len(tm)/(len(tm)+len(fm))
+	pg = len(tg)/(len(tg)+len(fg))
 
-	rf = tf/f
-	rh = th/h
-	rm = tm/m
-	rg = tg/g
+	rf = len(tf)/len(f)
+	rh = len(th)/len(h)
+	rm = len(tm)/len(m)
+	rg = len(tg)/len(g)
 
 	f1f = 2 * ((pf * rf)/(pf + rf))
 	f1h = 2 * ((ph * rh)/(ph + rh))
@@ -163,16 +163,17 @@ def get_clues_sentiment_classifier_accuracy(sentences):
 def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("Accuracy of Overall Sentiment Classifier:")
 
-	tp = 0
-	te = 0
-	tn = 0
-	fp = 0
-	fe = 0
-	fn = 0
+	tp = []
+	te = []
+	tn = []
 
-	p = 0
-	e = 0
-	n = 0
+	fp = []
+	fe = []
+	fn = []
+
+	p = []
+	e = []
+	n = []
 
 	for review in reviews:
 		if without_clues:
@@ -184,39 +185,39 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 		sentiment2 = normalize_sentiment(review.overall_sentiment)
 
 		if sentiment1 == 0: # negative
-			n += 1
+			n.append(review)
 			if sentiment2 == 0: # negative
-				tn += 1
+				tn.append(review)
 			elif sentiment2 == 1: # neutral
-				fe += 1
+				fe.append(review)
 			elif sentiment2 == 2: # positive
-				fp += 1
+				fp.append(review)
 		elif sentiment1 == 1: # neutral
-			e += 1
+			e.append(review)
 			if sentiment2 == 0: # negative
-				fn += 1
+				fn.append(review)
 			elif sentiment2 == 1: # neutral
-				te += 1
+				te.append(review)
 			elif sentiment2 == 2: # positive
-				fp += 1
+				fp.append(review)
 		elif sentiment1 == 2: # positive
-			p += 1
+			p.append(review)
 			if sentiment2 == 0: # negative
-				fn += 1
+				fn.append(review)
 			elif sentiment2 == 1: # neutral
-				fe += 1
+				fe.append(review)
 			elif sentiment2 == 2: # positive
-				tp += 1
+				tp.append(review)
 
-		print(tp, te, tn, fp, fe, fn)
+		print(len(tp), len(te), len(tn), len(fp), len(fe), len(fn))
 
-	pp = tp/(tp+fp)
-	pe = te/(te+fe)
-	pn = tn/(tn+fn)
+	pp = len(tp)/(len(tp)+len(fp))
+	pe = len(te)/(len(te)+len(fe))
+	pn = len(tn)/(len(tn)+len(fn))
 
-	rp = tp/p
-	re = te/e
-	rn = tn/n
+	rp = len(tp)/len(p)
+	re = len(te)/len(e)
+	rn = len(tn)/len(n)
 
 	f1p = 2 * ((pp * rp)/(pp + rp))
 	f1e = 2 * ((pe * re)/(pe + re))
