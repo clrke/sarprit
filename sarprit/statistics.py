@@ -52,6 +52,11 @@ def get_subjectivity_classifier_accuracy(sentences):
 	print("\tF1-score: ", f1o)
 	print()
 
+	print("Additional Data:")
+	print("\tFalse Subjective:", '\n\t\t'.join([sentence.__str__() for sentence in fs]))
+	print("\tFalse Objective:", '\n\t\t'.join([sentence.__str__() for sentence in fo]))
+	print()
+
 def get_clues_classifier_accuracy(sentences):
 	print("Accuracy of Clues Classifier:")
 
@@ -157,6 +162,13 @@ def get_clues_classifier_accuracy(sentences):
 	print("\tF1-score: ", f1g)
 	print()
 
+	print("Additional Data:")
+	print("\tFalse Functional:", '\n\t\t'.join([sentence.__str__() for sentence in ff]))
+	print("\tFalse Humanic:", '\n\t\t'.join([sentence.__str__() for sentence in fh]))
+	print("\tFalse Mechanic:", '\n\t\t'.join([sentence.__str__() for sentence in fm]))
+	print("\tFalse General:", '\n\t\t'.join([sentence.__str__() for sentence in fg]))
+	print()
+
 def get_clues_sentiment_classifier_accuracy(sentences):
 	print("Accuracy of Clues Sentiment Classifier:")
 
@@ -249,6 +261,12 @@ def get_clues_sentiment_classifier_accuracy(sentences):
 		print("\tF1-score: ", f1n)
 		print()
 
+		print("Additional Data:")
+		print("\tFalse Positive:", '\n\t\t'.join([sentence.__str__() for sentence in fp]))
+		print("\tFalse Neutral:", '\n\t\t'.join([sentence.__str__() for sentence in fe]))
+		print("\tFalse Negative:", '\n\t\t'.join([sentence.__str__() for sentence in fn]))
+		print()
+
 def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("Accuracy of Overall Sentiment Classifier:")
 
@@ -328,6 +346,12 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("\tPrecision:", pn)
 	print("\tRecall:   ", rn)
 	print("\tF1-score: ", f1n)
+	print()
+
+	print("Additional Data:")
+	print("\tFalse Positive:", '\n\t\t'.join([review.__str__() for review in fp]))
+	print("\tFalse Neutral:", '\n\t\t'.join([review.__str__() for review in fe]))
+	print("\tFalse Negative:", '\n\t\t'.join([review.__str__() for review in fn]))
 	print()
 
 def get_accuracies(without_clues = False):
