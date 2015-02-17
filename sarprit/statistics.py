@@ -132,7 +132,7 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("\tF1-score: ", f1n)
 	print()
 
-def get_accuracy(without_clues = False):
+def get_accuracies(without_clues = False):
 	reviews = Review.objects.filter(flag=2)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
 

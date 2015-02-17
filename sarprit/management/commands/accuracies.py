@@ -5,11 +5,11 @@ class Command(BaseCommand):
     help = 'Gets accuracy of sarprit. Input anything after the command to execute analysis without clues.'
 
     def handle(self, *args, **options):
-        from sarprit.statistics import get_accuracy
+        from sarprit.statistics import get_accuracies
 
         if len(args) > 0:
             print('Performing sentiment analysis without clues classification...')
-            get_accuracy(True)
+            get_accuracies(True)
         else:
             print('Performing sentiment analysis with clues classification...')
-            get_accuracy(False)
+            get_accuracies(False)
