@@ -116,7 +116,7 @@ def get_clues_impact(f, h, m, g, fscore, hscore, mscore, gscore, sscore):
 		 )
 	)
 
-def get_clue_ratio():
+def get_data_ratio():
 	reviews = Review.objects.filter(flag=1)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
 
