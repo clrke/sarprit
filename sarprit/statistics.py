@@ -496,6 +496,27 @@ def get_data_ratio():
 					)
 					get_clues_impact(f, h, m, g, fscore, hscore, mscore, gscore, sscore)
 
+def set_review_flags_to_fixed():
+	from random import shuffle
+
+	reviews = list(Review.objects.all().exclude(flag=0))
+
+	print("Selecting train and test data...")
+	length = len(reviews)
+	train_reviews = reviews[:int(length/2)]
+	test_reviews  = reviews[int(length/2):]
+
+	print("Train Reviews count:", len(train_reviews))
+	print("Test Reviews count: ", len(test_reviews))
+
+	for review in train_reviews:
+		review.flag = 1
+		review.save()
+
+	for review in test_reviews:
+		review.flag = 2
+		review.save()
+
 def randomize_review_flags():
 	from random import shuffle
 
