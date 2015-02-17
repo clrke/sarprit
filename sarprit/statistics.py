@@ -157,6 +157,9 @@ def get_clues_classifier_accuracy(sentences):
 	print("\tF1-score: ", f1g)
 	print()
 
+def get_clues_sentiment_classifier_accuracy(sentences):
+	pass
+
 def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("Accuracy of Overall Sentiment Classifier:")
 
@@ -243,6 +246,7 @@ def get_accuracies(without_clues = False):
 
 	get_subjectivity_classifier_accuracy(sentences)
 	get_clues_classifier_accuracy(sentences)
+	get_clues_sentiment_classifier_accuracy(sentences)
 	get_overall_sentiment_classifier_accuracy(reviews, without_clues)
 
 def get_score(sentences):
