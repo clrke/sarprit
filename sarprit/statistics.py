@@ -1,10 +1,9 @@
 from survey.models import Review, Sentence
-from .architecture import classify, classify_without_clues
 from sarprit.shortcuts import normalize_sentiment
-from .examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d
 
 def get_subjectivity_classifier_accuracy(sentences):
 	print("Accuracy of Subjectivity Classifier:")
+	from .examples import classifier1
 
 	ts = []
 	to = []
@@ -59,6 +58,7 @@ def get_subjectivity_classifier_accuracy(sentences):
 
 def get_clues_classifier_accuracy(sentences):
 	print("Accuracy of Clues Classifier:")
+	from .examples import classifier2
 
 	tf = []
 	th = []
@@ -193,12 +193,16 @@ def get_clues_sentiment_classifier_accuracy(sentences):
 
 		for sentence in [sentence for sentence in sentences if sentence.clue == clue]:
 			if clue == 'f':
+				from .examples import classifier3a
 				classifier = classifier3a
 			elif clue == 'h':
+				from .examples import classifier3b
 				classifier = classifier3b
 			elif clue == 'm':
+				from .examples import classifier3c
 				classifier = classifier3c
 			elif clue == 'g':
+				from .examples import classifier3d
 				classifier = classifier3d
 
 			sentiment1 = normalize_sentiment(sentence.rating)
@@ -284,8 +288,10 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 
 	for review in reviews:
 		if without_clues:
+			from .architecture import classify_without_clues
 			sentiment, sentences = classify_without_clues(review.raw_string())
 		else:
+			from .architecture import classify
 			sentiment, sentences = classify(review.raw_string())
 
 		sentiment1 = normalize_sentiment(review.overall_sentiment)
