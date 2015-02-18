@@ -572,6 +572,6 @@ def randomize_review_flags():
 		review.save()
 
 def set_review_flags_to_training():
-	for review in Review.objects.all():
+	for review in Review.objects.all().exclude(flag=0):
 		review.flag = 1
 		review.save()
