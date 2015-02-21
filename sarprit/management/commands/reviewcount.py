@@ -5,4 +5,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         from survey.models import Review
-        print(Review.objects.all().exclude(flag=0).count())
+        print(Review.objects.all().filter(flag=2).count())
+        print(Review.objects.all().filter(flag=1).count())
