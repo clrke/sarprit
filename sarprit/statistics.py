@@ -305,110 +305,110 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 		if sentiment1 == 0: # negative
 			n.append(
 				review.__str__()+'\n\t\t\t'+
-				'\n\t\t\t'.join([
+				('\n\t\t\t'.join([
 					clues[i]+": "+'\n\t\t\t\t'.join([
 						sentence for sentence in sentences[i]
 					]) for i in range(4)
-				])
+				]) if not without_clues else '')
 			)
 			if sentiment2 == 0: # negative
 				tn.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 			elif sentiment2 == 1: # neutral
 				fe.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 			elif sentiment2 == 2: # positive
 				fp.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 		elif sentiment1 == 1: # neutral
 			e.append(
 				review.__str__()+'\n\t\t\t'+
-				'\n\t\t\t'.join([
+				('\n\t\t\t'.join([
 					clues[i]+": "+'\n\t\t\t\t'.join([
 						sentence for sentence in sentences[i]
 					]) for i in range(4)
-				])
+				]) if not without_clues else '')
 			)
 			if sentiment2 == 0: # negative
 				fn.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 			elif sentiment2 == 1: # neutral
 				te.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 			elif sentiment2 == 2: # positive
 				fp.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 		elif sentiment1 == 2: # positive
 			p.append(
 				review.__str__()+'\n\t\t\t'+
-				'\n\t\t\t'.join([
+				('\n\t\t\t'.join([
 					clues[i]+": "+'\n\t\t\t\t'.join([
 						sentence for sentence in sentences[i]
 					]) for i in range(4)
-				])
+				]) if not without_clues else '')
 			)
 			if sentiment2 == 0: # negative
 				fn.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 			elif sentiment2 == 1: # neutral
 				fe.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 			elif sentiment2 == 2: # positive
 				tp.append(
 					review.__str__()+'\n\t\t\t'+
-					'\n\t\t\t'.join([
+					('\n\t\t\t'.join([
 						clues[i]+": "+'\n\t\t\t\t'.join([
 							sentence for sentence in sentences[i]
 						]) for i in range(4)
-					])
+					]) if not without_clues else '')
 				)
 
 	print(len(tp), len(te), len(tn), len(fp), len(fe), len(fn))
