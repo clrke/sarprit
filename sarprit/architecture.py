@@ -165,4 +165,4 @@ def classify_without_clues(review):
 	if len(sentences) is 0:
 		return 3, [[],[],[],[]] # neutral
 
-	return classifier3e.predict([' '.join(sentences)]), [[],[],[],[]]
+	return classifier3e.predict([' '.join(sentences)])[0], [[],[],[],[]]
