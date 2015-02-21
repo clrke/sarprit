@@ -31,7 +31,7 @@ def get_conjunctions():
 	return conjunctions
 
 def phrase_split(sentence):
-	phrase_parts = re.split('(%s)'%'|'.join(get_conjunctions()), sentence)
+	phrase_parts = re.split('([^ ]%s[$ ])'%'[$ ]|'.join(get_conjunctions()), sentence)
 
 	phrases = [phrase_parts[0]]
 
