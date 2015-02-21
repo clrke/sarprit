@@ -18,7 +18,9 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="span pull-right">
-						<b>Results: {{ reviews | length }} </b>
+						<b> Reviews:</b> {{ review_count }}
+						<b>| Classifier1 OK: </b> {{ classify1_ok_count }}
+						<b>| Classifier2 OK: </b>{{ classify2_ok_count }}
 					</div>
 					<input type="text" class="form-control" placeholder="Search" ng-model="search">
 					<table class="table">

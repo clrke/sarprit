@@ -151,17 +151,40 @@ def presentation(request):
 
 	reviews = []
 
+	review_count = 0
+	classify1_ok_count = 0
+	classify2_ok_count = 0
+
 	for review in Review.objects.filter(flag=2):
 		review_string = review.raw_string()
+
+		review_count += 1
 
 		classify1 = classify(review_string)
 		classify2 = classify_without_clues(review_string)
 
+		normalized_sentiment1 = normalize_sentiment(review.overall_sentiment)
+		normalized_sentiment2 = normalize_sentiment(classify1[0])
+		normalized_sentiment3 = normalize_sentiment(classify2[0])
+
 		reviews.append((
 			review.__str__(),
-			normalize_sentiment(review.overall_sentiment),
-			normalize_sentiment(classify1[0]),
-			normalize_sentiment(classify2[0])
+			normalized_sentiment1,
+			normalized_sentiment2,
+			normalized_sentiment3
 		))
 
-	return render(request, 'classifiers/presentation.html', {'reviews': reviews})
+		if normalized_sentiment1 == normalized_sentiment2:
+			classify1_ok_count += 1
+		if normalized_sentiment1 == normalized_sentiment3:
+			classify2_ok_count += 1
+
+
+	return render(request, 'classifiers/presentation.html',
+		{
+			'reviews': reviews,
+			'review_count': review_count,
+			'classify1_ok_count': classify1_ok_count,
+			'classify2_ok_count': classify2_ok_count,
+		}
+	)
