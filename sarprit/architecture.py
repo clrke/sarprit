@@ -8,8 +8,12 @@ def is_smiley(word):
 
 	return re.match(pattern, word) != None
 
+conjunctions = []
+
 def get_conjunctions():
-	conjunctions = []
+	if len(conjunctions):
+		return conjunctions
+
 	for review in Review.objects.all():
 		prev_sentence_ended = True
 		for sentence in review.sentence_set.all():
