@@ -1,0 +1,68 @@
+{% load staticfiles %}
+{% load filters %}
+
+<html>
+	<head>
+		<title> SARPRiT </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="well">
+				<h1><center>Implementation of Subjectivity and Clues Classifications in Sentiment Analysis of Reviews on Philippine Restaurants in Twitter Using Multinomial Naive Bayes and Support Vector Classifiers</center></h1>
+			</div>
+		</div>
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="span pull-right">
+						<b>Results: {{ reviews | length }} </b>
+					</div>
+					<input type="text" class="form-control" placeholder="Search" ng-model="search">
+					<table class="table">
+						<thead>
+							<tr>
+								<th> Review </th>
+								<th> Actual sentiment </th>
+								<th> Classification with clue </th>
+								<th> Classification without clue </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for review in reviews %}
+								<tr>
+									<td> {{review.0}} </td>
+									<td> {{review.1 | sentiment}} </td>
+									<td class=
+										"
+										{% if review.1 == review.2 %}
+											success
+										{% else %}
+											danger
+										{% endif %}
+										"
+										>
+										{{review.2 | sentiment}}
+									</td>
+									<td class=
+										"
+										{% if review.1 == review.3 %}
+											success
+										{% else %}
+											danger
+										{% endif %}
+										"
+										>
+										{{review.3 | sentiment}}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

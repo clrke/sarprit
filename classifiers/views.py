@@ -144,3 +144,24 @@ def overall(request, functional, humanic, mechanic, general):
 	rating = classifier4[f][h][m][g].predict([[functional, humanic, mechanic, general]])[0]
 
 	return to_json({'rating': int(rating)})
+
+def presentation(request):
+	from sarprit.architecture import classify, classify_without_clues
+	from survey.models import Review
+
+	reviews = []
+
+	for review in Review.objects.filter(flag=2):
+		review_string = review.raw_string()
+
+		classify1 = classify(review_string)
+		classify2 = classify_without_clues(review_string)
+
+		reviews.append((
+			review.__str__(),
+			normalize_sentiment(review.overall_sentiment),
+			normalize_sentiment(classify1[0]),
+			normalize_sentiment(classify2[0])
+		))
+
+	return render(request, 'classifiers/presentation.html', {'reviews': reviews})
