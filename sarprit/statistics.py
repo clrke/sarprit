@@ -272,7 +272,10 @@ def get_clues_sentiment_classifier_accuracy(sentences):
 		print()
 
 def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
-	print("Accuracy of Overall Sentiment Classifier:")
+	print(
+		"Accuracy of Overall Sentiment Classifier",
+		"(clueless):" if without_clues else "(with clues):"
+		)
 
 	tp = []
 	te = []
@@ -367,7 +370,8 @@ def get_accuracies(without_clues = False):
 	get_subjectivity_classifier_accuracy(sentences)
 	get_clues_classifier_accuracy(sentences)
 	get_clues_sentiment_classifier_accuracy(sentences)
-	get_overall_sentiment_classifier_accuracy(reviews, without_clues)
+	get_overall_sentiment_classifier_accuracy(reviews, True)
+	get_overall_sentiment_classifier_accuracy(reviews, False)
 
 def get_score(sentences):
 	count = len(sentences) or 1
