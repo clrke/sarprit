@@ -653,13 +653,11 @@ def randomize_review_flags():
 	print("Train Reviews count:", len(train_reviews))
 	print("Test Reviews count: ", len(test_reviews))
 
-	for review in train_reviews:
-		review.flag = 1
-		review.save()
+	train_ids = [review.id for review in train_reviews]
+	test_ids = [review.id for review in test_reviews]
 
-	for review in test_reviews:
-		review.flag = 2
-		review.save()
+	Review.objects.filter(id__in=train_ids).update(flag=1)
+	Review.objects.filter(id__in=test_ids).update(flag=2)
 
 def set_review_flags_to_training():
 	for review in Review.objects.all().exclude(flag=0):
