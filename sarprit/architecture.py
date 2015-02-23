@@ -23,7 +23,7 @@ def get_conjunctions():
 				if len(sentence.split()) != 1 and sentence.split()[0] not in conjunctions:
 					conjunctions.append(re.escape(sentence.split()[0]))
 
-			if sentence[0] == '#' or sentence[0] == '@' or sentence[-1] == '.' or sentence[-1] == '!' or sentence[-1] == '?' or is_smiley(sentence.split()[-1]):
+			if sentence[0] == '#' or sentence[0] == '@' or sentence[-1] == '.' or sentence[-1] == '!' or sentence[-1] == '?' or sentence[-1] == '!' or sentence[-1] == ';' or is_smiley(sentence.split()[-1]):
 				prev_sentence_ended = True
 			else:
 				prev_sentence_ended = False
@@ -45,7 +45,7 @@ def normalize_hashtag(hashtag):
     return re.sub('([a-z0-9])([A-Z])', r'\1 \2', s1)
 
 def sentence_split(review):
-	phrases_list = [phrase for phrase in [phrase_split(s[0]) for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?@#]*[\.!\?]* *))', review)]]
+	phrases_list = [phrase for phrase in [phrase_split(s[0]) for s in re.findall(r'(([@#][\w]+ *)|([^\.!\?;@#]*[\.!\?;]* *))', review)]]
 
 	sentences = []
 	for phrases in phrases_list:
