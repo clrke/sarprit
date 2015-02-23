@@ -1,7 +1,7 @@
 from survey.models import Review, Sentence
 from sarprit.shortcuts import normalize_sentiment
 
-def get_subjectivity_classifier_accuracy(sentences):
+def get_subjectivity_classifier_accuracy(sentences, with_additional_data):
 	print("Accuracy of Subjectivity Classifier:")
 	from .examples import classifier1
 
@@ -51,12 +51,13 @@ def get_subjectivity_classifier_accuracy(sentences):
 	print("\tF1-score: ", f1o)
 	print()
 
-	print("Additional Data:")
-	print("\tFalse Subjective:", '\n\t\t'.join([sentence.__str__() for sentence in fs]))
-	print("\tFalse Objective:", '\n\t\t'.join([sentence.__str__() for sentence in fo]))
-	print()
+	if with_additional_data:
+		print("Additional Data:")
+		print("\tFalse Subjective:", '\n\t\t'.join([sentence.__str__() for sentence in fs]))
+		print("\tFalse Objective:", '\n\t\t'.join([sentence.__str__() for sentence in fo]))
+		print()
 
-def get_clues_classifier_accuracy(sentences):
+def get_clues_classifier_accuracy(sentences, with_additional_data):
 	print("Accuracy of Clues Classifier:")
 	from .examples import classifier2
 
@@ -162,14 +163,15 @@ def get_clues_classifier_accuracy(sentences):
 	print("\tF1-score: ", f1g)
 	print()
 
-	print("Additional Data:")
-	print("\tFalse Functional:", '\n\t\t'.join([sentence.__str__() for sentence in ff]))
-	print("\tFalse Humanic:", '\n\t\t'.join([sentence.__str__() for sentence in fh]))
-	print("\tFalse Mechanic:", '\n\t\t'.join([sentence.__str__() for sentence in fm]))
-	print("\tFalse General:", '\n\t\t'.join([sentence.__str__() for sentence in fg]))
-	print()
+	if with_additional_data:
+		print("Additional Data:")
+		print("\tFalse Functional:", '\n\t\t'.join([sentence.__str__() for sentence in ff]))
+		print("\tFalse Humanic:", '\n\t\t'.join([sentence.__str__() for sentence in fh]))
+		print("\tFalse Mechanic:", '\n\t\t'.join([sentence.__str__() for sentence in fm]))
+		print("\tFalse General:", '\n\t\t'.join([sentence.__str__() for sentence in fg]))
+		print()
 
-def get_clues_sentiment_classifier_accuracy(sentences):
+def get_clues_sentiment_classifier_accuracy(sentences, with_additional_data):
 	print("Accuracy of Clues Sentiment Classifier:")
 
 	clues = ['f', 'h', 'm', 'g']
@@ -265,13 +267,14 @@ def get_clues_sentiment_classifier_accuracy(sentences):
 		print("\tF1-score: ", f1n)
 		print()
 
-		print("Additional Data:")
-		print("\tFalse Positive:", '\n\t\t'.join([sentence.__str__() for sentence in fp]))
-		print("\tFalse Neutral:", '\n\t\t'.join([sentence.__str__() for sentence in fe]))
-		print("\tFalse Negative:", '\n\t\t'.join([sentence.__str__() for sentence in fn]))
-		print()
+		if with_additional_data:
+			print("Additional Data:")
+			print("\tFalse Positive:", '\n\t\t'.join([sentence.__str__() for sentence in fp]))
+			print("\tFalse Neutral:", '\n\t\t'.join([sentence.__str__() for sentence in fe]))
+			print("\tFalse Negative:", '\n\t\t'.join([sentence.__str__() for sentence in fn]))
+			print()
 
-def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
+def get_overall_sentiment_classifier_accuracy(reviews, without_clues, with_additional_data):
 	print(
 		"Accuracy of Overall Sentiment Classifier",
 		"(clueless):" if without_clues else "(with clues):"
@@ -443,21 +446,22 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues):
 	print("\tF1-score: ", f1n)
 	print()
 
-	print("Additional Data:")
-	print("\tFalse Positive:", '\n\t\t'.join([review.__str__() for review in fp]))
-	print("\tFalse Neutral:", '\n\t\t'.join([review.__str__() for review in fe]))
-	print("\tFalse Negative:", '\n\t\t'.join([review.__str__() for review in fn]))
-	print()
+	if with_additional_data:
+		print("Additional Data:")
+		print("\tFalse Positive:", '\n\t\t'.join([review.__str__() for review in fp]))
+		print("\tFalse Neutral:", '\n\t\t'.join([review.__str__() for review in fe]))
+		print("\tFalse Negative:", '\n\t\t'.join([review.__str__() for review in fn]))
+		print()
 
-def get_accuracies(without_clues = False):
+def get_accuracies(with_additional_data=True):
 	reviews = Review.objects.filter(flag=2)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
 
-	get_subjectivity_classifier_accuracy(sentences)
-	get_clues_classifier_accuracy(sentences)
-	get_clues_sentiment_classifier_accuracy(sentences)
-	get_overall_sentiment_classifier_accuracy(reviews, True)
-	get_overall_sentiment_classifier_accuracy(reviews, False)
+	get_subjectivity_classifier_accuracy(sentences, with_additional_data)
+	get_clues_classifier_accuracy(sentences, with_additional_data)
+	get_clues_sentiment_classifier_accuracy(sentences, with_additional_data)
+	get_overall_sentiment_classifier_accuracy(reviews, True, with_additional_data)
+	get_overall_sentiment_classifier_accuracy(reviews, False, with_additional_data)
 
 def get_score(sentences):
 	count = len(sentences) or 1
