@@ -553,6 +553,19 @@ def get_data_ratio():
 
 					reviews_count = len(reviews)
 
+					positive_reviews = [
+						review for review in reviews
+						if normalize_sentiment(review.overall_sentiment) == 2
+					]
+					neutral_reviews = [
+						review for review in reviews
+						if normalize_sentiment(review.overall_sentiment) == 1
+					]
+					negative_reviews = [
+						review for review in reviews
+						if normalize_sentiment(review.overall_sentiment) == 0
+					]
+
 					fscores = []
 					hscores = []
 					mscores = []
@@ -593,12 +606,15 @@ def get_data_ratio():
 					sscore = sum([score for score in sscores])/(reviews_count or 1)
 
 					print()
-					print("%s%s%s%s: %d"%(
+					print("%s%s%s%s: %d | %d %d %d"%(
 						"F" if f is 1 else "",
 						"H" if h is 1 else "",
 						"M" if m is 1 else "",
 						"G" if g is 1 else "",
-						reviews_count
+						reviews_count,
+						len(positive_reviews),
+						len(neutral_reviews),
+						len(negative_reviews),
 						))
 					print(
 						"Original:   %8sf + %8sh + %8sm + %8sg = %8s" % (
