@@ -454,8 +454,14 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues, with_addit
 		print()
 
 def get_accuracies(with_additional_data=True):
+	print("Initialzing...")
+	import sarprit.examples
+
+	print()
+
 	reviews = Review.objects.filter(flag=2)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
+
 
 	get_subjectivity_classifier_accuracy(sentences, with_additional_data)
 	get_clues_classifier_accuracy(sentences, with_additional_data)
