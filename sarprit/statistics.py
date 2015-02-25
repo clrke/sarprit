@@ -627,11 +627,11 @@ def get_data_ratio():
 					)
 					print(
 						"Simplified: %8sf + %8sh + %8sm + %8sg = %8s" % (
-						 	"%2.2f"%(fscore/sscore),
-						 	"%2.2f"%(hscore/sscore),
-						 	"%2.2f"%(mscore/sscore),
-						 	"%2.2f"%(gscore/sscore),
-						 	"%2.2f"%(sscore/sscore)
+						 	"%2.2f"%(fscore/(sscore or 1)),
+						 	"%2.2f"%(hscore/(sscore or 1)),
+						 	"%2.2f"%(mscore/(sscore or 1)),
+						 	"%2.2f"%(gscore/(sscore or 1)),
+						 	"%2.2f"%(sscore/(sscore or 1))
 						 )
 					)
 					get_clues_impact(f, h, m, g, fscore, hscore, mscore, gscore, sscore)
