@@ -28,7 +28,7 @@ def get_subjectivity_classifier_accuracy(sentences, with_additional_data):
 			else:
 				to.append(sentence)
 
-	print(len(ts), len(to), len(fs), len(fo))
+	print(len(ts), len(fs), len(to), len(fo))
 
 	ps = len(ts)/(len(ts)+len(fs) or 1)
 	po = len(to)/(len(to)+len(fo) or 1)
@@ -122,7 +122,7 @@ def get_clues_classifier_accuracy(sentences, with_additional_data):
 				elif clue2 == 3:
 					tg.append(sentence)
 
-	print(len(tf), len(th), len(tm), len(tg), len(ff), len(fh), len(fm), len(fg))
+	print(len(tf), len(ff), len(th), len(fh), len(tm), len(fm), len(tg), len(fg))
 
 	pf = len(tf)/(len(tf)+len(ff) or 1)
 	ph = len(th)/(len(th)+len(fh) or 1)
@@ -235,7 +235,7 @@ def get_clues_sentiment_classifier_accuracy(sentences, with_additional_data):
 				elif sentiment2 == 2: # positive
 					tp.append(sentence)
 
-		print(len(tp), len(te), len(tn), len(fp), len(fe), len(fn))
+		print(len(tp), len(fp), len(te), len(fe), len(tn), len(fn))
 
 		pp = len(tp)/(len(tp)+len(fp) or 1)
 		pe = len(te)/(len(te)+len(fe) or 1)
@@ -414,7 +414,7 @@ def get_overall_sentiment_classifier_accuracy(reviews, without_clues, with_addit
 					]) if not without_clues else '')
 				)
 
-	print(len(tp), len(te), len(tn), len(fp), len(fe), len(fn))
+	print(len(tp), len(fp), len(te), len(fe), len(tn), len(fn))
 
 	pp = len(tp)/(len(tp)+len(fp) or 1)
 	pe = len(te)/(len(te)+len(fe) or 1)
