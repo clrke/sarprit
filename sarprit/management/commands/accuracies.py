@@ -8,8 +8,8 @@ class Command(BaseCommand):
         from sarprit.statistics import get_accuracies
 
         if len(args) > 0:
-            print('Performing sentiment analysis with additional data')
+            print('Performing sentiment analysis with additional data...')
             get_accuracies(True)
         else:
-            print('Performing sentiment analysis without additional data')
+            print('Performing sentiment analysis without additional data...')
             get_accuracies(False)
