@@ -1,0 +1,126 @@
+{% load staticfiles %}
+{% load filters %}
+
+<html>
+	<head>
+		<title> SARPRiT </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="well">
+				<h1><center>Implementation of Subjectivity and Clues Classifications in Sentiment Analysis of Reviews on Philippine Restaurants in Twitter Using Multinomial Naive Bayes and Support Vector Classifiers</center></h1>
+			</div>
+		</div>
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h1> With Clues </h1>
+					<table class="table table-bordered table-centered">
+						<thead>
+							<tr>
+								<th colspan="2" rowspan="2">
+									&nbsp;
+								</th>
+								<th colspan="5">
+									Actual
+								</th>
+							</tr>
+							<tr>
+								<th> Positive </th>
+								<th> Neutral </th>
+								<th> Negative </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for row in table1 %}
+								<tr>
+								{% if forloop.first %}
+									<td rowspan="3">
+										<b>Predicted</b>
+									</td>
+								{% endif %}
+								{% if forloop.counter0 == 0 %}
+									<td>
+										<b>Positive</b>
+									</td>
+								{% elif forloop.counter0 == 1 %}
+									<td>
+										<b>Neutral</b>
+									</td>
+								{% else %}
+									<td>
+										<b>Negative</b>
+									</td>
+								{% endif %}
+								{% for column in row %}
+									<td class="
+									{% if forloop.counter0 == forloop.parentloop.counter0 %}
+										success
+									{% endif %}
+									">
+										{{ column|length }}
+									</td>
+								{% endfor %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					<h1> Without Clues </h1>
+					<table class="table table-bordered table-centered">
+						<thead>
+							<tr>
+								<th colspan="2" rowspan="2">
+									&nbsp;
+								</th>
+								<th colspan="5">
+									Actual
+								</th>
+							</tr>
+							<tr>
+								<th> Positive </th>
+								<th> Neutral </th>
+								<th> Negative </th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for row in table2 %}
+								<tr>
+								{% if forloop.first %}
+									<td rowspan="3">
+										<b>Predicted</b>
+									</td>
+								{% endif %}
+								{% if forloop.counter0 == 0 %}
+									<td>
+										<b>Positive</b>
+									</td>
+								{% elif forloop.counter0 == 1 %}
+									<td>
+										<b>Neutral</b>
+									</td>
+								{% else %}
+									<td>
+										<b>Negative</b>
+									</td>
+								{% endif %}
+								{% for column in row %}
+									<td class="
+									{% if forloop.counter0 == forloop.parentloop.counter0 %}
+										success
+									{% endif %}
+									">
+										{{ column|length }}
+									</td>
+								{% endfor %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

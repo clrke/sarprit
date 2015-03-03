@@ -193,3 +193,32 @@ def presentation(request):
 			'classify2_ok_count': classify2_ok_count,
 		}
 	)
+
+def presentation1(request):
+	from sarprit.architecture import classify, classify_without_clues
+
+	from survey.models import Review
+
+	table1 = [[[] for column in range(3)] for row in range(3)]
+	table2 = [[[] for column in range(3)] for row in range(3)]
+
+	reviews = Review.objects.filter(flag=2)
+
+	for review in reviews:
+		review_string = review.raw_string()
+
+		classify1 = classify(review_string)
+		classify2 = classify_without_clues(review_string)
+
+		normal1 = normalize_sentiment(review.overall_sentiment)
+		normal2 = normalize_sentiment(classify1[0])
+		normal3 = normalize_sentiment(classify2[0])
+
+		table1[2-normal2][2-normal1].append(review_string)
+		table2[2-normal3][2-normal1].append(review_string)
+
+	return render(request, 'classifiers/presentation1.html',
+		{
+			'table1': table1,
+			'table2': table2
+		})
