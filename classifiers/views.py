@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from sarprit.shortcuts import to_json, normalize_sentiment
 from sarprit.feature_extraction import extract
 
@@ -102,6 +103,10 @@ def home(request):
 			'classifier3d' : { 'feature_names': classifier3d.feature_names, 'data': [(classifier3d.features[i], classifier3d.target[i]) for i in range(len(classifier3d.features))] },
 			'classifier4' :  { 'feature_names': classifier4[1][0][0][0].feature_names, 'data': sorted([(classifier4[1][0][0][0].features[i], classifier4[1][0][0][0].target[i]) for i in range(len(classifier4[1][0][0][0].features))], key=lambda x: x[1]) },
 		})
+
+def preprocess(request, review):
+	from sarprit.architecture import preprocess
+	return JsonResponse(preprocess(review), safe=False)
 
 def subjectivity(request, id, sentence):
 	from sarprit.examples import classifier1, classifier2, classifier3a, classifier3b, classifier3c, classifier3d, classifier4
