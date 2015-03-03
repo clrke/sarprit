@@ -93,7 +93,7 @@
 					<li class="list-group-item list-group-item-info">
 						<b> Sentence splitting: </b>
 						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences">{[ sentence.value ]}</li>
+							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter: {overall: false}">{[ sentence.value ]}</li>
 						</ul>
 					</li>
 					<li class="list-group-item list-group-item-info">
@@ -111,7 +111,7 @@
 									</table>
 								</div>
 							</li>
-							<li class="list-group-item" ng-class="sentence.is_subjective ? 'list-group-item-success' : 'list-group-item-default'" ng-repeat="sentence in Sarprit.sentences">{[ sentence.value ]}</li>
+							<li class="list-group-item" ng-class="sentence.is_subjective ? 'list-group-item-success' : 'list-group-item-default'" ng-repeat="sentence in Sarprit.sentences | filter: {overall: false}">{[ sentence.value ]}</li>
 						</ul>
 					</li>
 					<li class="list-group-item list-group-item-info">
@@ -129,7 +129,7 @@
 									</table>
 								</div>
 							</li>
-							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true}" ng-show="sentence.clue"><b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
+							<li class="list-group-item" ng-repeat="sentence in Sarprit.sentences | filter:{is_subjective:true, overall: false}" ng-show="sentence.clue"><b>[{[ sentence.clue ]}]</b> {[ sentence.value ]}</li>
 						</ul>
 					</li>
 					<li class="list-group-item list-group-item-info">

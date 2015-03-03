@@ -30,6 +30,8 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 				$http.get('/classify/1/'+i+'/'+encodeURIComponent(Sarprit.sentences[i].value)).success(function (data) {
 					Sarprit.sentences[data.id] = data;
 
+					Sarprit.sentences[data.id].overall = false;
+
 					if(Sarprit.sentences[data.id].is_subjective) {
 						Sarprit.curLoaded++;
 
@@ -105,18 +107,35 @@ angular.module('SarpritApp', [], function($interpolateProvider) {
 							});
 						}
 						else {
-							$http.get('/classify/3/n/'+data.id+'/'+encodeURIComponent(Sarprit.sentences[data.id].value)).success(function (data) {
-								Sarprit.sentences[data.id].rating = data.rating;
-								Sarprit.sentences[data.id].features3 = data.features;
+							Sarprit.curLoaded += 2;
 
-								Sarprit.curLoaded += 2;
-								Sarprit.overallSentiment += data.rating;
+							if(Sarprit.curLoaded == Sarprit.maxLoaded) {
+								Sarprit.maxLoaded++;
+								subjective_reviews = "";
 
-								if(Sarprit.curLoaded == Sarprit.maxLoaded) {
-									Sarprit.overallSentiment = Math.round(Sarprit.overallSentiment / Sarprit.sentences.length);
-									Sarprit.loading = false;
+								for (var i = 0; i < Sarprit.sentences.length; i++) {
+									var sentence = Sarprit.sentences[i];
+
+									if(sentence.is_subjective)
+										subjective_reviews += sentence.value + " ";
 								}
-							});
+								$http.get('/classify/3/n/1/'+subjective_reviews)
+									.success(function(data) {
+										var overall_sentence = {
+											value: subjective_reviews,
+											is_subjective: true,
+											rating: data.rating,
+											features3: data.features,
+											overall: true
+										};
+										Sarprit.sentences.push(overall_sentence);
+										console.log(Sarprit.sentences);
+										Sarprit.overallSentiment = data.rating;
+
+										Sarprit.currLoad++;
+										Sarprit.loading = false;
+									});
+							}
 						}
 					}
 					else {
