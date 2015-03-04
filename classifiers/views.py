@@ -226,3 +226,30 @@ def presentation1(request):
 			'titles': ['Positive', 'Neutral', 'Negative'],
 			'colors': ['green', 'grey', 'red']
 		})
+
+def presentation2a(request):
+	from sarprit.examples import classifier1
+
+	from survey.models import Review
+
+	table = [[[] for column in range(2)] for row in range(2)]
+
+	reviews = Review.objects.filter(flag=2)
+	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
+
+	for sentence in sentences:
+		sentence_string = sentence.sentence
+
+		subjective1 = classifier1.predict([sentence.sentence])[0]
+		subjective2 = 0 if sentence.subjective else 1
+
+		table[subjective1][subjective2].append(sentence.sentence)
+
+	return render(request, 'classifiers/presentation1.html',
+		{
+			'tables': [
+				{'name': 'Subjectivity Classifier', 'data': table }
+			],
+			'titles': ['Subjective', 'Objective'],
+			'colors': ['green', 'grey']
+		})
