@@ -399,6 +399,30 @@ def presentation3(request):
 
 			table[2-normal1][2-normal2].append(sentence.sentence)
 
+	max1 = 0
+	for column in [column for row in table1 for column in row]:
+		max1 = max(max1, len(column))
+
+	max2 = 0
+	for column in [column for row in table2 for column in row]:
+		max2 = max(max2, len(column))
+
+	max3a = 0
+	for column in [column for row in table3a for column in row]:
+		max3a = max(max3a, len(column))
+
+	max3b = 0
+	for column in [column for row in table3b for column in row]:
+		max3b = max(max3b, len(column))
+
+	max3c = 0
+	for column in [column for row in table3c for column in row]:
+		max3c = max(max3c, len(column))
+
+	max3d = 0
+	for column in [column for row in table3d for column in row]:
+		max3d = max(max3d, len(column))
+
 	return render(request, 'classifiers/presentation1.html',
 		{
 			'tables': [
@@ -406,37 +430,43 @@ def presentation3(request):
 					'name': 'Subjectivity Classifier',
 					'data': table1,
 					'titles': ['Subjective', 'Objective'],
-					'colors': ['green', 'grey']
+					'colors': ['green', 'grey'],
+					'max': max1
 				},
 				{
 					'name': 'Clues Classifier',
 					'data': table2,
 					'titles': ['Functional', 'Humanic', 'Mechanic', 'General'],
-					'colors': ['blue', 'orange', 'red', 'green']
+					'colors': ['blue', 'orange', 'red', 'green'],
+					'max': max2
 				},
 				{
 					'name': 'Functional Sentiment Analyzer',
 					'data': table3a,
 					'titles': ['Positive', 'Neutral', 'Negative'],
-					'colors': ['green', 'grey', 'red']
+					'colors': ['green', 'grey', 'red'],
+					'max': max3a
 				},
 				{
 					'name': 'Humanic Sentiment Analyzer',
 					'data': table3b,
 					'titles': ['Positive', 'Neutral', 'Negative'],
-					'colors': ['green', 'grey', 'red']
+					'colors': ['green', 'grey', 'red'],
+					'max': max3b
 				},
 				{
 					'name': 'Mechanic Sentiment Analyzer',
 					'data': table3c,
 					'titles': ['Positive', 'Neutral', 'Negative'],
-					'colors': ['green', 'grey', 'red']
+					'colors': ['green', 'grey', 'red'],
+					'max': max3c
 				},
 				{
 					'name': 'General Sentiment Analyzer',
 					'data': table3d,
 					'titles': ['Positive', 'Neutral', 'Negative'],
-					'colors': ['green', 'grey', 'red']
+					'colors': ['green', 'grey', 'red'],
+					'max': max3d
 				}
 			]
 		})
