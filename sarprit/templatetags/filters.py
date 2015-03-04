@@ -14,3 +14,7 @@ def sentiment(value):
 		return "Positive"
 	else:
  		return "Neutral"
+
+@register.filter
+def access(value, arg):
+    return value[arg]

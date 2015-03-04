@@ -245,6 +245,7 @@ def presentation2(request):
 
 	table1 = [[[] for column in range(2)] for row in range(1)]
 	table2 = [[[] for column in range(3)] for row in range(4)]
+	table3 = [[[] for column in range(3)] for row in range(16)]
 
 	subjective_sentences = [sentence for sentence in sentences if sentence.subjective is True]
 	objective_sentences = [sentence for sentence in sentences if sentence.subjective is False]
@@ -254,6 +255,38 @@ def presentation2(request):
 
 	for sentence in sentences:
 		table2[sentence.int_clue()][2-normalize_sentiment(sentence.rating)].append(sentence.sentence)
+
+	sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
+
+	for review in reviews:
+		f=1 if review.sentence_set.filter(clue='f').count() > 0 else 0
+		h=1 if review.sentence_set.filter(clue='h').count() > 0 else 0
+		m=1 if review.sentence_set.filter(clue='m').count() > 0 else 0
+		g=1 if review.sentence_set.filter(clue='g').count() > 0 else 0
+
+		sorted_reviews[f][h][m][g].append(review)
+
+	overall_sentiment_analyzers = []
+
+	for g in range(2):
+		for m in range(2):
+			for h in range(2):
+				for f in range(2):
+					reviews = sorted_reviews[f][h][m][g]
+
+					overall_sentiment_analyzers.append("%s%s%s%s"%(
+						"F" if f == 1 else "",
+						"H" if h == 1 else "",
+						"M" if m == 1 else "",
+						"G" if g == 1 else ""
+					))
+
+					t = g*8+m*4+h*2+f
+
+					for review in reviews:
+						normal = normalize_sentiment(review.overall_sentiment)
+						table3[t][2-normal].append(review.raw_string())
+
 
 	return render(request, 'classifiers/presentation2.html',
 		{
@@ -273,6 +306,14 @@ def presentation2(request):
 					'titlesY': ['Functional', 'Humanic', 'Mechanic', 'General'],
 					'colorsX': ['green', 'grey', 'red'],
 					'colorsY': ['blue', 'orange', 'red', 'green']
+				},
+				{
+					'name': 'Overall Sentiment Analyzers',
+					'data': table3,
+					'titlesX': ['Positive', 'Neutral', 'Negative'],
+					'titlesY': overall_sentiment_analyzers,
+					'colorsX': ['green', 'grey', 'red'],
+					'colorsY': ['black' for i in range(16)]
 				},
 			]
 		})

@@ -37,23 +37,9 @@
 									<tbody>
 										{% for row in table.data %}
 											<tr>
-												{% if forloop.counter0 == 0 %}
-													<td>
-														<b>{{table.titlesY.0}}</b>
-													</td>
-												{% elif forloop.counter0 == 1 %}
-													<td>
-														<b>{{table.titlesY.1}}</b>
-													</td>
-												{% elif forloop.counter0 == 2 %}
-													<td>
-														<b>{{table.titlesY.2}}</b>
-													</td>
-												{% else %}
-													<td>
-														<b>{{table.titlesY.3}}</b>
-													</td>
-												{% endif %}
+												<td>
+													<b>{{table.titlesY | access:forloop.counter0 }}</b>
+												</td>
 												{% for column in row %}
 													<td>
 														<button ng-class="{
