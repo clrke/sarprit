@@ -1,0 +1,115 @@
+{% load staticfiles %}
+{% load filters %}
+
+<html ng-app="PresentationApp">
+	<head>
+		<title> SARPRiT </title>
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-3.2.0-dist/css/bootstrap-theme.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'src/css/main.css' %}">
+		<script type="text/javascript" src="{% static 'lib/jquery/jquery-1.11.1.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'lib/angularjs/angular.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'src/js/presentation.js' %}"></script>
+	</head>
+	<body ng-controller="Presentation1Ctrl as Presentation"
+			ng-init="tables = {{tables}}; t=0; i=0; j=0;">
+		<div class="container">
+			<div class="well">
+				<h1><center>Implementation of Subjectivity and Clues Classifications in Sentiment Analysis of Reviews on Philippine Restaurants in Twitter Using Multinomial Naive Bayes and Support Vector Classifiers</center></h1>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							{% for table in tables %}
+								<h1> {{table.name}} </h1>
+								<table class="table table-bordered table-centered">
+									<thead>
+										<tr>
+											<th> &nbsp; </th>
+											{% for title in table.titlesX %}
+												<th> {{title}} </th>
+											{% endfor %}
+										</tr>
+									</thead>
+									<tbody>
+										{% for row in table.data %}
+											<tr>
+												{% if forloop.counter0 == 0 %}
+													<td>
+														<b>{{table.titlesY.0}}</b>
+													</td>
+												{% elif forloop.counter0 == 1 %}
+													<td>
+														<b>{{table.titlesY.1}}</b>
+													</td>
+												{% elif forloop.counter0 == 2 %}
+													<td>
+														<b>{{table.titlesY.2}}</b>
+													</td>
+												{% else %}
+													<td>
+														<b>{{table.titlesY.3}}</b>
+													</td>
+												{% endif %}
+												{% for column in row %}
+													<td>
+														<button ng-class="{
+														'btn btn-block': 'true',
+														'btn-primary':
+															t == {{forloop.parentloop.parentloop.counter0}} &amp;&amp;
+															i == {{forloop.parentloop.counter0}} &amp;&amp;
+															j == {{forloop.counter0}},
+														'btn-default': !(
+															t == {{forloop.parentloop.parentloop.counter0}} &amp;&amp;
+															i == {{forloop.parentloop.counter0}} &amp;&amp;
+															j == {{forloop.counter0}}
+															),
+														}
+														"
+														ng-click="
+															t = {{forloop.parentloop.parentloop.counter0}};
+															i = {{forloop.parentloop.counter0}};
+															j = {{forloop.counter0}};
+														">
+														{{ column|length }}
+														</button>
+													</td>
+												{% endfor %}
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="scroll-follower">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<h1>
+									{[ tables[t].name ]}
+								</h1>
+								<b class="{[ tables[t].colorsX[j] ]}">
+									{[ tables[t].titlesX[j] ]}
+								</b>
+								<b class="{[ tables[t].colorsY[i] ]}">
+									{[ tables[t].titlesY[i] ]}
+								</b>
+								<ul class="list-group fixed-container">
+									<li class="list-group-item"
+										ng-repeat="data in tables[t].data[i][j] track by $index">
+										{[ data ]}
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

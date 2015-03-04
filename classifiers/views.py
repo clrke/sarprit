@@ -235,6 +235,48 @@ def presentation1(request):
 			],
 		})
 
+def presentation2(request):
+	from survey.models import Review
+	from sarprit.shortcuts import normalize_sentiment
+
+	reviews = Review.objects.filter(flag=1)
+	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
+
+
+	table1 = [[[] for column in range(2)] for row in range(1)]
+	table2 = [[[] for column in range(3)] for row in range(4)]
+
+	subjective_sentences = [sentence for sentence in sentences if sentence.subjective is True]
+	objective_sentences = [sentence for sentence in sentences if sentence.subjective is False]
+
+	table1[0][0] = [sentence.sentence for sentence in subjective_sentences]
+	table1[0][1] = [sentence.sentence for sentence in objective_sentences]
+
+	for sentence in sentences:
+		table2[sentence.int_clue()][2-normalize_sentiment(sentence.rating)].append(sentence.sentence)
+
+	return render(request, 'classifiers/presentation2.html',
+		{
+			'tables': [
+				{
+					'name': 'Subjective : Objective',
+					'data': table1,
+					'titlesX': ['Subjective', 'Objective'],
+					'titlesY': ['Values'],
+					'colorsX': ['green', 'grey'],
+					'colorsY': ['black']
+				},
+				{
+					'name': 'Clues',
+					'data': table2,
+					'titlesX': ['Positive', 'Neutral', 'Negative'],
+					'titlesY': ['Functional', 'Humanic', 'Mechanic', 'General'],
+					'colorsX': ['green', 'grey', 'red'],
+					'colorsY': ['blue', 'orange', 'red', 'green']
+				},
+			]
+		})
+
 def presentation3(request):
 	from sarprit.examples import classifier1
 	from sarprit.examples import classifier2
