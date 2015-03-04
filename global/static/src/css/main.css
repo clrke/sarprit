@@ -14,3 +14,7 @@ table.table.table-bordered > tbody > tr > th.table-bordered-right,td.table-borde
 table.table.table-centered {
 	text-align: center !important;
 }
+
+.table-centered td, .table-centered th {
+   text-align: center;
+}
