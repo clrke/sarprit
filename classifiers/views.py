@@ -217,6 +217,14 @@ def presentation1(request):
 		table1[2-normal2][2-normal1].append(review_string)
 		table2[2-normal3][2-normal1].append(review_string)
 
+	max1 = 0
+	for column in [column for row in table1 for column in row]:
+		max1 = max(max1, len(column))
+
+	max2 = 0
+	for column in [column for row in table2 for column in row]:
+		max2 = max(max2, len(column))
+
 	return render(request, 'classifiers/presentation1.html',
 		{
 			'tables': [
@@ -224,13 +232,15 @@ def presentation1(request):
 					'name': 'With Clues',
 					'data': table1,
 					'titles': ['Positive', 'Neutral', 'Negative'],
-					'colors': ['green', 'grey', 'red']
+					'colors': ['green', 'grey', 'red'],
+					'max': max1
 				},
 				{
 					'name': 'Without Clues',
 					'data': table2,
 					'titles': ['Positive', 'Neutral', 'Negative'],
-					'colors': ['green', 'grey', 'red']
+					'colors': ['green', 'grey', 'red'],
+					'max': max1
 				}
 			],
 		})

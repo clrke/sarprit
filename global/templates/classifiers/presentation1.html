@@ -58,7 +58,12 @@
 											</td>
 											{% for column in row %}
 												<td>
-													<button ng-class="{
+													<button style="border-color:
+															rgb({[255-{% widthratio column|length table.max 255 %}]},
+																{[255-{% widthratio column|length table.max 255 %}]},
+																{[255-{% widthratio column|length table.max 255 %}]});
+															border-width: 5px"
+													ng-class="{
 													'btn btn-block': 'true',
 													'btn-success': {% if forloop.counter0 == forloop.parentloop.counter0 %}
 														true {% else %} false {% endif %} &amp;&amp;
