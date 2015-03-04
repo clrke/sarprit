@@ -235,7 +235,7 @@ def presentation1(request):
 			],
 		})
 
-def presentation2(request):
+def presentation3(request):
 	from sarprit.examples import classifier1
 	from sarprit.examples import classifier2
 	from sarprit.examples import classifier3a
