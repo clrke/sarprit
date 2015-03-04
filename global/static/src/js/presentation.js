@@ -11,7 +11,6 @@ $(document).ready(function () {
 
 	function goWithTheFlow () {
 		if($(document).width() > 992) {
-			console.log($(document).width());
 			$('.scroll-follower').css('position','');
 			top = $('.scroll-follower').offset().top;
 			$('.scroll-follower').css('position','absolute');
