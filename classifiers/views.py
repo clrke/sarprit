@@ -259,11 +259,13 @@ def presentation3(request):
 		subjective1 = classifier1.predict([sentence.sentence])[0]
 		subjective2 = 0 if sentence.subjective else 1
 
-		clue1 = classifier2.predict([sentence.sentence])[0]
-		clue2 = sentence.int_clue()
-
 		table1[subjective1][subjective2].append(sentence.sentence)
-		table2[clue1][clue2].append(sentence.sentence)
+
+		if sentence.subjective:
+			clue1 = classifier2.predict([sentence.sentence])[0]
+			clue2 = sentence.int_clue()
+
+			table2[clue1][clue2].append(sentence.sentence)
 
 	return render(request, 'classifiers/presentation1.html',
 		{
