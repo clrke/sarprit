@@ -11,8 +11,7 @@
 		<script type="text/javascript" src="{% static 'src/js/presentation.js' %}"></script>
 	</head>
 	<body ng-controller="Presentation1Ctrl as Presentation"
-			ng-init="tables = {{tables}}; t=0; i=0; j=0;
-					titles = {{titles}}; colors = {{colors}};">
+			ng-init="tables = {{tables}}; t=0; i=0; j=0;">
 		<div class="container">
 			<div class="well">
 				<h1><center>Implementation of Subjectivity and Clues Classifications in Sentiment Analysis of Reviews on Philippine Restaurants in Twitter Using Multinomial Naive Bayes and Support Vector Classifiers</center></h1>
@@ -36,7 +35,7 @@
 											</th>
 										</tr>
 										<tr>
-											{% for title in titles %}
+											{% for title in table.titles %}
 												<th> {{title}} </th>
 											{% endfor %}
 										</tr>
@@ -55,19 +54,19 @@
 											{% endif %}
 											{% if forloop.counter0 == 0 %}
 												<td>
-													<b>{{titles.0}}</b>
+													<b>{{table.titles.0}}</b>
 												</td>
 											{% elif forloop.counter0 == 1 %}
 												<td>
-													<b>{{titles.1}}</b>
+													<b>{{table.titles.1}}</b>
 												</td>
 											{% elif forloop.counter0 == 2 %}
 												<td>
-													<b>{{titles.2}}</b>
+													<b>{{table.titles.2}}</b>
 												</td>
 											{% else %}
 												<td>
-													<b>{{titles.3}}</b>
+													<b>{{table.titles.3}}</b>
 												</td>
 											{% endif %}
 											{% for column in row %}
@@ -122,8 +121,8 @@
 										Actually:
 									</td>
 									<td>
-										<b class="{[ colors[j] ]}">
-											{[ titles[j] ]}
+										<b class="{[ tables[t].colors[j] ]}">
+											{[ tables[t].titles[j] ]}
 										</b>
 									</td>
 								</tr>
@@ -132,8 +131,8 @@
 										Predicted:
 									</td>
 									<td>
-										<b class="{[ colors[i] ]}">
-											{[ titles[i] ]}
+										<b class="{[ tables[t].colors[i] ]}">
+											{[ tables[t].titles[i] ]}
 										</b>
 									</td>
 								</tr>

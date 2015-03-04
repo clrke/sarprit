@@ -220,11 +220,19 @@ def presentation1(request):
 	return render(request, 'classifiers/presentation1.html',
 		{
 			'tables': [
-				{'name': 'With Clues', 'data': table1 },
-				{'name': 'Without Clues', 'data': table2 }
+				{
+					'name': 'With Clues',
+					'data': table1,
+					'titles': ['Positive', 'Neutral', 'Negative'],
+					'colors': ['green', 'grey', 'red']
+				},
+				{
+					'name': 'Without Clues',
+					'data': table2,
+					'titles': ['Positive', 'Neutral', 'Negative'],
+					'colors': ['green', 'grey', 'red']
+				}
 			],
-			'titles': ['Positive', 'Neutral', 'Negative'],
-			'colors': ['green', 'grey', 'red']
 		})
 
 def presentation2a(request):
@@ -248,8 +256,11 @@ def presentation2a(request):
 	return render(request, 'classifiers/presentation1.html',
 		{
 			'tables': [
-				{'name': 'Subjectivity Classifier', 'data': table }
-			],
-			'titles': ['Subjective', 'Objective'],
-			'colors': ['green', 'grey']
+				{
+					'name': 'Subjectivity Classifier',
+					'data': table,
+					'titles': ['Subjective', 'Objective'],
+					'colors': ['green', 'grey']
+				}
+			]
 		})
