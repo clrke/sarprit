@@ -53,23 +53,9 @@
 													</div>
 												</td>
 											{% endif %}
-											{% if forloop.counter0 == 0 %}
-												<td>
-													<b>{{table.titles.0}}</b>
-												</td>
-											{% elif forloop.counter0 == 1 %}
-												<td>
-													<b>{{table.titles.1}}</b>
-												</td>
-											{% elif forloop.counter0 == 2 %}
-												<td>
-													<b>{{table.titles.2}}</b>
-												</td>
-											{% else %}
-												<td>
-													<b>{{table.titles.3}}</b>
-												</td>
-											{% endif %}
+											<td>
+												<b>{{table.titles | access:forloop.counter0 }}</b>
+											</td>
 											{% for column in row %}
 												<td>
 													<button ng-class="{
