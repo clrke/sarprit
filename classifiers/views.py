@@ -264,7 +264,10 @@ def presentation2(request):
 	table1[0][1] = [sentence.sentence for sentence in objective_sentences]
 
 	for sentence in sentences:
-		table2[sentence.int_clue()][2-normalize_sentiment(sentence.rating)].append(sentence.sentence)
+		if sentence.subjective:
+			table2[sentence.int_clue()][
+				2-normalize_sentiment(sentence.rating)
+			].append(sentence.sentence)
 
 	sorted_reviews = [[[[[], []],[[], []]],[[[], []],[[], []]]],[[[[], []],[[], []]],[[[], []],[[], []]]]]
 
