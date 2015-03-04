@@ -287,6 +287,17 @@ def presentation2(request):
 						normal = normalize_sentiment(review.overall_sentiment)
 						table3[t][2-normal].append(review.raw_string())
 
+		max1 = 0
+		for column in [column for row in table1 for column in row]:
+			max1 = max(max1, len(column))
+
+		max2 = 0
+		for column in [column for row in table2 for column in row]:
+			max2 = max(max2, len(column))
+
+		max3 = 0
+		for column in [column for row in table3 for column in row]:
+			max3 = max(max3, len(column))
 
 	return render(request, 'classifiers/presentation2.html',
 		{
@@ -297,7 +308,8 @@ def presentation2(request):
 					'titlesX': ['Subjective', 'Objective'],
 					'titlesY': ['Values'],
 					'colorsX': ['green', 'grey'],
-					'colorsY': ['black']
+					'colorsY': ['black'],
+					'max': max1
 				},
 				{
 					'name': 'Clues',
@@ -305,7 +317,8 @@ def presentation2(request):
 					'titlesX': ['Positive', 'Neutral', 'Negative'],
 					'titlesY': ['Functional', 'Humanic', 'Mechanic', 'General'],
 					'colorsX': ['green', 'grey', 'red'],
-					'colorsY': ['blue', 'orange', 'red', 'green']
+					'colorsY': ['blue', 'orange', 'red', 'green'],
+					'max': max2
 				},
 				{
 					'name': 'Overall Sentiment Analyzers',
@@ -313,7 +326,8 @@ def presentation2(request):
 					'titlesX': ['Positive', 'Neutral', 'Negative'],
 					'titlesY': overall_sentiment_analyzers,
 					'colorsX': ['green', 'grey', 'red'],
-					'colorsY': ['black' for i in range(16)]
+					'colorsY': ['black' for i in range(16)],
+					'max': max3
 				},
 			]
 		})

@@ -42,17 +42,17 @@
 												</td>
 												{% for column in row %}
 													<td>
-														<button ng-class="{
+														<button style="border-color:
+															rgb({[255-{% widthratio column|length table.max 255 %}]},
+																{[255-{% widthratio column|length table.max 255 %}]},
+																{[255-{% widthratio column|length table.max 255 %}]});
+															border-width: 5px"
+														ng-class="{
 														'btn btn-block': 'true',
 														'btn-primary':
 															t == {{forloop.parentloop.parentloop.counter0}} &amp;&amp;
 															i == {{forloop.parentloop.counter0}} &amp;&amp;
-															j == {{forloop.counter0}},
-														'btn-default': !(
-															t == {{forloop.parentloop.parentloop.counter0}} &amp;&amp;
-															i == {{forloop.parentloop.counter0}} &amp;&amp;
 															j == {{forloop.counter0}}
-															),
 														}
 														"
 														ng-click="
