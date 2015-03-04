@@ -219,6 +219,8 @@ def presentation1(request):
 
 	return render(request, 'classifiers/presentation1.html',
 		{
-			'table1': table1,
-			'table2': table2
+			'tables': [
+				{'name': 'With Clues', 'data': table1 },
+				{'name': 'Without Clues', 'data': table2 }
+			]
 		})
