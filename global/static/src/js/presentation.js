@@ -4,16 +4,4 @@ angular.module('PresentationApp', [], function($interpolateProvider) {
 })
 .controller('Presentation1Ctrl', function () {
 	var Presentation = this;
-
-	Presentation.sentiment = [
-		'Positive',
-		'Neutral',
-		'Negative'
-	];
-
-	Presentation.color = [
-		'green',
-		'grey',
-		'red'
-	];
 });

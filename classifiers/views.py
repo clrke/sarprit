@@ -222,5 +222,7 @@ def presentation1(request):
 			'tables': [
 				{'name': 'With Clues', 'data': table1 },
 				{'name': 'Without Clues', 'data': table2 }
-			]
+			],
+			'titles': ['Positive', 'Neutral', 'Negative'],
+			'colors': ['green', 'grey', 'red']
 		})
