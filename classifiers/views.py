@@ -235,12 +235,20 @@ def presentation1(request):
 			],
 		})
 
-def presentation2a(request):
+def presentation2(request):
 	from sarprit.examples import classifier1
+	from sarprit.examples import classifier2
+	from sarprit.examples import classifier3a
+	from sarprit.examples import classifier3b
+	from sarprit.examples import classifier3c
+	from sarprit.examples import classifier3d
+	from sarprit.examples import classifier3e
+	from sarprit.examples import classifier4
 
 	from survey.models import Review
 
-	table = [[[] for column in range(2)] for row in range(2)]
+	table1 = [[[] for column in range(2)] for row in range(2)]
+	table2 = [[[] for column in range(4)] for row in range(4)]
 
 	reviews = Review.objects.filter(flag=2)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
@@ -251,16 +259,26 @@ def presentation2a(request):
 		subjective1 = classifier1.predict([sentence.sentence])[0]
 		subjective2 = 0 if sentence.subjective else 1
 
-		table[subjective1][subjective2].append(sentence.sentence)
+		clue1 = classifier2.predict([sentence.sentence])[0]
+		clue2 = sentence.int_clue()
+
+		table1[subjective1][subjective2].append(sentence.sentence)
+		table2[clue1][clue2].append(sentence.sentence)
 
 	return render(request, 'classifiers/presentation1.html',
 		{
 			'tables': [
 				{
 					'name': 'Subjectivity Classifier',
-					'data': table,
+					'data': table1,
 					'titles': ['Subjective', 'Objective'],
 					'colors': ['green', 'grey']
+				},
+				{
+					'name': 'Clues Classifier',
+					'data': table2,
+					'titles': ['Functional', 'Humanic', 'Mechanic', 'General'],
+					'colors': ['blue', 'orange', 'red', 'green']
 				}
 			]
 		})

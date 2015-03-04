@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     url(r'^4/(?P<functional>.+)/(?P<humanic>.+)/(?P<mechanic>.+)/(?P<general>.+)', views.overall),
     url(r'^presentation$', views.presentation),
     url(r'^presentation/1$', views.presentation1),
-    url(r'^presentation/2a$', views.presentation2a),
+    url(r'^presentation/2$', views.presentation2),
 )

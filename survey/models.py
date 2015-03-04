@@ -48,3 +48,13 @@ class Sentence (models.Model):
 
 	def __str__(self):
 		return "["+self.clue.upper()+str(self.rating)+"] " + self.sentence + " "
+
+	def int_clue(self):
+		if self.clue == 'f':
+			return 0
+		elif self.clue == 'h':
+			return 1
+		elif self.clue == 'm':
+			return 2
+		else:
+			return 3
