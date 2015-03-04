@@ -28,3 +28,21 @@ table.table.table-centered {
 	position: absolute;
 	margin-top: 40px;
 }
+
+.green {
+	color: green;
+}
+
+.grey {
+	color: grey;
+}
+
+.red {
+	color: red;
+}
+
+.fixed-container {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
