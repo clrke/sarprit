@@ -30,7 +30,7 @@
 											<th colspan="2" rowspan="2">
 												&nbsp;
 											</th>
-											<th colspan="5">
+											<th colspan="{{ table.titles|length }}">
 												Actual
 											</th>
 										</tr>
@@ -44,7 +44,7 @@
 										{% for row in table.data %}
 											<tr>
 											{% if forloop.first %}
-												<td rowspan="3" width="60px">
+												<td rowspan="{{table.titles|length}}" width="60px">
 													<div class="vertical-text">
 														<b>
 															Predicted
