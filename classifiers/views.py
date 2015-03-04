@@ -249,6 +249,10 @@ def presentation3(request):
 
 	table1 = [[[] for column in range(2)] for row in range(2)]
 	table2 = [[[] for column in range(4)] for row in range(4)]
+	table3a = [[[] for column in range(3)] for row in range(3)]
+	table3b = [[[] for column in range(3)] for row in range(3)]
+	table3c = [[[] for column in range(3)] for row in range(3)]
+	table3d = [[[] for column in range(3)] for row in range(3)]
 
 	reviews = Review.objects.filter(flag=2)
 	sentences = [sentence for review in reviews for sentence in review.sentence_set.all()]
@@ -267,6 +271,27 @@ def presentation3(request):
 
 			table2[clue1][clue2].append(sentence.sentence)
 
+			if sentence.clue == 'f':
+				classifier = classifier3a
+				table = table3a
+			elif sentence.clue == 'h':
+				classifier = classifier3b
+				table = table3b
+			elif sentence.clue == 'm':
+				classifier = classifier3c
+				table = table3c
+			elif sentence.clue == 'g':
+				classifier = classifier3d
+				table = table3d
+
+			sentiment1 = classifier.predict([sentence.sentence])[0]
+			sentiment2 = sentence.rating
+
+			normal1 = normalize_sentiment(int(sentiment1))
+			normal2 = normalize_sentiment(sentiment2)
+
+			table[2-normal1][2-normal2].append(sentence.sentence)
+
 	return render(request, 'classifiers/presentation1.html',
 		{
 			'tables': [
@@ -281,6 +306,30 @@ def presentation3(request):
 					'data': table2,
 					'titles': ['Functional', 'Humanic', 'Mechanic', 'General'],
 					'colors': ['blue', 'orange', 'red', 'green']
+				},
+				{
+					'name': 'Functional Sentiment Analyzer',
+					'data': table3a,
+					'titles': ['Positive', 'Neutral', 'Negative'],
+					'colors': ['green', 'grey', 'red']
+				},
+				{
+					'name': 'Humanic Sentiment Analyzer',
+					'data': table3b,
+					'titles': ['Positive', 'Neutral', 'Negative'],
+					'colors': ['green', 'grey', 'red']
+				},
+				{
+					'name': 'Mechanic Sentiment Analyzer',
+					'data': table3c,
+					'titles': ['Positive', 'Neutral', 'Negative'],
+					'colors': ['green', 'grey', 'red']
+				},
+				{
+					'name': 'General Sentiment Analyzer',
+					'data': table3d,
+					'titles': ['Positive', 'Neutral', 'Negative'],
+					'colors': ['green', 'grey', 'red']
 				}
 			]
 		})
